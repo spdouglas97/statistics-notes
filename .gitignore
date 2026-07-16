@@ -4,5 +4,5 @@
 *.out
 *.pdf
 *.bbl
-*.big
-*.div
+*.blg
+*.dvi
