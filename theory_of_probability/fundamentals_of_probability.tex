@@ -1,7 +1,27 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+
 \begin{document}
 
-This is where the chapter goes
+Many processes will provide different results upon repitition with the same inputs, which we call randomness.
+Statistics is the study of randomness and random expirements, but interestingly there is no good definition of randomness.
+Instead, we simply say a random expirement is any process that exhibits this behavior, and do not concern ourselves with the particulars of what causes that randomness.
+
+\begin{definition}
+Given $n \in \mathbb{N}$, say a Sample Space is a set of ordered n-ples
+\end{definition}
+
+\begin{definition}
+Let $S$ be a set. Say $\Omega \subseteq \mathcal{P}(S)$ is a $\sigma$-field whenever:
+\begin{itemize}
+\item $\emptyset \in \Omega$
+\item $\forall E \in \Omega, E^C \in \Omega$
+\item If $\{E_n\}$ is a countable collection in $\Omega$, $\cup_n E_n \in \Omega$
+\item If $\{E_n\}$ is a countable collection in $\Omega$, $\cap_n E_n \in \Omega$
+\end{itemize}
+\end{definition}
 
 \end{document}
