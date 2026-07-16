@@ -1,20 +1,150 @@
 \documentclass[12pt]{book}
-
-\usepackage{times}
-\usepackage[margin=0.5in]{geometry}
+\usepackage{standalone}
+\usepackage{titling}
 
 \begin{document}
+\title{Notes on Mathematical Statistics}
+\author{Spencer Douglas}
+\maketitle
 
-\chapter{Chapter Title}
+\tableofcontents
+\let\tableofcontents\relax
 
-This is a sample chapter in your book. The document uses 12-point Times New Roman font with half-inch margins on all sides.
+\part{Theory of Probability}
 
-\section{Section Title}
+\chapter{Fundamentals of Probability}
+\input{theory_of_probability/fundamentals_of_probability.tex}
 
-Add your content here.
+\chapter{Random Variables}
+\input{theory_of_probability/random_variables.tex}
 
-\subsection{Subsection Title}
+\chapter{Expectation}
+\input{theory_of_probability/expectation.tex}
 
-More content can go in subsections.
+\chapter{Random Vectors}
+\input{theory_of_probability/random_vectors.tex}
+
+\chapter{Parametric Distribution}
+\input{theory_of_probability/parametric_distribution.tex}
+
+\chapter{Characteristic Functions and Uncertainty}
+\input{theory_of_probability/characteristic_functions_and_uncertainty.tex}
+
+\chapter{Linear Transformations and Algebra}
+\input{theory_of_probability/linear_transformations_and_algebra.tex}
+
+\chapter{Numerical Probability Methods}
+\input{theory_of_probability/numerical_probability_methods.tex}
+
+\chapter{Limiting Distributions}
+\input{theory_of_probability/limiting_distributions.tex}
+
+\chapter{Complex Random Variables}
+\input{theory_of_probability/complex_random_variables.tex}
+
+\part{Descriptive Statistics}
+
+\chapter{Experimental Design}
+\input{descriptive_statistics/experimental_design.tex}
+
+\chapter{Estimators}
+\input{descriptive_statistics/estimators.tex}
+
+\chapter{Likelihood}
+\input{descriptive_statistics/likelihood.tex}
+
+\chapter{Generalized Linear Models}
+\input{descriptive_statistics/generalized_linear_models.tex}
+
+\chapter{Sufficient Statistics}
+\input{descriptive_statistics/sufficient_statistics.tex}
+
+\chapter{Numerical Estimators}
+\input{descriptive_statistics/numerical_estimators.tex}
+
+\part{Inference}
+
+\chapter{Confidence Intervals}
+\input{inference/confidence_intervals.tex}
+
+\chapter{Fundamentals of Hypothesis Testing}
+\input{inference/fundamentals_of_hypothesis_testing.tex}
+
+\chapter{Common Significance Tests}
+\input{inference/common_significance_tests.tex}
+
+\chapter{ANOVA}
+\input{inference/anova.tex}
+
+\chapter{MANOVA}
+\input{inference/manova.tex}
+
+\chapter{Non-parametric Statistics}
+\input{inference/non_parametric_statistics.tex}
+
+\part{Machine Learning}
+
+\chapter{Survey of Machine Learning}
+\input{machine_learning/survey_of_machine_learning.tex}
+
+\chapter{Dimensionality Reduction}
+\input{machine_learning/dimensionality_reduction.tex}
+
+\chapter{Linear Decision Rules}
+\input{machine_learning/linear_decision_rules.tex}
+
+\chapter{Non-linear Models}
+\input{machine_learning/non_linear_models.tex}
+
+\chapter{Deep Learning}
+\input{machine_learning/deep_learning.tex}
+
+\chapter{Statistical Learning Theory}
+\input{machine_learning/statistical_learning_theory.tex}
+
+\chapter{Topological data Analysis}
+\input{machine_learning/topological_data_analysis.tex}
+
+\chapter{Bayesian Statistics}
+\input{machine_learning/bayesian_statistics.tex}
+
+\part{Additional Topics}
+
+\chapter{Communications Theory}
+\input{additional_topics/communications_theory.tex}
+
+\chapter{Survival Analysis}
+\input{additional_topics/survival_analysis.tex}
+
+\chapter{Stochastic Processes}
+\input{additional_topics/stochastic_processes.tex}
+
+\chapter{Markov Chains}
+\input{additional_topics/markov_chains.tex}
+
+\chapter{Martingales}
+\input{additional_topics/martingales.tex}
+
+\chapter{Stochastic Differential Equations}
+\input{additional_topics/stochastic_differential_equations.tex}
+
+\appendix
+
+\part{Appendices}
+
+\chapter{Linear Algebra}
+\input{appendices/linear_algebra.tex}
+
+\chapter{Real Analysis}
+\input{appendices/real_analysis.tex}
+
+\chapter{Group Theory}
+\input{appendices/group_theory.tex}
+
+\chapter{Topology}
+\input{appendices/topology.tex}
+
+\chapter{Optimization}
+\input{appendices/optimization.tex}
 
 \end{document}
