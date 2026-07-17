@@ -3,6 +3,7 @@
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
+\newtheorem{theorem}{Theorem}
 \theoremstyle{definition}\newtheorem{definition}{DEF}
 \theoremstyle{lemma}\newtheorem{lemma}{Lemma}
 \theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
@@ -91,5 +92,77 @@ Also, $E\cup E^C=S$, so $p(E) + p(E^C )= 1$.
 \begin{corrolary}
 $p(\emptyset ) = 0$
 \end{corrolary}
+
+\begin{lemma}
+A probability space is a measure space with total measure 1.
+\end{lemma}
+\begin{corrolary}
+\textbf{Union Bound: }
+$p(E_1 \cup E_2) \leq p(E_1) + p(E_2)$
+\end{corrolary}
+
+\begin{theorem}
+\textbf{Principle of Inclusion-Exclusion:}
+Let $(S, \Omega, p)$ be a probability space and $\{E_n\}$ be a collection of events.
+Then
+\begin{itemize}
+\item $p(E_1 \cup E_2 ) = p(E_1) + p(E_2) - p(E_1 \cap E_2 )$
+\item $p(E_1 \cup E_2 \cup E_3 ) = p(E_1) + p(E_2) + p(E_3)_ - p(E_1 \cap E_2 ) - p(E_1 \cap E_3) - \allowbreak p(E_2 \cap E_3 ) + p(E_1 \cap E_2 \cap E_3 )$
+\item and so on, where we add $(-1)^{k-1}$ times the sum of hte probabilities of all $k$-sized intersections of the events
+\end{itemize}
+\end{theorem}
+\begin{proof}
+Let $E$ and $F$ be any two events and consider that $E=(E \cap F ) \cup (E \cap F^C )$ and $F = (E \cap F) \cup (E^C \cap F)$.
+So $E \cup F = (E \cap F) \cup (E \cap F^C ) \cup (E^C \cap F)$.
+Also, $\{E \cup F, E \cup F^C, E^C \cup F\}$ is a countable collection of disjoint sets.
+So $p(E \cup F ) =  p(E \cap F) + p(E \cap F^C ) + p(E^C \cap F)$ and $p(E) + p(F) = 2 p(E \cap F) + p(E \cap F^C ) + p(E^C \cap F)$.
+So $p(E) + P(F) = p(E\cup F) + p(E\cap F)$.
+Now, we will show the PIE by induction. \\
+In the base case, let $n=2$ be the number of events and let $E=E_1$ and $F=E_2$. Then we have established $p(E_1) + p(E_2) = p(E_1 \cap E_2 ) + p(E_1 \cup E_2)$.
+Thus, this establishes the base case. \\
+Now, suppose the PIE holds for some $n \in \mathbb{N}$.
+We will let $E=\cup_{k=1}^n E_k$ and $F=E_{n+1}$.
+Then $p(\cup_{k=1}^{n+1} E_k ) = p(\cup_{k=1}^n E_k ) + p(E_{n+1}) - p((\cup_{k=1}^n E_k) \cap E_{n+1}) =p(\cup_{k=1}^n E_k ) + p(E_{n+1}) - p(\cup_{k=1}^n (E_k \cap E_{n+1}))$.
+By applying PIE to the first and third terms, we have the desired result.
+Therefore, by induction, PIE holds for all $N$.
+\end{proof}
+
+\begin{definition}
+Say a collection of events $\{ E_n \}$ is a cover when $S = \cup_n E_n$.
+\end{definition}
+
+\begin{definition}
+Say a partition is a cover when all $E_n$ are pairwise disjoint.
+\end{definition}
+
+\begin{lemma}
+If $\{E_n \} \searrow E$ then $p(E_n ) \searrow p(E)$.
+\end{lemma}
+\begin{proof}
+Let $R_n = E_n \cap E_{n+1}^C$.
+Then $\{R_k\}_{k=1}^\infty$ and $E$ together form a countable partition of $E_n$.
+So $p(E_n) = p(E) + \sum_{k=n}^\infty p(R_k)$.
+Because $p(E)$ and $p(E_n)$ are finite, the sum converges.
+Let $\epsilon > 0$.
+Then there is some $N \in \mathbb{N}$ such that for all $n \geq N$, $\sum_{k=n}^\infty p(R_k) \leq \epsilon$.
+So $p(E) \leq p(E_n) \leq p(E) = \epsilon$.
+\end{proof}
+\begin{corrolary}
+If $\{E_n\} \nearrow E$, $p(E_n) \nearrow p(E)$.
+\end{corrolary}
+
+\begin{theorem}
+\textbf{Borel-Cantelli Lemma:}
+Let $(S, \Omega, p)$ be a probability space, $\{ E_n \}$ a sequence of events, and $E = \limsup\limits_{n} E_n$.
+If $\sum_{n=1}^\infty p(E_n) \leq \infty$ then $p(E) = 0$.
+\end{theorem}
+\begin{proof}
+Recall $\limsup\limits_{n} E_n = \cap_{m \geq 1} \cup_{n \geq m} E_n$.
+For all $m \geq 1$, $E \subseteq \cup_{n \geq m} p(E_n$.
+Furthermore, this union induces a decreasing sequence of sets as $m$ increases.
+So $p(E) \leq p(\cup_{n \geq m} E_n) \leq \sum_{n\geq m} p(E_n)$.
+If $\sum_{n\geq 1} p(E_n) \leq \infty$ then $\sum_{n\geq m} p(E_n) \rightarrow 0$ as $m \rightarrow \infty$.
+Thus, $p(E)=0$.
+\end{proof}
 
 \end{document}
