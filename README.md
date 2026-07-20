@@ -12,3 +12,8 @@ The notes are organized into 6 parts, including the appendices, and each part is
 *NOTE:* This  is currently a work in progress, and there may be things missing.
 I'm transcribing this from a hand written document and it may take me a whle, it's just something I'm doing in my free time to keep these more easily available.
 I though it would be good to post hem somewhere public, hopefully this can help someone else!
+
+## Building one chapter
+
+If you plan to build only a single chapter, you may do so in command line.
+However, this is only able to be done in the base directory of the repository, building in other directories may break links to imges used in the chapter.
