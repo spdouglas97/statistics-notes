@@ -1,7 +1,81 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{definition}
+Let $(S, \Omega, p)$ be a probability space.
+Say a random variable is a measureable function $X: S \rightarrow \mathbb{R}$.
+That is, for any $b \in \mathcal{B}$, $X^{-1}(b) \in \Omega$.
+\end{definition}
+
+\begin{definition}
+Given any $X: (S, \Omega, p) \rightarrow \mathbb{R}$ and any $s \in S$, say $X(s)$ is a realization of $X$.
+\end{definition}
+
+\begin{definition}
+Let $(S, \Omega, p)$ be a probability space and $X: S \rightarrow \mathbb{R}$.
+Say the cumulative distribution function (CDF) is the function $F: \mathbb{R} \rightarrow \mathbb{R}$ defined as
+\begin{equation}
+F(x) = p(X^{-1}((-\infty, x]))
+\end{equation}
+\end{definition}
+
+\textbf{Note-} The interval $(\infty, x]$ must be a borel set as it is a closed interval.
+Because $X$ is a measureable function, the preimage of the interval is an event, which makes the CDF well defined.
+
+\begin{lemma}
+The CDF has the following properties:
+\begin{enumerate}
+\item
+ $$\lim_{x\to-\infty} F(x)  = 0$$
+
+\item 
+$$\lim_{x\to\infty}F(x) = 1$$
+\item $F$ is non-decreasing
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+To see the first property, let $x_n \searrow -\infty$.
+Then the events $E_n = X^{-1}((-\infty, x_n]) \searrow \emptyset$.
+So $p(E_n) \rightarrow 0$. \\
+For the second property, consider any sequence $x_n \nearrow \infty$.
+Then by similar logic, $p(E_n) = 1$. \\
+Finally, consider any $x \leq y$.
+Then $(-\infty, x] \subset (-\infty, y]$, so $X^{-1}((-\infty, x]) \subseteq X^{-1}((-\infty, y])$.
+So by monotonicity of measure, $F(x) \leq F(y)$.
+\end{proof}
+
+\begin{definition}
+Let $X$ be a random variable with CDF $F$.
+Say the probability density function or probability distribution function, PDF, is the Radon-Nycodim derivative of F,
+$$ f = \frac{dF}{dx}$$
+\end{definition}
+
+\begin{definition}
+Let $X$ be a random variable with PDF $f$.
+Say the support of the random variable is the set of all non-zero PDF values,
+$$ S = \{ x \in \mathbb{R} | f(x) \neq 0 \}$$
+\end{definition}
+
+\begin{definition}
+Say a random variable is discrete if its support is countable.
+Say a random variable is continuous if its support is uncountable.
+\end{definition}
+
+\textbf{Note-} When $X$ is discrete, we call the PDF the probability distribution function, whereas when $X$ is continuous we call it a probability density function.
+The two concepts differ slightly in their interpretation, as the probability distribution function can be viewed as the probability of an individual outcome, whereas the probability density function is not as easily described.
+Often, the way people talk about the two cases can be slightly different, but measure theory prives a unified mathematical framework to analyze both types of random variable.
+Throughout this document, we will differentiate when necessary, but often the two cases can be treated the same.
 
 \end{document}
