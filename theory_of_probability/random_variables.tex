@@ -1,7 +1,248 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{definition}
+Let $(S, \Omega, p)$ be a probability space.
+Say a random variable is a measureable function $X: S \rightarrow \mathbb{R}$.
+That is, for any $B \in \mathcal{B}$, $X^{-1}(B) \in \Omega$.
+\end{definition}
+
+\begin{definition}
+Given any $X: (S, \Omega, p) \rightarrow \mathbb{R}$ and any $s \in S$, say $X(s)$ is a realization of $X$.
+\end{definition}
+
+\begin{definition}
+Let $(S, \Omega, p)$ be a probability space and $X: S \rightarrow \mathbb{R}$.
+Say the cumulative distribution function (CDF) is the function $F: \mathbb{R} \rightarrow \mathbb{R}$ defined as
+\begin{equation}
+F(x) = p(X^{-1}((-\infty, x]))
+\end{equation}
+\end{definition}
+
+\textbf{Note-} The interval $(\infty, x]$ must be a borel set as it is a closed interval.
+Because $X$ is a measureable function, the preimage of the interval is an event, which makes the CDF well defined.
+
+\begin{lemma}
+The CDF has the following properties:
+\begin{enumerate}
+\item
+ $$\lim_{x\to-\infty} F(x)  = 0$$
+
+\item 
+$$\lim_{x\to\infty}F(x) = 1$$
+\item $F$ is non-decreasing
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+To see the first property, let $x_n \searrow -\infty$.
+Then the events $E_n = X^{-1}((-\infty, x_n]) \searrow \emptyset$.
+So $p(E_n) \rightarrow 0$. \\
+For the second property, consider any sequence $x_n \nearrow \infty$.
+Then by similar logic, $p(E_n) = 1$. \\
+Finally, consider any $x \leq y$.
+Then $(-\infty, x] \subset (-\infty, y]$, so $X^{-1}((-\infty, x]) \subseteq X^{-1}((-\infty, y])$.
+So by monotonicity of measure, $F(x) \leq F(y)$.
+\end{proof}
+
+\begin{definition}
+Let $X$ be a random variable with CDF $F$.
+Say the probability density function or probability distribution function, PDF, is the Radon-Nycodim derivative of F,
+$$ f = \frac{dF}{dx}$$
+\end{definition}
+
+\begin{definition}
+Let $X$ be a random variable with PDF $f$.
+Say the support of the random variable is the set of all non-zero PDF values,
+$$ S = \{ x \in \mathbb{R} | f(x) \neq 0 \}$$
+\end{definition}
+
+\begin{definition}
+Say a random variable is discrete if its support is countable.
+Say a random variable is continuous if its support is uncountable.
+\end{definition}
+
+\textbf{Note-} When $X$ is discrete, we call the PDF the probability distribution function, whereas when $X$ is continuous we call it a probability density function.
+The two concepts differ slightly in their interpretation, as the probability distribution function can be viewed as the probability of an individual outcome, whereas the probability density function is not as easily described.
+Often, the way people talk about the two cases can be slightly different, but measure theory prives a unified mathematical framework to analyze both types of random variable.
+Throughout this document, we will differentiate when necessary, but often the two cases can be treated the same.
+
+\begin{lemma}
+A random variable $X$ induces a measure on $\mathbb{R}$.
+\end{lemma}
+\begin{proof}
+Let $X: (S, \Omega, p) \rightarrow \mathbb{R}$.
+Consider $\mu = p \circ X^{-1}$.
+Clearly, $\mu(\mathbb{R})=p(x^{-1}(\mathbb{R}))=p(S)=1$.
+Also, if $B \in \mathcal{B}$, then $\mu(B)=p(X^{-1}(B))=p(E)\geq 0$.
+Finally, if $\{ B_n \}$ is a collection of pairwise disjoint Borel sets, then $\{X^{-1}(B_n)\}$ is a collection of pairwise disjoint events.
+Thus, $\mu(\cup_n B_n )=p(\cup_n X^{-1}(B_n))=\sum_n p(X^{-1}(B_n))=\sum_n \mu (B_n)$.
+Thus, $\mu$ is a measure.
+\end{proof}
+
+\begin{lemma}
+Let $X: (S, \Omega, p) \rightarrow \mathbb{R}$ be a random variable and $B \in \mathcal{B}$.
+Let $ \mbox{\Large$\chi$}_B$ be the indicator function of $B$.
+Then
+\begin{equation}
+Pr(X\in B)=\int_\mathbb{R}  \mbox{\Large$\chi$}_B dF
+\end{equation}
+\end{lemma}
+\begin{proof}
+First, notice $\int_\mathbb{R} \mbox{\Large$\chi$}_B dF = \int_B 1 dF$.
+Now, let $E=X^{-1}(B)$.
+Then by change of variables, $\int_B 1 dF = \int_E 1 dp = p(E) = p(X^{-1}(B))$.
+\end{proof}
+\begin{corrolary}
+\begin{equation}
+Pr(a \leq X \leq b) = F(b) - F(a)
+\end{equation}
+\end{corrolary}
+\begin{corrolary}
+\begin{equation}
+\int_\mathbb{R} 1 dF = 1
+\end{equation}
+\end{corrolary}
+
+\begin{theorem}
+Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a non-negative function with $\int_\mathbb{R} 1 dF=1$.
+Then $f$ is the PDF of a random variable.
+\end{theorem}
+\begin{proof}
+First, notice that for $B \in \mathcal{B}$, $p(B)=\int_B \mbox{\Large$\chi$}_B fdx$ is a measure.
+Indeed, $p(B) \geq 0$, and $p(\emptyset)=0$.
+Also, if $\{B_n\}$ is a collection of pairwise disjoint sets, $\sum_n \mbox{\Large$\chi$}_{B_n} = \mbox{\Large$\chi$}_{\cup_n B_n}$.
+So $p(\cup_n B_n)=\int_\mathbb{R} \mbox{\Large$\chi$}_{\cup_n B_n}fdx = \int_\mathbb{R} \sum_n \mbox{\Large$\chi$}_{B_n} fdx = \sum_n \int_\mathbb{R} \mbox{\Large$\chi$}_{B_n}fdx = \sum_n p(B_n)$.\\
+Next, notice $p(\mathbb{R})=\int_\mathbb{R} fdx=1$.
+So $(\mathbb{R}, \mathcal{B}, p)$ is a probability space.
+Thus, $I: \mathbb{R} \rightarrow \mathbb{R}$ is a random variable on $(\mathbb{R}, \Omega, p)$.
+So we only need to show the PDF is $f$.
+Clearly, the CDF is $F(t)=\int_\mathbb{R}\mbox{\Large$\chi$}_{(-\infty, t]}fdx= \int_{-\infty}^t fdx$.
+Thus, $f$ is the PDF.
+\end{proof}
+
+\textbf{Ex-} Consider slecting a point randomly and fairly from the unit disk and computing its distance from the center.
+What is the probability the distance is at least $\frac{1}{3}$?
+In this case, the sample space is $S=\mathbb{D}^2$ and the events are $\Omega=\mathcal{B}\cap\mathcal{P}(\mathbb{D}^2)$.
+Because we are choosing from a fair distribution, the probability function is $p(E)=\frac{|E|}{\pi}$.
+We define the random variable $R: \mathbb{D}^2 \rightarrow \mathbb{R}$ as $R(x,y)=\sqrt{x^2 + y^2}$.
+So the CDF is $F(r)=r^2$.
+Indeed, $=\{(x,y)\in \mathbb{D}^2 | x^2 + y^2 \leq r^2 \}$ has measure $\pi r^2$, so $F(r)=r^2$.
+Thus, the PDF is $f(r)=2r$ and $Pr(r\geq \frac{1}{3}) = \int_\frac{1}{3}^1 1dF=\int_\frac{1}{3}^1 2r dr = r^2 |_\frac{1}{3}^1 = \frac{8}{9}$.
+
+\begin{theorem}
+\begin{equation}
+\lim_{x\to x_0^+} F(x) = F(x_0)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $\{x_n \} \searrow x_0$, $E_n=X^{-1}((-\infty, x_n])$, and $E=X^{-1}((-\infty, x_0])$.
+Then $E_n \searrow E$, so $p(E_n) \searrow p(E)$.
+Also, $F(x_n)=p(E_n)$ and $F(x_0)=p(E)$.
+Thus, $F(x_n)\searrow F(x_0)$.
+\end{proof}
+
+\textbf{Note-} The above argument shows continuity from babove, but does not work for continuity from below.
+This is because if $\{x_n\}\nearrow x_0$, then $X^{-1}((-\infty, x_n]) \nearrow X^{-1}((-\infty, x_0))$ with an open interval.
+However, the definition of the CDF requires a closed interval, so the argument breaks down.
+
+\begin{definition}
+Given a random variable $X$ with CDF $F$, say $F^-: \mathbb{R} \rightarrow \mathbb{R}$ is the function
+$$F^- (x) = \lim_{t\to x^-} F(t)$$
+\end{definition}
+
+\begin{theorem}
+Let $X$ be a discrete random variable with CDF $F$, PDF $f$, and support $S_x$.
+Let $g: \mathbb{R} \rightarrow \mathbb{R}$ be a one-to-one function.
+Then $Y=g(X)$ is a random variable with PDF $f\circ g^{-1}$, support $g(S_x)$, and CDF either $F\circ g^{-1}$ or $1-F\circ g^{-1}$.
+\end{theorem}
+\begin{proof}
+First, because $X$ is discrete and $g$ is one-to-one, $g\circ X$ must be measureable.
+So, $Y=g\circ X$ is indeed a random variable.
+Next, consider that $Pr(Y=y)=Pr(X=g^{-1}(y))=f(g^{-1}(y))$.
+So $f\circ g^{-1}$ is the PDF. \\
+Next, $S_y=\{y\in \mathbb{R} | f(g^{-1}(y))\neq 0\}$.
+First, suppose $y \in S_y$. Then $f(g^{-1}(y))\neq 0$.
+Let $x=g^{-1}(y)$.
+Then $f(x)\neq 0$.
+Thus, $x\in S_x$.
+Conversely, now suppose $x\in S_x$.
+Then $f(x)\neq 0$.
+Let $y=g(x)$.
+Then $f(g^{-1}(y))\neq 0$.
+So $y\in S_y$.
+Therefore, $S_y=g(S_x)$. \\
+Finally, we can look at the CDF.
+Because $g$ is one-to-one, it is either increasing or decreasing.
+Suppose it is increasing.
+Notice $Pr(Y\leq y)=\sum_{u\leq y}f(g^{-1}(u))=\sum_{x\leq g^{-1}(y)}f(x)=Pr(X\leq g^{-1}(y))$.
+Thus, the CDF is $f\circ g^{-1}$.
+On the other hand, if we suppose $g$ is decreasing, then $Pr(Y\leq y)=\sum_{u\leq y}f(g^{-1}(u))=\sum_{x\geq g^{-1}(y)}f(x)=Pr(X\geq g^{-1}(y))$.
+Thus, the CDF is $1-f\circ g^{-1}$.
+\end{proof}
+
+\begin{theorem}
+Let $X$ be a continuous random variable with PDF $f$, CDF $F$, and support $S_x$.
+Let $g: \mathbb{R} \rightarrow \mathbb{R}$ be a differentiable, one-to-one function.
+Then $Y=g(X)$ is a random variable with PDF $\frac{1}{|g'(g^{-1}(y))|}f(g^{-1}(y))$, support $S_y = g(S_x)$, and CDF (either $F\circ g^{-1}$ or $1-F\circ g^{-1}$.
+\end{theorem}
+\begin{proof}
+First, consider that $g$ is differentiable, so it must be measureable.
+So $g\circ X$ is measureable, and thus a random variable. \\
+Next, the CDF is $Pr(Y\leq y)$.
+Also, $g$ is either increasing or decreasing.
+In the first case, $Pr(Y\leq y)=Pr(X\leq g^{-1}(y))=F(g^{-1}(y))$.
+In the second case, $Pr(Y\leq y)=Pr(X\geq g^{-1}(y))=1-F(g^{-1}(y))$. \\
+Next, we can use the inverse function theorem to show that $(g^{-1})' (y)=\frac{1}{g'(g^{-1}(y))}$.
+So the change of variables formula gives the PDF $\frac{1}{|g'(g^{-1}(y))|}f(g^{-1}(y))$.\\
+Finally, the support is $S_y=\{y\in \mathbb{R} | \frac{1}{|g'(g^{-1}(y))|}f(g^{-1}(y)) \neq 0 \}$.
+Notice that $\frac{1}{|g'(g^{-1}(y))|}$ must be non-zero, so we can disregard it for purposes of the support.
+Suppose $y\in S_y$.
+Then there is an $x$ in $\mathbb{R}$ such that $g(x)=y$.
+Clearly, $f9x)=f(g^{-1}(y))\neq 0$.
+So $x \in S_x$.
+Conversely, suppose $x \in S_x$.
+Then there is a $y=g(x)$.
+Clearly, $f(g^{-1}(y))=f(x)\neq0$.
+So $y\in S_y$.
+Therefore, $S_y=g(S_x)$.
+\end{proof}
+
+\textbf{Ex-} Let $X\sim Unif(0,1)$ and $Y=X^2$.
+Notice that while $g(x)=x^2$ is not one-to-one on $\mathbb{R}$, it is one-to-one on the support of $X$, so we can apply the theorem.
+Then $g^{-1}(y)=\sqrt{y}$ and $Jac(g^{-1})=\frac{1}{2\sqrt{y}}$.
+Also, $f(g^{-1}(y))=1$.
+Thus, the pdf is $f(y)=\frac{1}{2\sqrt{y}}$.
+
+\textbf{Note-} Just because 2 random variables have the same PDF does not mean they are equal.
+For example, let $X$ be a random variable with PDF $f(x)=1$ for $[0,1]$ and $Y=1-X$.
+Clearly, $X$ and $Y$ have the same PDF, but are not equal.
+Conversely, a random variable can have more than one PDF.
+For example, if $F(x)=x$ for $[0,1]$ is the CDF, then $f(x)=1$ on $[0,1]$ and $g(x)=1$ on $(0,1)$ are both valid PDFs.
+
+\begin{theorem}
+Let $X$ be a random variable.
+Then it has a PDF $f: \mathbb{R}\rightarrow \mathbb{R}$ which is continuous on its support.
+\end{theorem}
+\begin{proof}
+Let $g:\mathbb{R} \rightarrow \mathbb{R}$ be a PDF for $X$ and $E=\{x\in \mathbb{R} | g(x)\text{ not continuous}\}$.
+Let $f=g(1-\mbox{\Large$\chi$}_E)$.
+$g$ is a PDF, so it must be continuous almost everywhere.
+Thus, $f(x)=g(x)$ a.e.
+This means $f$ will also be a PDF for $X$.
+Also, by construction, $f$ is continuous on its support.
+So $f$ is the guaronteed PDF.
+\end{proof}
 
 \end{document}
