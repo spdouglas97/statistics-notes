@@ -1,7 +1,93 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{definition}
+Given a random variable $X$ with cdf $F$, say the expectation is
+\begin{equation}
+\mathbb{E}(X) = \int_\mathbb{R} x dF
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Given a random variable $X$ with cdf $F$ and a function $g: \mathbb{R} \rightarrow \mathbb{R}$, say
+\begin{equation}
+\mathbb{E}(g(X)) = \int_\mathbb{R} g dF
+\end{equation}
+\end{definition}
+
+\textbf{Note-} The expected value does not always exist, it only exists when the (Lebesgue) integral that defines it exists.
+For example, let $X$ be a random variable with a Cauchy distribution.
+Then it has pdf $f(x)=\frac{1}{1+x^2}$.
+This means the expected value is $\int_{-\infty}^\infty \frac{x}{1+x^2} dx$.
+This is an integral of an odd function, so we can consider
+\begin{align*}
+\mathbb{E}(X) &= \int_{-\infty}^\infty \frac{x}{1+x^2} dx \\
+&= \int_0^\infty \frac{x}{1+x^2} dx - \int_0^\infty \frac{x}{1+x^2} dx \\
+&= \frac{1}{2} \ln (1+x^2) |_0^\infty - \frac{1}{2} \ln (1+x^2) |_0^\infty \\
+&= \infty - \infty
+\end{align*}
+Thus, the expected value is not defined.
+
+\begin{lemma}
+The expected value is defined if and only if $\int_\mathbb{R} |x| dF < \infty$
+\end{lemma}
+\begin{proof}
+We say a measurable function is integrable on a measure space when its absolute value has a finite integral.
+So the lemma is true by definition.
+To build intuition, consider that $x \leq |x|$, so $\int x dF \leq \int |x| dF < \infty$.
+\end{proof}
+
+\begin{definition}
+Say the mean of a random variable $X$ is $\mu = \mathbb{E}(X)$.
+\end{definition}
+
+\textbf{Ex-} Find the mean of a random variable with pdf $f(x) = \lambda e^{-\lambda x}$ on $(0,\infty)$.
+Consider 
+\begin{align*}
+\int_\mathbb{R} |x| dF &= \int_0^\infty x e^{-\lambda x} dx \\
+&= \frac{1}{\lambda} e^{-\lambda x} |_0^\infty \\
+&= \frac{1}{\lambda} - 0\\
+&= \frac{1}{\lambda}\\
+&< \infty
+\end{align*}
+Thus, the expected value exists and $\mathbb{E}(X)=\frac{1}{\lambda}$.
+
+\textbf{Ex-} Find the mean of a random variable with pdf $f(k)=\frac{\lambda^k e^{-\lambda}}{k!}$ on the non-negative integers.
+\begin{align*}
+\int_\mathbb{R} |k| dF &= \sum_{k=0}^\infty \frac{k\lambda^k e^{-\lambda}}{k!} \\
+&= \sum_{k=1}^\infty \frac{\lambda^k e^{-\lambda}}{(k-1)!}\\
+&= \lambda \sum_{k=1}^\infty \frac{k\lambda^{k-1} e^{-\lambda}}{(k-1)!!}\\
+&= \lambda\\
+&<\infty
+\end{align*}
+Thus, the expected value exists and is $\lambda$.
+
+\begin{theorem}
+Let $X$ and $Y$ be random variables and $g: \mathbb{R} \rightarrow \mathbb{R}$.
+If $\mathbb{E}(Y)$ exists then $\mathbb{E}(Y)=\mathbb{E}(g(X))$.
+\end{theorem}
+\begin{proof}
+By definition of expectation,
+\begin{align*}
+\mathbb{E}(Y) &= \int_\mathbb{R} y dF_y\\
+&= \int_\mathbb{R} g d(F \circ g)\\
+&= \mathbb{E}(g(X))
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(a+bX) = a + b\mathbb{E}(X)$
+\end{corrolary}
 
 \end{document}
