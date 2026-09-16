@@ -311,4 +311,191 @@ for all $t\in \mathbb{R}$.
 Say $X$ is subgaussian if it is $\xi$-subgaussian for some $\xi>0$.
 \end{definition}
 
+\begin{lemma}
+\textbf{Hoeffding's Lemma:}
+Let $X$ be a subgaussian random variable with support $(a,b)$.
+Then $X$ is a $\frac{b-a}{2}$-subgaussian random variable.
+\end{lemma}
+\begin{proof}
+First, let $U$ be any random variable with support $(a,b)$.
+Then $(U-\frac{a+b}{2})^2 \leq (\frac{b-a}{2})^2$.
+Because variance does not change with a constant shift,
+\begin{align*}
+Var(U) &= \mathbb{E}\left(\left(U-\frac{a+b}{2}\right)^2\right) - \mathbb{E}\left(U-\frac{a+b}{2}\right)^2 \\
+&\leq \mathbb{E}\left(\left(U-\frac{a+b}{2}\right)^2\right)\\
+&\leq \left(\frac{b-a}{2}\right)^2
+\end{align*}
+Next, let $X$ be a random variable with PDF $f$ and MGF $M_X$.
+Let $V$ be a random variable with PDF $g(x)=\frac{e^{sx}}{M_X(s)} f(x)$
+Clearly, $V$ has support $(a,b)$.
+Next, let $\varphi(s)=\ln M_X(s)=\ln\mathbb{E}_X(e^{sx})$.
+THen $\varphi'(s)=\frac{\mathbb{E}_X(xe^{sx})}{\mathbb{E}_X(e^{sx})}$, and
+\begin{align*}
+\varphi''(s) &= \frac{\mathbb{E}_X(x^2e^{sx})}{\mathbb{E}_X(e^{sx})} - \left( \frac{\mathbb{E}_X(xe^{sx})}{\mathbb{E}_X(e^{sx})}\right)^2\\
+&= \int_\mathbb{R} x^2 \frac{e^{sx}}{M_X(s)}f(x)dx - \left( \int_\mathbb{R} x \frac{e^{sx}}{M_X(s)} f(x)dx \right)^2\\
+&=\mathbb{E}_V(V^2)-\mathbb{E}_V(V)^2\\
+&=Var(V) \\
+&\leq \frac{(b-a)^2}{4}
+\end{align*}
+Thus, $\varphi(s)=\frac{(b-a)^2t^2}{8}$.
+So $X$ is a $\left(\frac{b-a}{2}\right)^2$-subgaussian random variable.
+\end{proof}
+
+\begin{theorem}
+\textbf{Markov's Inequality:}
+Let $X$ be a non-negative random variable with finite expected value.
+THen for any $t>0$,
+\begin{equation}
+Pr(X\geq t)\leq \frac{\mathbb{E}(X)}{t}
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\mathbb{E}(X) &= \int_\mathbb{R} xDF\\
+&= \int_0^t xdF + \int_t^\infty xdF\\
+&\geq \int_0^t 0dF + \int_t^\infty tdF\\
+&=tPr(X\geq t)
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+\textbf{Chebychev's Bound:}
+Let $X$ be a random variable with finite variance and mean $\mu$, and let $t>0$.
+THen
+\begin{equation}
+Pr(|X-\mu|\leq t)\geq\frac{Var(X)}{t^2}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $U=(X-\mu)^2$. THen $U$ is non-negative and $\mathbb{E}(U)=Var(X)$.
+So the Markov bound gives $Pr((X-\mu)^2\leq t^2)\geq \frac{Var(X)}{t^2}$.
+\end{proof}
+
+\begin{theorem}
+\textbf{Chernoff Bound:}
+Let $X$ be a random variable with MGF $M_X$.
+Then
+\begin{equation}
+Pr(X\geq \mathbb{E}(X)+\epsilon)=\inf_{t>0} e^{-t(\epsilon + \mathbb{E}(X))}M_X(t)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Note that for all $t>0$,
+\begin{align*}
+Pr(X\geq \mathbb{E}(X)+\epsilon )&=Pr(X-\mathbb{E}(X)\geq \epsilon)\\
+&=Pr(e^{t(X_\mathbb{E}(X))}\geq e^{t\epsilon})
+\end{align*}
+By Markov's inequality,
+\begin{align*}
+Pr(e^{t(X-\mathbb{E}(X)}\leq e^{t\epsilon})&\leq e^{-t\epsilon}\mathbb{E}(e^{t(X-\mathbb{E}(X)})\\
+&=e^{-t(\epsilon + \mathbb{E}(X))}M_X(t)
+\end{align*}
+Because this is true for all $t>0$, we can take the infimum to get the best bound.
+\end{proof}
+
+\begin{definition}
+Say a function $\phi :\mathbb{R}^n \rightarrow \mathbb{R}$ is convex whenever for all $x,y\in \mathbb{R}^n$ and all $\lambda\in (0,1)$
+\begin{equation}
+\phi(\lambda x + (1-\lambda )y)\leq \lambda \phi(x)+(1-\lambda)\phi(y)
+\end{equation}
+Say the function is strictly convex whevever
+\begin{equation}
+\phi(\lambda x + (1-\lambda)y)< \lambda \phi(x)+(1-\lambda)\phi(y)
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+Let $\phi:\mathbb{R}\rightarrow \mathbb{R}$ be a convex function and $x_1 < x_2 < x_3$.
+\begin{equation}
+\frac{\phi(x_2)-\phi(x_1)}{x_2 - x_1} \leq \frac{\phi(x_3)-\phi(x_2)}{x_3-x_2}
+\end{equation}
+Furthermore, if the function is strictly convex then the inequality is strict.
+\end{lemma}
+\begin{proof}
+There is a $\lambda$ such that $x_2 = \lambda x_1 + (1-\lambda) x_3$.
+So $\lambda (x_2 - x_1) = (1-\lambda) (x_3 -x_2)$.
+By convexity, $\phi(x_2)\leq\lambda\phi(x_1)+(1-\lambda)\phi(x_3)$.
+So $\lambda (\phi (x_2)-\phi(x_1))\leq(1-\lambda)(\phi(x_3)-\phi(x_2))$.
+Thus, $\frac{\phi(x_2)-\phi(x_1)}{x_2 - x_1} \leq \frac{\phi(x_3)-\phi(x_2)}{x_3-x_2}$.
+Notice that if $\phi$ is strictly convex then the inequalities become strict.
+\end{proof}
+
+\begin{theorem}
+Let $\phi:\mathbb{R}\rightarrow\mathbb{R}$ be a convex function and $x<y$.
+Then
+\begin{equation}
+\phi'(x)\leq\phi'(y)
+\end{equation}
+Furthermore, if $\phi$ is strictly convex then the inequality is strict.
+\end{theorem}
+\begin{proof}
+Let $0<h<y-x$.
+Then $x<x+h<y<y+h$.
+So $\frac{\phi(x+h)-\phi(x)}{h}\leq \frac{\phi(y+h)-\phi(y)}{h}$.
+Taking the limit as $h\rightarrow 0$ gives the definition of the derivative.
+\end{proof}
+\begin{corrolary}
+If $\phi$ is twice differentiable, then $\phi''$ is non-negative.
+\end{corrolary}
+
+\begin{theorem}
+\textbf{Jensen's Inequality:}
+Let $\phi:\mathbb{R}\rightarrow \mathbb{R}$ be convex.
+\begin{equation}
+\mathbb{E}(\phi(X))\leq \phi(\mathbb{E}(X))
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $\mu=\mathbb{E}(X)$ and supose $\phi$ is twice-differentiable.
+THen by Taylor's theorem, there is some $\xi$ such that
+\begin{align*}
+\phi(x)&=\phi(\mu)+\phi'(\mu)(x-\mu)+\frac{\phi''(\xi)}{2}(x-\mu)^2\\
+&\geq \phi(\mu)+\phi'(\mu)(x-\mu)
+\end{align*}
+So
+\begin{align*}
+\mathbb{E}(\phi(X))&\geq \mathbb{E}(\phi(\mu)+\phi'(\mu)(x-\mu))\\
+&=\phi(\mu)
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+\textbf{AM-GM Inequality:}
+Let $\{x_k\}_{k=0}^n$ be a sequence of real numbers.
+THen
+\begin{equation}
+\sqrt[n]{\prod_k x_k}\leq \frac{1}{n}\sum_k x_k
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $X$ be a uniform random variable with support $\{x_k\}$.
+Then the arithmetic mean is $\frac{1}{n}\sum_k x_k=\mathbb{E}(X)$.
+Next, let $\phi(x)=-\ln x$.
+Notice $\phi$ is a convex function.
+So by Jensen's inequality,
+\begin{align*}
+-\ln \left( \frac{1}{n} \sum_k x_k \right) &= \phi(\mathbb{E}(X))\\
+&\geq \mathbb{E}(\phi (X))\\
+&= \frac{1}{n}\sum_k -\ln x_k\\
+&= \frac{-1}{n}\ln \prod_k x_k\\
+&= -\ln \left(\prod_k x_k \right)^\frac{1}{n}
+\end{align*}
+THerefore, we can recover hte AM-GM inequality by taking hte negative exponential of both sides.
+\end{proof}
+\begin{corrolary}
+\textbf{HM-GM Inequality:}
+\begin{equation}
+\frac{n}{\sum_k \frac{1}{x_k}}\leq \sqrt[n]{\prod_k x_k}
+\end{equation}
+\end{corrolary}
+
+\textbf{Ex-} Find $\min_{x>0}x+\frac{1}{x}$.
+Consider that by the AM-GM inequality,
+\begin{align*}
+\frac{x+\frac{1}{x}}{2} &\geq \sqrt{(x)\left(\frac{1}{x}\right)}\\
+&= \sqrt{1}\\
+&=1
+\end{align*}
+Thus, the minimum is 2.
+
 \end{document}
