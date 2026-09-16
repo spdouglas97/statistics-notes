@@ -56,7 +56,7 @@ Say the mean of a random variable $X$ is $\mu = \mathbb{E}(X)$.
 \textbf{Ex-} Find the mean of a random variable with pdf $f(x) = \lambda e^{-\lambda x}$ on $(0,\infty)$.
 Consider 
 \begin{align*}
-\int_\mathbb{R} |x| dF &= \int_0^\infty x e^{-\lambda x} dx \\
+\int_\mathbb{R} |x| dF &= \int_0^\infty x\lambda e^{-\lambda x} dx \\
 &= xe^{-\lambda x} - \frac{1}{\lambda} e^{-\lambda x} |_0^\infty \\
 &= 0 - \frac{-1}{\lambda}\\
 &= \frac{1}{\lambda}\\
@@ -68,7 +68,7 @@ Thus, the expected value exists and $\mathbb{E}(X)=\frac{1}{\lambda}$.
 \begin{align*}
 \int_\mathbb{R} |k| dF &= \sum_{k=0}^\infty \frac{k\lambda^k e^{-\lambda}}{k!} \\
 &= \sum_{k=1}^\infty \frac{\lambda^k e^{-\lambda}}{(k-1)!}\\
-&= \lambda \sum_{k=1}^\infty \frac{k\lambda^{k-1} e^{-\lambda}}{(k-1)!!}\\
+&= \lambda \sum_{k=1}^\infty \frac{\lambda^{k-1} e^{-\lambda}}{(k-1)!}\\
 &= \lambda\\
 &<\infty
 \end{align*}
@@ -123,8 +123,7 @@ Var(a + bX) = b^2 Var(X)
 \end{equation}
 \end{theorem}
 \begin{proof}
-Let $\mu = \mathbb{E}(a + bX)$.
-Then $\mathbb{E}(a + bX) = a + b\mathbb{E}(X)$.
+Let $\mu=\mathbb{E}(X)$. Then $\mathbb{E}(a + bX) = a + b\mu$.
 So
 \begin{align*}
 Var(a+bX) &= \int_\mathbb{R} (a + bx - a - b\mu )^2 dF\\
@@ -251,7 +250,7 @@ Now, suppose $M_X^{(k)}(t) = \mathbb{E}(X^ke^{tX})$ for some $k\in \mathbb{N}$.
 Then
 \begin{align*}
 M_X^{(k+1)}(t) &= \frac{d}{dt}\mathbb{E}(X^k e^{tX})\\
-&= \mathbb{E}(\frac{\partial}{\partial t}X^ke^{tx})\\
+&= \mathbb{E}(\frac{\partial}{\partial t}X^ke^{tX})\\
 &= \mathbb{E}(X^{k+1}e^{tX})
 \end{align*}
 Therefore, we have found the derivative via induction.
@@ -298,14 +297,14 @@ M_{a+bX}(t) &= \mathbb{E}(e^{t(a+bX)})\\
 &= e^{ta}\mathbb{E}(e^{tbX})\\
 &= e^{ta} M(tb)
 \end{align*}
-Also, it is clar that$t<\frac{T}{|b|}$ if and only if $|tb|<T$.
+Also, it is clar that $t<\frac{T}{|b|}$ if and only if $|tb|<T$.
 \end{proof}
 
 \begin{definition}
 Let $X$ be a random variable with mean $\mu$ and let $\xi>0$.
 Say $X$ is a $\xi$-subgaussian random variable when
 \begin{equation}
-\mathbb{E}(e^{t(X-\mu)})\leq e^\frac{t^2\sigma^2}{2}
+\mathbb{E}(e^{t(X-\mu)})\leq e^\frac{t^2\xi^2}{2}
 \end{equation}
 for all $t\in \mathbb{R}$.
 Say $X$ is subgaussian if it is $\xi$-subgaussian for some $\xi>0$.
@@ -328,10 +327,10 @@ Var(U) &= \mathbb{E}\left(\left(U-\frac{a+b}{2}\right)^2\right) - \mathbb{E}\lef
 Next, let $X$ be a random variable with PDF $f$ and MGF $M_X$.
 Let $V$ be a random variable with PDF $g(x)=\frac{e^{sx}}{M_X(s)} f(x)$
 Clearly, $V$ has support $(a,b)$.
-Next, let $\varphi(s)=\ln M_X(s)=\ln\mathbb{E}_X(e^{sx})$.
-THen $\varphi'(s)=\frac{\mathbb{E}_X(xe^{sx})}{\mathbb{E}_X(e^{sx})}$, and
+Next, let $\varphi(s)=\ln M_X(s)=\ln\mathbb{E}_X(e^{sX})$.
+Then $\varphi'(s)=\frac{\mathbb{E}_X(Xe^{sX})}{\mathbb{E}_X(e^{sX})}$, and
 \begin{align*}
-\varphi''(s) &= \frac{\mathbb{E}_X(x^2e^{sx})}{\mathbb{E}_X(e^{sx})} - \left( \frac{\mathbb{E}_X(xe^{sx})}{\mathbb{E}_X(e^{sx})}\right)^2\\
+\varphi''(s) &= \frac{\mathbb{E}_X(X^2e^{sX})}{\mathbb{E}_X(e^{sX})} - \left( \frac{\mathbb{E}_X(Xe^{sX})}{\mathbb{E}_X(e^{sX})}\right)^2\\
 &= \int_\mathbb{R} x^2 \frac{e^{sx}}{M_X(s)}f(x)dx - \left( \int_\mathbb{R} x \frac{e^{sx}}{M_X(s)} f(x)dx \right)^2\\
 &=\mathbb{E}_V(V^2)-\mathbb{E}_V(V)^2\\
 &=Var(V) \\
@@ -344,14 +343,14 @@ So $X$ is a $\left(\frac{b-a}{2}\right)^2$-subgaussian random variable.
 \begin{theorem}
 \textbf{Markov's Inequality:}
 Let $X$ be a non-negative random variable with finite expected value.
-THen for any $t>0$,
+Then for any $t>0$,
 \begin{equation}
 Pr(X\geq t)\leq \frac{\mathbb{E}(X)}{t}
 \end{equation}
 \end{theorem}
 \begin{proof}
 \begin{align*}
-\mathbb{E}(X) &= \int_\mathbb{R} xDF\\
+\mathbb{E}(X) &= \int_\mathbb{R} xdF\\
 &= \int_0^t xdF + \int_t^\infty xdF\\
 &\geq \int_0^t 0dF + \int_t^\infty tdF\\
 &=tPr(X\geq t)
@@ -361,14 +360,15 @@ Pr(X\geq t)\leq \frac{\mathbb{E}(X)}{t}
 \begin{theorem}
 \textbf{Chebychev's Bound:}
 Let $X$ be a random variable with finite variance and mean $\mu$, and let $t>0$.
-THen
+Then
 \begin{equation}
-Pr(|X-\mu|\leq t)\geq\frac{Var(X)}{t^2}
+Pr(|X-\mu|\geq t)\leq\frac{Var(X)}{t^2}
 \end{equation}
 \end{theorem}
 \begin{proof}
-Let $U=(X-\mu)^2$. THen $U$ is non-negative and $\mathbb{E}(U)=Var(X)$.
-So the Markov bound gives $Pr((X-\mu)^2\leq t^2)\geq \frac{Var(X)}{t^2}$.
+Let $U=(X-\mu)^2$.
+Then $U$ is non-negative and $\mathbb{E}(U)=Var(X)$.
+So the Markov bound gives $Pr((X-\mu)^2\geq t^2)\leq \frac{Var(X)}{t^2}$.
 \end{proof}
 
 \begin{theorem}
@@ -387,7 +387,7 @@ Pr(X\geq \mathbb{E}(X)+\epsilon )&=Pr(X-\mathbb{E}(X)\geq \epsilon)\\
 \end{align*}
 By Markov's inequality,
 \begin{align*}
-Pr(e^{t(X-\mathbb{E}(X)}\leq e^{t\epsilon})&\leq e^{-t\epsilon}\mathbb{E}(e^{t(X-\mathbb{E}(X)})\\
+Pr(e^{t(X-\mathbb{E}(X))}\leq e^{t\epsilon})&\leq e^{-t\epsilon}\mathbb{E}(e^{t(X-\mathbb{E}(X))})\\
 &=e^{-t(\epsilon + \mathbb{E}(X))}M_X(t)
 \end{align*}
 Because this is true for all $t>0$, we can take the infimum to get the best bound.
@@ -480,7 +480,7 @@ So by Jensen's inequality,
 &= \frac{-1}{n}\ln \prod_k x_k\\
 &= -\ln \left(\prod_k x_k \right)^\frac{1}{n}
 \end{align*}
-THerefore, we can recover hte AM-GM inequality by taking hte negative exponential of both sides.
+Therefore, we can recover hte AM-GM inequality by taking hte negative exponential of both sides.
 \end{proof}
 \begin{corrolary}
 \textbf{HM-GM Inequality:}
@@ -489,7 +489,7 @@ THerefore, we can recover hte AM-GM inequality by taking hte negative exponentia
 \end{equation}
 \end{corrolary}
 
-\textbf{Ex-} Find $\min_{x>0}x+\frac{1}{x}$.
+\textbf{Ex-} Find $\min_{x>0}\{x+\frac{1}{x}\}$.
 Consider that by the AM-GM inequality,
 \begin{align*}
 \frac{x+\frac{1}{x}}{2} &\geq \sqrt{(x)\left(\frac{1}{x}\right)}\\
