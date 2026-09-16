@@ -57,14 +57,14 @@ Say the mean of a random variable $X$ is $\mu = \mathbb{E}(X)$.
 Consider 
 \begin{align*}
 \int_\mathbb{R} |x| dF &= \int_0^\infty x e^{-\lambda x} dx \\
-&= \frac{1}{\lambda} e^{-\lambda x} |_0^\infty \\
-&= \frac{1}{\lambda} - 0\\
+&= xe^{-\lambda x} - \frac{1}{\lambda} e^{-\lambda x} |_0^\infty \\
+&= 0 - \frac{-1}{\lambda}\\
 &= \frac{1}{\lambda}\\
 &< \infty
 \end{align*}
 Thus, the expected value exists and $\mathbb{E}(X)=\frac{1}{\lambda}$.
 
-\textbf{Ex-} Find the mean of a random variable with pdf $f(k)=\frac{\lambda^k e^{-\lambda}}{k!}$ on the non-negative integers.
+\textbf{Ex-} Find the mean of a random variable with pdf $f(k)=\frac{\lambda^k e^{-\lambda}}{k!}$ on $\mathbb{N}$.
 \begin{align*}
 \int_\mathbb{R} |k| dF &= \sum_{k=0}^\infty \frac{k\lambda^k e^{-\lambda}}{k!} \\
 &= \sum_{k=1}^\infty \frac{\lambda^k e^{-\lambda}}{(k-1)!}\\
@@ -89,5 +89,226 @@ By definition of expectation,
 \begin{corrolary}
 $\mathbb{E}(a+bX) = a + b\mathbb{E}(X)$
 \end{corrolary}
+
+\begin{definition}
+Say the variance of a random variable with mean $\mu$ is
+\begin{equation}
+Var(X)=\mathbb{E}((X-\mu)^2)
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+\textbf{Parallell Axis Theorem:}
+Let $X$ be a random variable with mean $\mu$ and $c\in \mathbb{R}$.
+\begin{equation}
+\mathbb{E}((X-c)^2) = Var(X) + (\mu - c)^2
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\mathbb{E}((X-c)^2) &= \int_\mathbb{R} (x-c)^2 dF\\
+&= \int_\mathbb{R} (x-\mu +\mu -c)^2 dF\\
+&= \int_\mathbb{R} (x-\mu )^2 + 2(x-\mu )(\mu -c) + (\mu -c)^2 dF\\
+&= \int_\mathbb{R} (x-\mu )^2 dF + 2 (\mu -c) \int_\mathbb{R} (x-\mu ) dF + \int_\mathbb{R}(\mu -c)^2 dF\\
+&= Var(X) + 0 +(\mu -c)^2
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$Var(X) = \mathbb{E}(X^2) - \mathbb{E}(X)^2$
+\end{corrolary}
+
+\begin{theorem}
+\begin{equation}
+Var(a + bX) = b^2 Var(X)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $\mu = \mathbb{E}(a + bX)$.
+Then $\mathbb{E}(a + bX) = a + b\mathbb{E}(X)$.
+So
+\begin{align*}
+Var(a+bX) &= \int_\mathbb{R} (a + bx - a - b\mu )^2 dF\\
+&= \int_\mathbb{R} (bx - b\mu )^2 dF \\
+&= b^2 \int_\mathbb{R} (x-\mu )^2 dF\\
+&= b^2 Var(X)
+\end{align*}
+\end{proof}
+
+\begin{definition}
+Say the standard deviation of a random variable is
+\begin{equation}
+\sigma = \sqrt{Var(X)}
+\end{equation}
+\end{definition}
+
+\textbf{Ex-} Find the variance of a random variable with odf $f(x)=\lambda e^{-\lambda x}$.
+First, remember that $\mathbb{E}(X) = \frac{1}{\lambda}$.
+Also,
+\begin{align*}
+\mathbb{E}(X^2) &= \int_\mathbb{R} (x-\mu)^2 dF\\
+&= \int_0^\infty x^2 \lambda e^{-\lambda x}dx\\
+&= x^2 e^{-\lambda x} + \frac{2x}{\lambda} e^{-\lambda x} + \frac{2}{\lambda^2} |_0^\infty \\
+&= 0 - \frac{-2}{\lambda^2}\\
+&= \frac{2}{\lambda^2}
+\end{align*}
+Thus, $Var(X) = \mathbb{E}(X^2) - \mathbb{E}(X)^2 = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2}$.
+
+\begin{definition}
+Say the skewness of a random variable $X$ with mean $\mu$ and standard deviation $\sigma$ is
+\begin{equation}
+skew(X)=\frac{\mathbb{E}((X-\mu)^3)}{\sigma^3}
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+\begin{equation}
+skew(X)=\frac{\mathbb{E}(X^3)-3\mu \sigma^2 -\mu^3}{\sigma^3}
+\end{equation}
+\end{lemma}
+\begin{proof}
+We only need consider the numerator of the definition.
+\begin{align*}
+\mathbb{E}((X-\mu)^3) &= \mathbb{E}(X^3) -3\mu \mathbb{E}(X^2) + 3\mu^2 \mathbb{E}(X) -\mu^3 \\
+&= \mathbb{E}(X^3) -3\mu (\mu^2 + \sigma^2) + 3\mu^3 -\mu^3\\
+&= \mathbb{E}(X^3) -3\mu \sigma^2 -\mu^3
+\end{align*}
+\end{proof}
+
+\textbf{Ex-} If $X \sim \mathcal{N}(\mu ,\sigma^2 )$, then $skew(X)=0$.
+
+\begin{definition}
+Say the kurtosis of a random variable $X$ with mean $\mu$ and standard deviation $\sigma$ is
+\begin{equation}
+kurt(X) = \frac{\mathbb{E}((X-\mu)^4)}{\sigma^4}
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+The kurtosis is
+\begin{equation}
+kurt(X) = \frac{\mathbb{E}(X^4)-4\mu \mathbb{E}(X^3)+6\mu^2 \sigma^2 +3\mu^4}{\sigma^4}
+\end{equation}
+\end{lemma}
+\begin{proof}
+We only need to consider the numerator.
+\begin{align*}
+\mathbb{E}((X-\mu)^4) &= \mathbb{E}(X^4) -4\mu \mathbb{E}(X^3) + 6\mu^2 \mathbb{E}(X^2) - 4\mu^3 \mathbb{E}(X)+\mu^4\\
+&= \mathbb{E}(X^4) -4\mu \mathbb{E}(X^3) + 6\mu^2 (\mu^2 + \sigma^2) -4\mu^4 + \mu^4\\
+&= \mathbb{E}(X^4) -4\mu \mathbb{E}(X^3) + 6\mu^2 \sigma^2 + 3\mu^4
+\end{align*}
+\end{proof}
+
+\textbf{Ex-} If $X\sim \mathcal{N}(\mu ,\sigma^2)$ then $kurt(X)=3$.
+
+\begin{definition}
+Say the excess kurtosis is
+\begin{equation}
+kurt_{ex}(X)=kurt(X)-3
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $X$ be a random variable and $n\in \mathbb{N}$.
+If $\mathbb{E}(X^n)$ exists then $\mathbb{E}(X^k)$ exists for all $k\leq n$.
+\end{theorem}
+\begin{proof}
+Notice that if $|x|<1$, then $|x^k|<1$.
+Similarly, if $|x|>1$, then $|x^k|<|x^n|$.
+Thus,
+\begin{align*}
+\int_\mathbb{R} |x^k|dF &= 2 \int_0^\infty |x^k|dF\\
+&= 2\int_0^1 |x^k| dF + 2\int_1^\infty |x^k| dF \\
+&\leq 2\int_0^1 1dF + 2\int_1^\infty |x^n|dF\\
+&\leq \int_\mathbb{R} 1dF + \int_\mathbb{R} |x^n|dF\\ &= 1 + \mathbb{E}(X^2)\\
+&<\infty
+\end{align*}
+\end{proof}
+
+\begin{definition}
+Say $\mathbb{E}(X^n)$ is the $n^{th}$ moment of $X$.
+\end{definition}
+
+\begin{definition}
+Let $X$ be a random variable and $T>0$ such that $\mathbb{E}(e^{Xt})$ exists for $|t|< T$.
+Say the moment generating function (MGF) is
+\begin{equation}
+M_X(t)=\mathbb{E}(e^{Xt})
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $X$ be a random variable with MGF $M_X$.
+\begin{equation}
+M_X(t)=\sum_{n=0}^\infty \frac{\mathbb{E}(X^n)t^n}{n!}
+\end{equation}
+\end{theorem}
+\begin{proof}
+This is an application of Taylor's Theorem, so we need to show $M_X^{(n)}(t)=\mathbb{E}(X^ne^{tX})$.
+We will do so via induction.
+Notice that when $n=0$, this is the definition of hte mgf.
+So the base case is trivial. \\
+Now, suppose $M_X^{(k)}(t) = \mathbb{E}(X^ke^{tX})$ for some $k\in \mathbb{N}$.
+Then
+\begin{align*}
+M_X^{(k+1)}(t) &= \frac{d}{dt}\mathbb{E}(X^k e^{tX})\\
+&= \mathbb{E}(\frac{\partial}{\partial t}X^ke^{tx})\\
+&= \mathbb{E}(X^{k+1}e^{tX})
+\end{align*}
+Therefore, we have found the derivative via induction.
+Finally, we can compute $M_X^{(n)}(0)=\mathbb{E}(X^ne^0)=\mathbb{E}(X^n)$.
+Therefore, by Taylor's theorem, we have the result.
+\end{proof}
+
+\begin{theorem}
+Let $X$ and $Y$ be two random variables with MGFs $M_X$ and $M_Y$.
+$M_X = M_Y$ if and only if $X$ and $Y$ have the same distibution.
+\end{theorem}
+\begin{proof}
+First, suppose $X$ and $Y$ have the same distibution.
+Then clearly $\mathbb{E}(e^{Xt})=\mathbb{E}(e^{Yt})$.
+So $M_X=M_Y$.\\
+Conversely, suppose $X$ and $Y$ do not have the same distribution.
+So $f_X \neq f_Y$ on a set of non-zero measure.
+Akso, $M_X(t)=\int_\mathbb{R} e^{tx}f_x(x)dx$ and $M_Y(t)=\int_\mathbb{R} e^{tx}f_Y(x)dx$.
+Then $M_X(t)-M_Y(t)=\int_\mathbb{R} e^{tx}(f_X(x)-f_Y(x))dx$.
+Thus, by the zero integral lemma, this integral is non-zero.
+Therefore, the MGFs must be distinct.
+\end{proof}
+
+\textbf{Ex-} Find the MGF of a random variable with PDF $\lambda e^{-\lambda x}$.
+\begin{align*}
+M_X(t)&=\mathbb{E}(e^{tX})\\
+&=\int_0^\infty e^{tx} \lambda e^{-\lambda x} dx\\
+&= \int_0^\infty \lambda e^{(t-\lambda)x}dx\\
+&= \frac{\lambda}{t-\lambda} e^{(t-\lambda)x}|_0^\infty\\
+&= 0-\frac{\lambda}{t-\lambda}\\
+&= \frac{\lambda}{\lambda -t}
+\end{align*}
+Notice the evaluation of the integral relies on $e^{(t-\lambda)x} \rightarrow 0$ as $x \rightarrow \infty$.
+This is true if and only if $t-\lambda < 0$, or $t < \lambda$.
+Thus, the MGF is $\frac{\lambda}{\lambda-t}$ with domain $t<\lambda$.
+
+\begin{theorem}
+Let $X$ be a random variable with MGF $M(t)$ for $|t|<T$.
+Then the MGF of $a+bX$ is $e^{ta}M(bt)$ for $|t|<\frac{T}{|b|}$.
+\end{theorem}
+\begin{proof}
+\begin{align*}
+M_{a+bX}(t) &= \mathbb{E}(e^{t(a+bX)})\\
+&= e^{ta}\mathbb{E}(e^{tbX})\\
+&= e^{ta} M(tb)
+\end{align*}
+Also, it is clar that$t<\frac{T}{|b|}$ if and only if $|tb|<T$.
+\end{proof}
+
+\begin{definition}
+Let $X$ be a random variable with mean $\mu$ and let $\xi>0$.
+Say $X$ is a $\xi$-subgaussian random variable when
+\begin{equation}
+\mathbb{E}(e^{t(X-\mu)})\leq e^\frac{t^2\sigma^2}{2}
+\end{equation}
+for all $t\in \mathbb{R}$.
+Say $X$ is subgaussian if it is $\xi$-subgaussian for some $\xi>0$.
+\end{definition}
 
 \end{document}
