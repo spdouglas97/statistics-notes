@@ -1,7 +1,501 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{definition}
+Given a random variable $X$ with cdf $F$, say the expectation is
+\begin{equation}
+\mathbb{E}(X) = \int_\mathbb{R} x dF
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Given a random variable $X$ with cdf $F$ and a function $g: \mathbb{R} \rightarrow \mathbb{R}$, say
+\begin{equation}
+\mathbb{E}(g(X)) = \int_\mathbb{R} g dF
+\end{equation}
+\end{definition}
+
+\textbf{Note-} The expected value does not always exist, it only exists when the (Lebesgue) integral that defines it exists.
+For example, let $X$ be a random variable with a Cauchy distribution.
+Then it has pdf $f(x)=\frac{1}{1+x^2}$.
+This means the expected value is $\int_{-\infty}^\infty \frac{x}{1+x^2} dx$.
+This is an integral of an odd function, so we can consider
+\begin{align*}
+\mathbb{E}(X) &= \int_{-\infty}^\infty \frac{x}{1+x^2} dx \\
+&= \int_0^\infty \frac{x}{1+x^2} dx - \int_0^\infty \frac{x}{1+x^2} dx \\
+&= \frac{1}{2} \ln (1+x^2) |_0^\infty - \frac{1}{2} \ln (1+x^2) |_0^\infty \\
+&= \infty - \infty
+\end{align*}
+Thus, the expected value is not defined.
+
+\begin{lemma}
+The expected value is defined if and only if $\int_\mathbb{R} |x| dF < \infty$
+\end{lemma}
+\begin{proof}
+We say a measurable function is integrable on a measure space when its absolute value has a finite integral.
+So the lemma is true by definition.
+To build intuition, consider that $x \leq |x|$, so $\int x dF \leq \int |x| dF < \infty$.
+\end{proof}
+
+\begin{definition}
+Say the mean of a random variable $X$ is $\mu = \mathbb{E}(X)$.
+\end{definition}
+
+\textbf{Ex-} Find the mean of a random variable with pdf $f(x) = \lambda e^{-\lambda x}$ on $(0,\infty)$.
+Consider 
+\begin{align*}
+\int_\mathbb{R} |x| dF &= \int_0^\infty x\lambda e^{-\lambda x} dx \\
+&= xe^{-\lambda x} - \frac{1}{\lambda} e^{-\lambda x} |_0^\infty \\
+&= 0 - \frac{-1}{\lambda}\\
+&= \frac{1}{\lambda}\\
+&< \infty
+\end{align*}
+Thus, the expected value exists and $\mathbb{E}(X)=\frac{1}{\lambda}$.
+
+\textbf{Ex-} Find the mean of a random variable with pdf $f(k)=\frac{\lambda^k e^{-\lambda}}{k!}$ on $\mathbb{N}$.
+\begin{align*}
+\int_\mathbb{R} |k| dF &= \sum_{k=0}^\infty \frac{k\lambda^k e^{-\lambda}}{k!} \\
+&= \sum_{k=1}^\infty \frac{\lambda^k e^{-\lambda}}{(k-1)!}\\
+&= \lambda \sum_{k=1}^\infty \frac{\lambda^{k-1} e^{-\lambda}}{(k-1)!}\\
+&= \lambda\\
+&<\infty
+\end{align*}
+Thus, the expected value exists and is $\lambda$.
+
+\begin{theorem}
+Let $X$ and $Y$ be random variables and $g: \mathbb{R} \rightarrow \mathbb{R}$.
+If $\mathbb{E}(Y)$ exists then $\mathbb{E}(Y)=\mathbb{E}(g(X))$.
+\end{theorem}
+\begin{proof}
+By definition of expectation,
+\begin{align*}
+\mathbb{E}(Y) &= \int_\mathbb{R} y dF_y\\
+&= \int_\mathbb{R} g d(F \circ g)\\
+&= \mathbb{E}(g(X))
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(a+bX) = a + b\mathbb{E}(X)$
+\end{corrolary}
+
+\begin{definition}
+Say the variance of a random variable with mean $\mu$ is
+\begin{equation}
+Var(X)=\mathbb{E}((X-\mu)^2)
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+\textbf{Parallell Axis Theorem:}
+Let $X$ be a random variable with mean $\mu$ and $c\in \mathbb{R}$.
+\begin{equation}
+\mathbb{E}((X-c)^2) = Var(X) + (\mu - c)^2
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\mathbb{E}((X-c)^2) &= \int_\mathbb{R} (x-c)^2 dF\\
+&= \int_\mathbb{R} (x-\mu +\mu -c)^2 dF\\
+&= \int_\mathbb{R} (x-\mu )^2 + 2(x-\mu )(\mu -c) + (\mu -c)^2 dF\\
+&= \int_\mathbb{R} (x-\mu )^2 dF + 2 (\mu -c) \int_\mathbb{R} (x-\mu ) dF + \int_\mathbb{R}(\mu -c)^2 dF\\
+&= Var(X) + 0 +(\mu -c)^2
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$Var(X) = \mathbb{E}(X^2) - \mathbb{E}(X)^2$
+\end{corrolary}
+
+\begin{theorem}
+\begin{equation}
+Var(a + bX) = b^2 Var(X)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $\mu=\mathbb{E}(X)$. Then $\mathbb{E}(a + bX) = a + b\mu$.
+So
+\begin{align*}
+Var(a+bX) &= \int_\mathbb{R} (a + bx - a - b\mu )^2 dF\\
+&= \int_\mathbb{R} (bx - b\mu )^2 dF \\
+&= b^2 \int_\mathbb{R} (x-\mu )^2 dF\\
+&= b^2 Var(X)
+\end{align*}
+\end{proof}
+
+\begin{definition}
+Say the standard deviation of a random variable is
+\begin{equation}
+\sigma = \sqrt{Var(X)}
+\end{equation}
+\end{definition}
+
+\textbf{Ex-} Find the variance of a random variable with odf $f(x)=\lambda e^{-\lambda x}$.
+First, remember that $\mathbb{E}(X) = \frac{1}{\lambda}$.
+Also,
+\begin{align*}
+\mathbb{E}(X^2) &= \int_\mathbb{R} (x-\mu)^2 dF\\
+&= \int_0^\infty x^2 \lambda e^{-\lambda x}dx\\
+&= x^2 e^{-\lambda x} + \frac{2x}{\lambda} e^{-\lambda x} + \frac{2}{\lambda^2} |_0^\infty \\
+&= 0 - \frac{-2}{\lambda^2}\\
+&= \frac{2}{\lambda^2}
+\end{align*}
+Thus, $Var(X) = \mathbb{E}(X^2) - \mathbb{E}(X)^2 = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2}$.
+
+\begin{definition}
+Say the skewness of a random variable $X$ with mean $\mu$ and standard deviation $\sigma$ is
+\begin{equation}
+skew(X)=\frac{\mathbb{E}((X-\mu)^3)}{\sigma^3}
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+\begin{equation}
+skew(X)=\frac{\mathbb{E}(X^3)-3\mu \sigma^2 -\mu^3}{\sigma^3}
+\end{equation}
+\end{lemma}
+\begin{proof}
+We only need consider the numerator of the definition.
+\begin{align*}
+\mathbb{E}((X-\mu)^3) &= \mathbb{E}(X^3) -3\mu \mathbb{E}(X^2) + 3\mu^2 \mathbb{E}(X) -\mu^3 \\
+&= \mathbb{E}(X^3) -3\mu (\mu^2 + \sigma^2) + 3\mu^3 -\mu^3\\
+&= \mathbb{E}(X^3) -3\mu \sigma^2 -\mu^3
+\end{align*}
+\end{proof}
+
+\textbf{Ex-} If $X \sim \mathcal{N}(\mu ,\sigma^2 )$, then $skew(X)=0$.
+
+\begin{definition}
+Say the kurtosis of a random variable $X$ with mean $\mu$ and standard deviation $\sigma$ is
+\begin{equation}
+kurt(X) = \frac{\mathbb{E}((X-\mu)^4)}{\sigma^4}
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+The kurtosis is
+\begin{equation}
+kurt(X) = \frac{\mathbb{E}(X^4)-4\mu \mathbb{E}(X^3)+6\mu^2 \sigma^2 +3\mu^4}{\sigma^4}
+\end{equation}
+\end{lemma}
+\begin{proof}
+We only need to consider the numerator.
+\begin{align*}
+\mathbb{E}((X-\mu)^4) &= \mathbb{E}(X^4) -4\mu \mathbb{E}(X^3) + 6\mu^2 \mathbb{E}(X^2) - 4\mu^3 \mathbb{E}(X)+\mu^4\\
+&= \mathbb{E}(X^4) -4\mu \mathbb{E}(X^3) + 6\mu^2 (\mu^2 + \sigma^2) -4\mu^4 + \mu^4\\
+&= \mathbb{E}(X^4) -4\mu \mathbb{E}(X^3) + 6\mu^2 \sigma^2 + 3\mu^4
+\end{align*}
+\end{proof}
+
+\textbf{Ex-} If $X\sim \mathcal{N}(\mu ,\sigma^2)$ then $kurt(X)=3$.
+
+\begin{definition}
+Say the excess kurtosis is
+\begin{equation}
+kurt_{ex}(X)=kurt(X)-3
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $X$ be a random variable and $n\in \mathbb{N}$.
+If $\mathbb{E}(X^n)$ exists then $\mathbb{E}(X^k)$ exists for all $k\leq n$.
+\end{theorem}
+\begin{proof}
+Notice that if $|x|<1$, then $|x^k|<1$.
+Similarly, if $|x|>1$, then $|x^k|<|x^n|$.
+Thus,
+\begin{align*}
+\int_\mathbb{R} |x^k|dF &= 2 \int_0^\infty |x^k|dF\\
+&= 2\int_0^1 |x^k| dF + 2\int_1^\infty |x^k| dF \\
+&\leq 2\int_0^1 1dF + 2\int_1^\infty |x^n|dF\\
+&\leq \int_\mathbb{R} 1dF + \int_\mathbb{R} |x^n|dF\\ &= 1 + \mathbb{E}(X^2)\\
+&<\infty
+\end{align*}
+\end{proof}
+
+\begin{definition}
+Say $\mathbb{E}(X^n)$ is the $n^{th}$ moment of $X$.
+\end{definition}
+
+\begin{definition}
+Let $X$ be a random variable and $T>0$ such that $\mathbb{E}(e^{Xt})$ exists for $|t|< T$.
+Say the moment generating function (MGF) is
+\begin{equation}
+M_X(t)=\mathbb{E}(e^{Xt})
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $X$ be a random variable with MGF $M_X$.
+\begin{equation}
+M_X(t)=\sum_{n=0}^\infty \frac{\mathbb{E}(X^n)t^n}{n!}
+\end{equation}
+\end{theorem}
+\begin{proof}
+This is an application of Taylor's Theorem, so we need to show $M_X^{(n)}(t)=\mathbb{E}(X^ne^{tX})$.
+We will do so via induction.
+Notice that when $n=0$, this is the definition of hte mgf.
+So the base case is trivial. \\
+Now, suppose $M_X^{(k)}(t) = \mathbb{E}(X^ke^{tX})$ for some $k\in \mathbb{N}$.
+Then
+\begin{align*}
+M_X^{(k+1)}(t) &= \frac{d}{dt}\mathbb{E}(X^k e^{tX})\\
+&= \mathbb{E}(\frac{\partial}{\partial t}X^ke^{tX})\\
+&= \mathbb{E}(X^{k+1}e^{tX})
+\end{align*}
+Therefore, we have found the derivative via induction.
+Finally, we can compute $M_X^{(n)}(0)=\mathbb{E}(X^ne^0)=\mathbb{E}(X^n)$.
+Therefore, by Taylor's theorem, we have the result.
+\end{proof}
+
+\begin{theorem}
+Let $X$ and $Y$ be two random variables with MGFs $M_X$ and $M_Y$.
+$M_X = M_Y$ if and only if $X$ and $Y$ have the same distibution.
+\end{theorem}
+\begin{proof}
+First, suppose $X$ and $Y$ have the same distibution.
+Then clearly $\mathbb{E}(e^{Xt})=\mathbb{E}(e^{Yt})$.
+So $M_X=M_Y$.\\
+Conversely, suppose $X$ and $Y$ do not have the same distribution.
+So $f_X \neq f_Y$ on a set of non-zero measure.
+Akso, $M_X(t)=\int_\mathbb{R} e^{tx}f_x(x)dx$ and $M_Y(t)=\int_\mathbb{R} e^{tx}f_Y(x)dx$.
+Then $M_X(t)-M_Y(t)=\int_\mathbb{R} e^{tx}(f_X(x)-f_Y(x))dx$.
+Thus, by the zero integral lemma, this integral is non-zero.
+Therefore, the MGFs must be distinct.
+\end{proof}
+
+\textbf{Ex-} Find the MGF of a random variable with PDF $\lambda e^{-\lambda x}$.
+\begin{align*}
+M_X(t)&=\mathbb{E}(e^{tX})\\
+&=\int_0^\infty e^{tx} \lambda e^{-\lambda x} dx\\
+&= \int_0^\infty \lambda e^{(t-\lambda)x}dx\\
+&= \frac{\lambda}{t-\lambda} e^{(t-\lambda)x}|_0^\infty\\
+&= 0-\frac{\lambda}{t-\lambda}\\
+&= \frac{\lambda}{\lambda -t}
+\end{align*}
+Notice the evaluation of the integral relies on $e^{(t-\lambda)x} \rightarrow 0$ as $x \rightarrow \infty$.
+This is true if and only if $t-\lambda < 0$, or $t < \lambda$.
+Thus, the MGF is $\frac{\lambda}{\lambda-t}$ with domain $t<\lambda$.
+
+\begin{theorem}
+Let $X$ be a random variable with MGF $M(t)$ for $|t|<T$.
+Then the MGF of $a+bX$ is $e^{ta}M(bt)$ for $|t|<\frac{T}{|b|}$.
+\end{theorem}
+\begin{proof}
+\begin{align*}
+M_{a+bX}(t) &= \mathbb{E}(e^{t(a+bX)})\\
+&= e^{ta}\mathbb{E}(e^{tbX})\\
+&= e^{ta} M(tb)
+\end{align*}
+Also, it is clar that $t<\frac{T}{|b|}$ if and only if $|tb|<T$.
+\end{proof}
+
+\begin{definition}
+Let $X$ be a random variable with mean $\mu$ and let $\xi>0$.
+Say $X$ is a $\xi$-subgaussian random variable when
+\begin{equation}
+\mathbb{E}(e^{t(X-\mu)})\leq e^\frac{t^2\xi^2}{2}
+\end{equation}
+for all $t\in \mathbb{R}$.
+Say $X$ is subgaussian if it is $\xi$-subgaussian for some $\xi>0$.
+\end{definition}
+
+\begin{lemma}
+\textbf{Hoeffding's Lemma:}
+Let $X$ be a subgaussian random variable with support $(a,b)$.
+Then $X$ is a $\frac{b-a}{2}$-subgaussian random variable.
+\end{lemma}
+\begin{proof}
+First, let $U$ be any random variable with support $(a,b)$.
+Then $(U-\frac{a+b}{2})^2 \leq (\frac{b-a}{2})^2$.
+Because variance does not change with a constant shift,
+\begin{align*}
+Var(U) &= \mathbb{E}\left(\left(U-\frac{a+b}{2}\right)^2\right) - \mathbb{E}\left(U-\frac{a+b}{2}\right)^2 \\
+&\leq \mathbb{E}\left(\left(U-\frac{a+b}{2}\right)^2\right)\\
+&\leq \left(\frac{b-a}{2}\right)^2
+\end{align*}
+Next, let $X$ be a random variable with PDF $f$ and MGF $M_X$.
+Let $V$ be a random variable with PDF $g(x)=\frac{e^{sx}}{M_X(s)} f(x)$
+Clearly, $V$ has support $(a,b)$.
+Next, let $\varphi(s)=\ln M_X(s)=\ln\mathbb{E}_X(e^{sX})$.
+Then $\varphi'(s)=\frac{\mathbb{E}_X(Xe^{sX})}{\mathbb{E}_X(e^{sX})}$, and
+\begin{align*}
+\varphi''(s) &= \frac{\mathbb{E}_X(X^2e^{sX})}{\mathbb{E}_X(e^{sX})} - \left( \frac{\mathbb{E}_X(Xe^{sX})}{\mathbb{E}_X(e^{sX})}\right)^2\\
+&= \int_\mathbb{R} x^2 \frac{e^{sx}}{M_X(s)}f(x)dx - \left( \int_\mathbb{R} x \frac{e^{sx}}{M_X(s)} f(x)dx \right)^2\\
+&=\mathbb{E}_V(V^2)-\mathbb{E}_V(V)^2\\
+&=Var(V) \\
+&\leq \frac{(b-a)^2}{4}
+\end{align*}
+Thus, $\varphi(s)=\frac{(b-a)^2t^2}{8}$.
+So $X$ is a $\left(\frac{b-a}{2}\right)^2$-subgaussian random variable.
+\end{proof}
+
+\begin{theorem}
+\textbf{Markov's Inequality:}
+Let $X$ be a non-negative random variable with finite expected value.
+Then for any $t>0$,
+\begin{equation}
+Pr(X\geq t)\leq \frac{\mathbb{E}(X)}{t}
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\mathbb{E}(X) &= \int_\mathbb{R} xdF\\
+&= \int_0^t xdF + \int_t^\infty xdF\\
+&\geq \int_0^t 0dF + \int_t^\infty tdF\\
+&=tPr(X\geq t)
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+\textbf{Chebychev's Bound:}
+Let $X$ be a random variable with finite variance and mean $\mu$, and let $t>0$.
+Then
+\begin{equation}
+Pr(|X-\mu|\geq t)\leq\frac{Var(X)}{t^2}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $U=(X-\mu)^2$.
+Then $U$ is non-negative and $\mathbb{E}(U)=Var(X)$.
+So the Markov bound gives $Pr((X-\mu)^2\geq t^2)\leq \frac{Var(X)}{t^2}$.
+\end{proof}
+
+\begin{theorem}
+\textbf{Chernoff Bound:}
+Let $X$ be a random variable with MGF $M_X$.
+Then
+\begin{equation}
+Pr(X\geq \mathbb{E}(X)+\epsilon)=\inf_{t>0} e^{-t(\epsilon + \mathbb{E}(X))}M_X(t)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Note that for all $t>0$,
+\begin{align*}
+Pr(X\geq \mathbb{E}(X)+\epsilon )&=Pr(X-\mathbb{E}(X)\geq \epsilon)\\
+&=Pr(e^{t(X_\mathbb{E}(X))}\geq e^{t\epsilon})
+\end{align*}
+By Markov's inequality,
+\begin{align*}
+Pr(e^{t(X-\mathbb{E}(X))}\leq e^{t\epsilon})&\leq e^{-t\epsilon}\mathbb{E}(e^{t(X-\mathbb{E}(X))})\\
+&=e^{-t(\epsilon + \mathbb{E}(X))}M_X(t)
+\end{align*}
+Because this is true for all $t>0$, we can take the infimum to get the best bound.
+\end{proof}
+
+\begin{definition}
+Say a function $\phi :\mathbb{R}^n \rightarrow \mathbb{R}$ is convex whenever for all $x,y\in \mathbb{R}^n$ and all $\lambda\in (0,1)$
+\begin{equation}
+\phi(\lambda x + (1-\lambda )y)\leq \lambda \phi(x)+(1-\lambda)\phi(y)
+\end{equation}
+Say the function is strictly convex whevever
+\begin{equation}
+\phi(\lambda x + (1-\lambda)y)< \lambda \phi(x)+(1-\lambda)\phi(y)
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+Let $\phi:\mathbb{R}\rightarrow \mathbb{R}$ be a convex function and $x_1 < x_2 < x_3$.
+\begin{equation}
+\frac{\phi(x_2)-\phi(x_1)}{x_2 - x_1} \leq \frac{\phi(x_3)-\phi(x_2)}{x_3-x_2}
+\end{equation}
+Furthermore, if the function is strictly convex then the inequality is strict.
+\end{lemma}
+\begin{proof}
+There is a $\lambda$ such that $x_2 = \lambda x_1 + (1-\lambda) x_3$.
+So $\lambda (x_2 - x_1) = (1-\lambda) (x_3 -x_2)$.
+By convexity, $\phi(x_2)\leq\lambda\phi(x_1)+(1-\lambda)\phi(x_3)$.
+So $\lambda (\phi (x_2)-\phi(x_1))\leq(1-\lambda)(\phi(x_3)-\phi(x_2))$.
+Thus, $\frac{\phi(x_2)-\phi(x_1)}{x_2 - x_1} \leq \frac{\phi(x_3)-\phi(x_2)}{x_3-x_2}$.
+Notice that if $\phi$ is strictly convex then the inequalities become strict.
+\end{proof}
+
+\begin{theorem}
+Let $\phi:\mathbb{R}\rightarrow\mathbb{R}$ be a convex function and $x<y$.
+Then
+\begin{equation}
+\phi'(x)\leq\phi'(y)
+\end{equation}
+Furthermore, if $\phi$ is strictly convex then the inequality is strict.
+\end{theorem}
+\begin{proof}
+Let $0<h<y-x$.
+Then $x<x+h<y<y+h$.
+So $\frac{\phi(x+h)-\phi(x)}{h}\leq \frac{\phi(y+h)-\phi(y)}{h}$.
+Taking the limit as $h\rightarrow 0$ gives the definition of the derivative.
+\end{proof}
+\begin{corrolary}
+If $\phi$ is twice differentiable, then $\phi''$ is non-negative.
+\end{corrolary}
+
+\begin{theorem}
+\textbf{Jensen's Inequality:}
+Let $\phi:\mathbb{R}\rightarrow \mathbb{R}$ be convex.
+\begin{equation}
+\mathbb{E}(\phi(X))\leq \phi(\mathbb{E}(X))
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $\mu=\mathbb{E}(X)$ and supose $\phi$ is twice-differentiable.
+THen by Taylor's theorem, there is some $\xi$ such that
+\begin{align*}
+\phi(x)&=\phi(\mu)+\phi'(\mu)(x-\mu)+\frac{\phi''(\xi)}{2}(x-\mu)^2\\
+&\geq \phi(\mu)+\phi'(\mu)(x-\mu)
+\end{align*}
+So
+\begin{align*}
+\mathbb{E}(\phi(X))&\geq \mathbb{E}(\phi(\mu)+\phi'(\mu)(x-\mu))\\
+&=\phi(\mu)
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+\textbf{AM-GM Inequality:}
+Let $\{x_k\}_{k=0}^n$ be a sequence of real numbers.
+THen
+\begin{equation}
+\sqrt[n]{\prod_k x_k}\leq \frac{1}{n}\sum_k x_k
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $X$ be a uniform random variable with support $\{x_k\}$.
+Then the arithmetic mean is $\frac{1}{n}\sum_k x_k=\mathbb{E}(X)$.
+Next, let $\phi(x)=-\ln x$.
+Notice $\phi$ is a convex function.
+So by Jensen's inequality,
+\begin{align*}
+-\ln \left( \frac{1}{n} \sum_k x_k \right) &= \phi(\mathbb{E}(X))\\
+&\geq \mathbb{E}(\phi (X))\\
+&= \frac{1}{n}\sum_k -\ln x_k\\
+&= \frac{-1}{n}\ln \prod_k x_k\\
+&= -\ln \left(\prod_k x_k \right)^\frac{1}{n}
+\end{align*}
+Therefore, we can recover hte AM-GM inequality by taking hte negative exponential of both sides.
+\end{proof}
+\begin{corrolary}
+\textbf{HM-GM Inequality:}
+\begin{equation}
+\frac{n}{\sum_k \frac{1}{x_k}}\leq \sqrt[n]{\prod_k x_k}
+\end{equation}
+\end{corrolary}
+
+\textbf{Ex-} Find $\min_{x>0}\{x+\frac{1}{x}\}$.
+Consider that by the AM-GM inequality,
+\begin{align*}
+\frac{x+\frac{1}{x}}{2} &\geq \sqrt{(x)\left(\frac{1}{x}\right)}\\
+&= \sqrt{1}\\
+&=1
+\end{align*}
+Thus, the minimum is 2.
 
 \end{document}
