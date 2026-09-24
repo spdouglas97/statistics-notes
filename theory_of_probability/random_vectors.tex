@@ -1,7 +1,161 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{definition}
+Say a random vector is a multivariate measurable function
+\begin{equation}
+X: (S, \Omega, p) \rightarrow \mathbb{R}^n
+\end{equation}
+\end{definition}
+
+\textbf{Note-} We will primarily be focusing on $n=2$, but a random vector can have any dimension.
+
+\begin{definition}
+Say the joint CDF is the function $F: \mathbb{R}^n \rightarrow \mathbb{R}$ such that
+\begin{equation}
+F(x)=Pr(X_k \leq x_k | 1 \leq k \leq n)
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Say the joint PDF is the function $f: \mathbb{R}^n \rightarrow \mathbb{R}$ such that
+\begin{equation}
+f(x)=\frac{\partial^n F}{\partial x_1 \partial x_2 ... \partial x_n}
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+For any $B \in \mathcal{B}$,
+\begin{equation}
+Pr(X \in B)=\int_\mathbb{R}^n \mbox{\Large$\chi$}_B dF
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $E=X^{-1}(B)$.
+The change of variables gives us 
+\begin{align*}
+\int_{\mathbb{R}^n} \mbox{\Large$\chi$}_B dF &= \int_B 1dF\\
+&= \int_E 1dp\\
+&= p(E) \\
+&= p(X^{-1}(B)) \\
+&= Pr(X \in B)
+\end{align*}
+\end{proof}
+
+\begin{definition}
+Let $(x,Y)$ be a random vector. Say the marginal CDF of $X$, $F_X: \mathbb{R} \rightarrow \mathbb{R}$ is
+\begin{equation}
+F_X (x) = Pr(X \leq x)
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Let $(X<Y)$ be a random vector and $F_X$ be the marginal PDF of $X$.
+Say the marginal CDF of $X$ is
+\begin{equation}
+f_x(x) = \frac{\partial F_X}{\partial x}
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Let $(X<Y)$ be a random vector and $Y$ has marginal PDF $f_Y$.
+Say the conditional PDF of $X|Y$ is
+\begin{equation}
+f_{X|Y}(x|y) = \frac{f(x,y)}{f_Y(y)}
+\end{equation}
+Say the conditional CDF of $X|Y$ is
+\begin{equation}
+F_{X|Y}(x|y)=\int_\mathbb{R} \frac{1}{f_Y(y)} dF
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+\begin{equation}
+F_{X|Y}(x|y)=Pr(X\leq x | Y=y)
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $A=\{e\in S|X(e)\leq x\}$ and $B_n=\{e\in S||Y(e)-y|\leq \frac{1}{n}\}$.
+So
+\begin{align*}
+Pr(X\leq x | Y=y) &= \lim_{n\rightarrow \infty} \frac{p(A \cap B_n)}{p(B_n)}\\
+&=\lim_{n \rightarrow \infty} \frac{F(x, y+\frac{1}{n}) - F(x, y-\frac{1}{n})}{F_Y(y+\frac{1}{n})-F_Y(y-\frac{1}{n})}\\
+&=\frac{f(x,y)}{f_Y(y)}
+\end{align*}
+\end{proof}
+\begin{corrolary}
+For well-behaved\ref{tonelli}\ref{fubini} measureable functions $g$, $$\int_{\mathbb{R}^2} gdF=\int_\mathbb{R} \int_\mathbb{R} g dF_{X|Y}dF_Y =\int_\mathbb{R} \int_\mathbb{R} g dF_{Y|X}dF_X$$
+\end{corrolary}
+
+\begin{definition}
+Let $(X,Y):(S,\Omega, p)\rightarrow \mathbb{R}^2$ be a random vector. Say $X$ and $Y$ are independent if for all $A,B\in \mathcal{B}$,
+\begin{equation}
+Pr(X\in A)Pr(Y\in B)=Pr(X\in A, Y\in B)
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+The following are equivalent:
+\begin{enumerate}
+\item $X$ and $Y$ are independent
+\item $F(x,y)=F_X(x)F_Y(y)$
+\item $f(x,y)=f_X(x)f_Y(y)$
+\item $f_{X|Y}(x|y)=f_X(x)$
+\item $F_{X|Y}(x|y)=F_X(x)$
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+First, suppose $X$ and $Y$ are independent.
+Then
+\begin{align*}
+F(x,y) &= Pr(X\leq x, Y\leq y)\\
+&= Pr(X\leq x)Pr(Y\leq y)\\
+&=F_X(x)F_Y(y)
+\end{align*}
+Next, suppose $F(x,y)=F_X(x)F_Y(y)$.
+Then the PDF is
+\begin{align*}
+f(x,y)&=\frac{\partial}{\partial^2 x\partial y}\bigg[F(x,y)\bigg]\\
+&=\frac{\partial}{\partial^2 x\partial y}\bigg[ F_x(x)F_Y(y)\bigg]\\
+&=\frac{d}{dx}\bigg[ F_X(x)\bigg] \frac{d}{dy}\bigg[ F_Y(y)\bigg]\\
+&=f_X(x)f_Y(y)
+\end{align*}
+Thirdly, suppose $f(x,y)=f_x(x)f_Y(y)$.
+Then
+\begin{align*}
+ff{X|Y}(x|y)&=\frac{f(x,y)}{f_Y(y)}\\
+&=\frac{f_X(x)f_Y(y)}{f_Y(y)}\\
+&=f_X(x)
+\end{align*}
+Next, suppose $f_X(x)=f_{X|Y}(x|y)$.
+Then $\frac{dF_X}{dx}=\frac{\partial F_{X|Y}}{\partial x}$.
+Thus, $F_X(x)=F_{X|Y}(x|y)$. \\
+Finally, suppose $F_X(x)=F_{X|Y}(x|y)$.
+Let $A$ and $B$ be Borel sets.
+Then
+\begin{align*}
+Pr(X\in A, Y\in B)&= \int_{\mathbb{R}^2} \mbox{\Large$\chi$}_{A\cap B} dF\\
+&= \int_\mathbb{R}\int_\mathbb{R} \mbox{\Large$\chi$}_A\mbox{\Large$\chi$}_B dF_{X|Y} dF_Y\\
+&= \int_\mathbb{R}\int_\mathbb{R} \mbox{\Large$\chi$}_A\mbox{\Large$\chi$}_B dF_X dF_Y\\
+&= \int_\mathbb{R} \mbox{\Large$\chi$}_A dF_X \int_\mathbb{R} \mbox{\Large$\chi$}_B dF_Y\\
+&= Pr(X\in A)Pr(Y\in B)
+\end{align*}
+Therefore, the statements are all equivalent.
+\end{proof}
+\begin{corrolary}
+If $X$ and $Y$ are independent random variables with supports $S_X$ and $S_Y$, $(X,Y)$ has support $S_X \times S_Y$.
+\end{corrolary}
 
 \end{document}

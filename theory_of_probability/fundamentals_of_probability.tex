@@ -10,6 +10,7 @@
 \theoremstyle{lemma}\newtheorem{lemma}{Lemma}
 \theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
 \setlength{\parindent}{0pt}
+\usepackage{hyperref}
 
 \begin{document}
 
@@ -240,6 +241,25 @@ p(E_1| E_2 , E_3) p(E_2 | E_3) &= p(E_1 | E_2 \cap E_3) p(E_2 | E_3) \\
 \end{align*}
 \end{proof}
 
+\begin{lemma}
+\textbf{Law of Total Probability:}\label{lawTotalProb}
+Let $\{E_k\}$ be a partition of the sample space and $E$ an event.
+\begin{equation*}
+p(E)=\int p(E|E_k)dp
+\end{equation*}
+\end{lemma}
+\begin{proof}
+For any $i$, $p(E | E_i)p(E_i) = p(E \cap E_i)$.
+Because $E_i$ form a partition of the sample space, $E_i \cap E$ forms a partition of $E$.
+Thus,
+\begin{align*}
+\int_i p(E|E_i)dp(E_i) &= \sum_i p(E|E_i)p(E_i) \\
+&= \sum_i p(E_i \cap E) \\
+&= p(\cup_i (E_i \cap E)) \\
+&= p(E)
+\end{align*}
+\end{proof}
+
 \begin{theorem}
 \textbf{Bayes' Theorem:}
 Given partition $\{E_n \}$ and event $E$,
@@ -248,16 +268,8 @@ p(E_k | E) = \frac{p(E|E_k)p(E_k)}{\int_i p(E | E_i) dp(E_i)}
 \end{equation}
 \end{theorem}
 \begin{proof}
-Notice $p(E | E_k)p(E_k) = p(E \cap E_k)$.
-Similarly, for any $i$, $p(E | E_i)p(E_i) = p(E \cap E_i)$.
-Because $E_i$ form a partition of the sample space, $E_i \cap E$ forms a partition of $E$.
-Thus,
-\begin{align*}
-\int_i p(E|E_i)dp(E_i) &= \sum_i p(E|E_i)dp(E_i) \\
-&= \sum_i p(E_i \cap E) \\
-&= p(\cup_i (E_i \cap E)) \\
-&= p(E)
-\end{align*}
+First, notice $p(E|E_k)p(E_k)=p(E\cap E_k)$.
+FAlso, fom the law of total probability, $\int_i p(E | E_i) dp(E_i)=p(E)$.
 From the definition of conditional probability, the ratio gives $p(E | E_k)$.
 \end{proof}
 
