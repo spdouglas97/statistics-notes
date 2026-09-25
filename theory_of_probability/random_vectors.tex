@@ -5,6 +5,7 @@
 \usepackage{mathrsfs}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}\newtheorem{definition}{DEF}
 \theoremstyle{lemma}\newtheorem{lemma}{Lemma}
@@ -96,7 +97,7 @@ Pr(X\leq x | Y=y) &= \lim_{n\rightarrow \infty} \frac{p(A \cap B_n)}{p(B_n)}\\
 \end{align*}
 \end{proof}
 \begin{corrolary}
-For well-behaved\ref{tonelli}\ref{fubini} measureable functions $g$, $$\int_{\mathbb{R}^2} gdF=\int_\mathbb{R} \int_\mathbb{R} g dF_{X|Y}dF_Y =\int_\mathbb{R} \int_\mathbb{R} g dF_{Y|X}dF_X$$
+For well-behaved (Thms \ref{tonelli}, \ref{fubini}) measureable functions $g$, $$\int_{\mathbb{R}^2} gdF=\int_\mathbb{R} \int_\mathbb{R} g dF_{X|Y}dF_Y =\int_\mathbb{R} \int_\mathbb{R} g dF_{Y|X}dF_X$$
 \end{corrolary}
 
 \begin{definition}
@@ -365,7 +366,7 @@ Pr\left(\middle|\frac{1}{n}\sum_{k=1}^n X_k - \mathbb{E}(X)\middle|> \epsilon\ri
 \end{theorem}
 \begin{proof}
 We will start by examining only the upper tail.
-By examining the Chernoff Bound\ref{chernoff}
+By examining the Chernoff Bound (Thm \ref{chernoff})
 \begin{align*}
 Pr\left(\frac{1}{n}\sum_{k=1}^n X_k - \mathbb{E}(X)> \epsilon\right) &= Pr\left(\sum_{k=1}^n X_k - n\mathbb{E}(X)> n\epsilon\right) \\
 &\leq \inf_{t>0}e^{-nt\epsilon}\mathbb{E}(e^{t(\sum_kk  X_k -n\mathbb{E}(X)})\\
@@ -382,7 +383,7 @@ Pr\left(\frac{1}{n}\sum_{k=1}^n X_k - \mathbb{E}(X)> \epsilon\right)\leq e^\frac
 \end{equation*}
 For the lower tail, consider that the same logic applies by substituting $Y_k=-X_k$.
 Finally, to get an overall bound, notice that $\{| \frac{1}{n} \sum_k X_k - \mathbb{E}(X)|>\epsilon\}$ is equivalent to $\{ \frac{1}{n} \sum_k X_k - \mathbb{E}(X)>\epsilon\}\cup \{ \frac{1}{n} \sum_k X_k - \mathbb{E}(X)>\epsilon\}$.
-Thus, by the union bound, we have the result.
+Thus, by the union bound (Cor \ref{union}), we have the result.
 \end{proof}
 \begin{corrolary}
 If $\{X_k\}$ is a sequence of iid random varaibles with support $(a,b)$, then

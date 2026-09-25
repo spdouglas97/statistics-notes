@@ -5,6 +5,7 @@
 \usepackage{mathrsfs}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}\newtheorem{definition}{DEF}
 \theoremstyle{lemma}\newtheorem{lemma}{Lemma}
@@ -135,11 +136,29 @@ p(\emptyset ) = 0
 A probability space is a measure space with total measure 1.
 \end{lemma}
 \begin{corrolary}
-\textbf{Union Bound: }
+\textbf{Union Bound: }\label{union}
 \begin{equation}
 p(E_1 \cup E_2) \leq p(E_1) + p(E_2)
 \end{equation}
 \end{corrolary}
+
+\textbf{Ex-}
+consider rolling a fair, 20 sided die.
+The probability of rolling an even number is $\frac{1}{2}$ and the probability of rolling a prime number is $\frac{7}{20}$.
+THe probability of rolling either a prime or an even is $\frac{4}{5}<\frac{1}{2}+\frac{7}{20}=\frac{17}{20}$.
+
+\textbf{Note-}
+Often, we have an inequality that holds with a certain probability, and we may need to chain these inequalities together.
+The way we do this is with the union bound, in a roundabout way.
+Consider the expressions $A$, $B$, and $C$, with $Pr(A<B)\leq1-\frac{\delta}{2}$ and $Pr(B<C)\leq\frac{\delta}{2}$.
+Then we can bound the probability of $A<C$ with
+\begin{align*}
+Pr(A<C)&\leq Pr(A<B\text{ and }B<C)\\
+&=1-Pr(A\geq B\text{ or }B\geq C)\\
+&\leq 1-(Pr(A\geq B)+Pr(B\geq C))\\
+&\leq 1-\left(\frac{\delta}{2}+\frac{\delta}{2}\right)\\
+&=1-\delta
+\end{align*}
 
 \begin{theorem}
 \textbf{Principle of Inclusion-Exclusion:}
