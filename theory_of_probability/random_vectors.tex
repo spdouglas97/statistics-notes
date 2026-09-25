@@ -158,4 +158,253 @@ Therefore, the statements are all equivalent.
 If $X$ and $Y$ are independent random variables with supports $S_X$ and $S_Y$, $(X,Y)$ has support $S_X \times S_Y$.
 \end{corrolary}
 
+\begin{theorem}
+Let $(x_1, X_2): (S,\Omega, p)\rightarrow \mathbb{R}^2$ be a random vector and $u: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ be a differentiable, one-to-one function.
+THen $(Y_1, Y_2)=u(X_1, X_2)$ is a random vector with joint PDF
+\begin{equation}
+f_Y(y_1, y_2) = |J(u)|f(u^{-1}(y_1, y_2))
+\end{equation}
+\end{theorem}
+\begin{proof}
+This is a consequence of the change of variables theorem.
+\end{proof}
+
+\begin{definition}
+Let $X$ be a random vector.
+The MGF of $X$ is
+\begin{equation}
+M_X(t) = \mathbb{E}(e^{X^T t})
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $X$ be an $n$-dimensional random vector with MGF $M_X (t)$ and let $A\in \mathbb{R}^{n\times m}$, $b\in \mathbb{R}^m$.
+Then the MGF is the function $M_{AX+b}:\mathbb{R}^m \rightarrow \mathbb{R}$ 
+\begin{equation}
+M_{AX+b}(s)=e^{b^T s}M_X(e^{A^Ts})
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+M_{AX+b}(s)&=\mathbb{E}(e^{s^T(AX+b)})\\
+&=\mathbb{E}(e^{s^TAX+s^Tb})\\
+&=e^{s^Tb}\mathbb{E}(e^{s^TAX})\\
+&=e^{s^Tb}M_X(A^Ts)
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+Let $X$ and $Y$ be independent random variables.
+Then the joint MGF of $(X,Y)$ is
+\begin{equation}
+M_{(X,Y)}(t,s)=M_X(t)M_Y(s)
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+M_{(X,Y)}(s,t)&=\mathbb{E}(e^{tX+sY})\\
+&=\int_{\mathbb{R}^2}e^{tx+sy}dF\\
+&= \int_\mathbb{R}\int_\mathbb{R} e^{tx+sy}dF_X dF_Y\\
+&=\int_\mathbb{R}e^{tx}dF_X \int_\mathbb{R} e^{sy}dF_Y\\
+&=\mathbb{E}(e^{tX}) \mathbb{E}(e^{Y})
+&=M_X(t)M_Y(s)
+\end{align*}
+\end{proof}
+\begin{corrolary}
+\begin{equation}
+M_{X+Y}(t)=M_X(t)M_Y(t)
+\end{equation}
+\end{corrolary}
+
+\begin{theorem}
+Let $(X,Y)$ be a random vector with MGF $M(t,s)$.
+Then $X$ has marginal MGF $M_X(t)=M(t,0)$.
+\end{theorem}
+\begin{proof}
+By definition, $M(t,s)=\mathbb{E}(e^{tX+sY})$.
+By letting $s=0$, this becomes $\mathbb{E}(e^{tX})$.
+This is constant in the distirbution of $Y|X$, so reframing this as iterated integrals gives the definition of hte marginal MGF.
+\end{proof}
+
+\begin{theorem}
+Let $(X,Y)$ be a random vector with MGF $M(t,s)$.
+\begin{equation}
+\frac{\partial^{n+m}M}{\partial^n t \partial^m s}(0,0)
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\frac{\partial^{n+m}M}{\partial^n t \partial^m s}(t,s)&=\frac{\partial^{n+m}}{\partial^n t \partial^m s}\bigg[ \mathbb{E}(e^{tX+sY})\bigg]\\
+&=\mathbb{E}\bigg(\frac{\partial^{n+m}}{\partial^n t \partial^m s}\bigg[ e^{tX+sY}\bigg]\bigg)\\
+&=\mathbb{E}(X^n Y^m e^{tX+sY})\\
+\end{align*}
+By evaluating at $(0,0)$, this gives the desired result.
+\end{proof}
+
+\begin{definition}
+Let $X$ be a random variable with mean $\mu_X$ and $Y$ be a random variable with mean $\mu_Y$.
+Say the covariance of $X$ and $Y$ is
+\begin{equation}
+Cov(X,Y)=\mathbb{E}((X-\mu_X)(Y-\mu_Y))
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+\begin{equation}
+Cov(X,Y)=\mathbb{E}(XY)-\mathbb{E}(X)\mathbb{E}(Y)
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+Cov(X,Y)&=\mathbb{E}((X-\mu_X)(Y-\mu_Y))\\
+&=\mathbb{E}(XY-X\mu_Y-Y\mu_X +\mu_X\mu_Y)\\
+&=\mathbb{E}(XY)-\mathbb{E}(X)\mathbb{E}(Y)-\mathbb{E}(X)\mathbb{E}(Y)+\mathbb{E}(X)\mathbb{E}(Y)\\
+&=\mathbb{E}(XY)-\mathbb{E}(X)\mathbb{E}(Y)
+\end{align*}
+\end{proof}
+
+\begin{definition}
+Say the correlation between two random variables $X$ and $Y$ is
+\begin{equation}
+\rho = \frac{Cov(X,Y)}{\sigma_X \sigma_Y}
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+If $X$ and $Y$ are independent, $Cov(X,Y)=0$.
+\end{lemma}
+\begin{proof}
+First, notice that the MGF is
+\begin{align*}
+M(t,s)&=M_X(t)M_Y(s)\\
+&=\left( 1 + \mu_X t + \frac{\mu_X^2 + \sigma_X^2}{2}t^2+...\right)\left(1+\mu_Ys +\frac{\mu_Y^2+\sigma_Y^2}{2}s^2+...+\right)\\
+&=1+t\mu_x +s\mu_Y  + \frac{\mu_X^2 + \sigma_X^2}{2}t^2 + \frac{\mu_Y^2+\sigma_Y^2}{2}s^2+st\mu_X\mu_Y +...
+\end{align*}
+By properties of hte MGF< $\mathbb{E}(XY)= \mu_X
+\mu_Y$.
+Thus,
+\begin{align*}
+Cov(X,Y)&=\mathbb{E}(XY)-\mathbb{E}(X)\mathbb{E}(Y)\\
+&=\mu_X\mu_Y - \mu_X\mu_Y\\
+&=0
+\end{align*}
+\end{proof}
+
+\textbf{Note-} If two variables are independent, they are uncorrelated, but the converse is not always true.
+Let $X\sim \mathcal{N}(0,1)$ and $Y=X^2$.
+Clearly, $X$ and $Y$ are not independent.
+However, the covariance is $Cov(X,Y)=\mathbb{E}(XY)= \mathbb{E}(X^3)=0$.
+So clearly there are uncorrelated varaibles that are not independent.
+
+\begin{definition}
+Let $X$ be a random vector with mean $\mu$.
+Say the covariance matrix of $X$ is
+\begin{equation}
+Cov(X)=\mathbb{E}((X-\mu)(X-\mu)^T)
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+Let $X$ be a random vector with mean $\mu$ and covariance matrix $\Sigma=[\sigma_{ij}]_{i,j=1}^n$.
+Then $\sigma_{i,j}=Cov(X_i, X_j)$.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\sigma_{i,j}&=\left[ \mathbb{E}((X-\mu)(X-\mu)^T)\right]_{i,j}\\
+&=left[ \mathbb{E}\left(\left[(X-\mu)(X-\mu)^T\right]_{i,j}\right)\\
+&=\mathbb{E}((X_i -\mu_i)(X_j-\mu_j))\\
+&=Cov(X_i, X_j)
+\end{align*}
+\end{proof}
+\begin{corrolary}
+\begin{equation*}
+Cov(X,X)=Var(X)
+\end{equation*}
+\end{corrolary}
+
+\begin{lemma}
+Let $X$ be a random vector with mean $\mu$ and covariance matrix $\Sigma$, and let $A\in \mathbb{R}^{m\times n}$.
+Then $\mathbb{E}(AX)=A\mu$ and $Cov(AX)=A\Sigma A^T$.
+\end{lemma}
+\begin{proof}
+Clearly, $\mathbb{E}(AX)=A\mathbb{E}(X)=A\mu$.
+Also,
+\begin{align*}
+Cov(AX)&=\mathbb{E}((AX-A\mu)(AX-A\mu)^T)\\
+&=\mathbb{E}(A(X-\mu )(X-\mu)^TA^T)\\
+&=A\mathbb{E}((X-\mu)(X-\mu)^T)A^T\\
+&=ACov(X)A^T
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$\Sigma$ is positive definite
+\end{corrolary}
+
+\begin{theorem}
+Let $X_1, X_2$ be independent random variables and let $g_1, g_2:\mathbb{R}\rightarrow \mathbb{R}$ be one-to-one.
+Then $Y_1=g_1(X_1)$ and $Y_2=g_2(X_2)$ are independent random variables.
+\end{theorem}
+\begin{proof}
+Let $X_1$ and $X_2$ have CDFs $F_{X_1}$ and $F_{X_2}$.
+Then $(X_1,X_2)$ has joint CDF $F_X(s_1, x_2)=F_{X_1}(x_1)F_{X_2}(x_2)$.
+Thus, the marginal CDFs are $F_{Y_1}=F_{X_1}\circ g^{-1}_{X_1}$ and $F_{Y_2}=F_{X_2}\circ g^{-1}_{X_2}$.
+Similarly, the joint CDF is $F_Y(y_1, y_2)=F_X(g^{-1}_1(y_1),g_2^{-1}(y_2))=F_{X_1}(g^{-1}_1(y_1))F_{X_2}(g_2^{-1}(y_2))$.
+Thus, the varaibles are independent.
+\end{proof}
+
+\begin{definition}
+Say a sequence $\{X_k\}_{k=1}^n$ of random variabless is independent and identically distributed (iid) whenever the variables are all independent and have the same CDF.
+\end{definition}
+
+\begin{theorem}
+\textbf{Hoeffdin'gs Inequality:}
+Let $\{X_k\}$ be iid $\xi$-subgaussian random variables.
+\begin{equation}
+Pr\left(\middle|\frac{1}{n}\sum_{k=1}^n X_k - \mathbb{E}(X)\middle|> \epsilon\right)\leq 2e^\frac{-n\epsilon^2}{2\xi^2}
+\end{equation}
+\end{theorem}
+\begin{proof}
+We will start by examining only the upper tail.
+By examining the Chernoff Bound\ref{chernoff}
+\begin{align*}
+Pr\left(\frac{1}{n}\sum_{k=1}^n X_k - \mathbb{E}(X)> \epsilon\right) &= Pr\left(\sum_{k=1}^n X_k - n\mathbb{E}(X)> n\epsilon\right) \\
+&\leq \inf_{t>0}e^{-nt\epsilon}\mathbb{E}(e^{t(\sum_kk  X_k -n\mathbb{E}(X)})\\
+&= \inf_{t>0}e^{-nt\epsilon}\prod_k \mathbb{E}(e^{t(X_k-\mathbb{E}(X)})\\
+&\leq e^{-n\epsilon}\left(e^\frac{t^2\xi^2}{2} \right)^n\\
+&=\inf_{t>0}e^{-nt\epsilon+\frac{nt^2\xi^2}{2}}
+\end{align*}
+Here, we have used the fact that the variables are iid and that they are subgaussian to get hte resulting inequalities.
+Next, to find the infimum, notice the expression is iinmized at the minimum of the exponent.
+This occurs at $t=\frac{\epsilon}{\xi^2}$.
+This gives the bound
+\begin{equation*}
+Pr\left(\frac{1}{n}\sum_{k=1}^n X_k - \mathbb{E}(X)> \epsilon\right)\leq e^\frac{-n\epsilon^2}{2\xi^2}
+\end{equation*}
+For the lower tail, consider that the same logic applies by substituting $Y_k=-X_k$.
+Finally, to get an overall bound, notice that $\{| \frac{1}{n} \sum_k X_k - \mathbb{E}(X)|>\epsilon\}$ is equivalent to $\{ \frac{1}{n} \sum_k X_k - \mathbb{E}(X)>\epsilon\}\cup \{ \frac{1}{n} \sum_k X_k - \mathbb{E}(X)>\epsilon\}$.
+Thus, by the union bound, we have the result.
+\end{proof}
+\begin{corrolary}
+If $\{X_k\}$ is a sequence of iid random varaibles with support $(a,b)$, then
+\begin{equation}
+Pr\left(\middle|\frac{1}{n}\sum_{k=1}^n X_k - \mathbb{E}(X)\middle|> \epsilon\right)\leq 2e^\frac{-2 n\epsilon^2}{(b-a)^2}
+\end{equation}
+\end{corrolary}
+
+\begin{definition}
+Let $X$ be a random vector with mean $\mu$ and covariance matrix $\Sigma$.
+Say the Mahalanobis distance between two realizations $x$ and $y$ is
+\begin{equation}
+d(x,y)=(x-y)^T\Sigma^{-1}(x-y)
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+The Mahalanobis distance is a metric
+\end{lemma}
+\begin{proof}
+$\Sigma$ is a positive definiite matrix, so $\Sigma^{-1}$ is also positive definite.
+THus, $x^T \Sigma^{-1}y$ is an inner product which induces the metric.
+\end{proof}
+
 \end{document}
