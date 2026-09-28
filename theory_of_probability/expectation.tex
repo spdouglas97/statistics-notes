@@ -5,6 +5,7 @@
 \usepackage{mathrsfs}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}\newtheorem{definition}{DEF}
 \theoremstyle{lemma}\newtheorem{lemma}{Lemma}
@@ -372,7 +373,7 @@ So the Markov bound gives $Pr((X-\mu)^2\geq t^2)\leq \frac{Var(X)}{t^2}$.
 \end{proof}
 
 \begin{theorem}
-\textbf{Chernoff Bound:}
+\textbf{Chernoff Bound:}\label{chernoff}
 Let $X$ be a random variable with MGF $M_X$.
 Then
 \begin{equation}
