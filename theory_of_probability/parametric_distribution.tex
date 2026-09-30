@@ -87,7 +87,7 @@ Thus, flipping a coin is a Bernouli trial, and whether it comes up heads follows
 
 \begin{definition}
 Let $p\in(0,1)$ and $n\in\mathbb{Z}^+$.
-Say a random vairable has a binomial distribution, $X\sim Binom(p,n)$, whenever i has PDF $f(k)=\binom{n}{k} p^k (1-p)^{n-k}$ for $k\in \{0, 1, 2, ..., n\}$.
+Say a random vairable has a binomial distribution, $X\sim Binom(n,p)$, whenever i has PDF $f(k)=\binom{n}{k} p^k (1-p)^{n-k}$ for $k\in \{0, 1, 2, ..., n\}$.
 \end{definition}
 
 \begin{theorem}
@@ -119,7 +119,7 @@ Thus, the number of heads resulting from 10 cooin flips follows a binomial distr
 Let $p\in (0,1)$, $n\in \mathbb{Z}^+$, and $X_k  { {iid} \atop \sim} Bernouli(p)$ for $1\leq k\leq n$.
 Then
 \begin{equation}
-\sum_{k=1}^n X_k \sim Binom(p,n)
+\sum_{k=1}^n X_k \sim Binom(n,p)
 \end{equation}
 \end{theorem}
 \begin{proof}
@@ -170,5 +170,63 @@ $\mathbb{E}(X)=\frac{1}{p}$ and $Var(X)=\frac{1-p}{p^2}$
 
 \textbf{Note-}
 The geometric distribution can be interpreted as the probability that the first success in a series of independent Bernouli trials occurs on trial $k$.
+
+\begin{definition}
+Let $N,n,K\in \mathbb{Z}^+$ such that $n,K\leq N$. Saya  random variable $X$ has a hypergeometric distribution, $X\sim Hypgeo(N,K,n)$ whenever it has PDF $f(k)=\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}$ for $k\in \{0,1,2,...,\min(n,K)\}$.
+\end{definition}
+
+\begin{theorem}
+Hypgeo(N,K,n)=Hypgeo(N,n,K)
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}&=\frac{K!}{k!(K-k)!}\frac{(N-K)!}{(n-k)!(N-K-n+k)!}\frac{n!(N-n)!}{N!}\\
+&=\frac{n!}{k!(n-k)!}\frac{(N-n)!}{(K-k)!(N-K-n+k)!}\frac{K!(N-K)!}{N!}\\
+&=\frac{\binom{n}{k}\binom{N-n}{K-k}}{\binom{N}{K}}
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+For teh hypergeometric distibution, $\mathbb{E}(X)=\frac{nK}{N}$ and $Var(X)=\frac{K(N-K)(N-n)}{N^1(N-1)}$
+\end{theorem}
+\begin{proof}
+Without loss of generality, we can assume $n<K$.
+The mean is
+\begin{align*}
+\mathbb{E}(X)&=\int_0^n kdF\\
+&=\sum_{k=0}^n k\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}\\
+&=0+\sum_{k=1}^n k\frac{K!n!(N-n)!\binom{N-K}{n-k}}{k!(K-k)!N!}\\
+&=\frac{nK}{N}\sum_{k=1}^n \frac{(K-1)!(n-1)!(N-n)!\binom{N-K}{n-k}}{(k-1)!(K-k)!(N-1)!}\\
+&=\sum_{i=1}^{n-1} \frac{(K-1)!(n-1)!(N-n)!\binom{N-K}{n-i-1}}{i!(K-i-1)!(N-1)!}\\
+&=\frac{nK}{N}\sum_{i=0}^{n-1}\frac{\binom{K-1}{i}\binom{N-K}{n-i-1}}{\binom{N-1}{n}}\\
+&=\frac{nK}{N}
+\end{align*}
+THe final summation is the PDF of hte $Hypgeo(N-1,K-1,n)$ distribution.\\
+To find the variance, it is easiest to start by computing
+\begin{align*}
+\mathbb{E}(X(X-1)&=\int_0^nk(k-1)dF\\
+&=\sum_{k=0}^n k(k-1)\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}\\
+&=0+\sum_{k=2}^n k(k-1)\frac{K!n!(N-n)!\binom{N-K}{n-k}}{k!(K-k)!N!}\\
+&=\frac{K(K-1)n(n-1)}{N(N-1)}\sum_{k=2}^n\frac{(K-2)!(n-2)!(N-n)!\binom{N-K}{n-k}}{(N-2)!(k-2)!(K-k)!}\\
+&=\frac{K(K-1)n(n-1)}{N(N-1)}\sum_{i=0}^{n-2} \frac{i!(n-2)!(N-n)!\binom{N-K}{n-i-2}}{(N-2)!i!(K-i-2)!}\\
+&=\frac{K(K-1)n(n-1)}{N(N-1)}
+\end{align*}
+To compute the variance, we take advantage of linearity of variance to compute $\mathbb{E}(X^2)$.
+\begin{align*}
+Var(X)&=\mathbb{E}(X^2)-\mathbb{E}(X)^2\\
+&=\mathbb{E}(X(X-1))+\mathbb{E}(X)-\mathbb{E}(X)^2\\
+&=\frac{K(K-1)n(n-1)}{N(N-1)}+\frac{nK}{N}-\left(\frac{nK}{N}\right)^2\\
+&=\frac{K(K-1)n(n-1)N}{N^2(N-1)}+\frac{nKN(N-1)}{N^2(N-1)}-\frac{n^2K^2(N-1)}{N^2(N-1)}\\
+&=\frac{K(N-K)(N-n)}{N^2(N-1)}
+\end{align*}
+\end{proof}
+
+\textbf{Note-}
+The hypergeometric distribution represents selecting $n$ samples and getting $k$ successes from a population of size $N$ with $K$ successes, sampling without replacement.
+This means each individual draw is a Bernouli trial, but the draws are not independent, unlike the binomial distribution.\\
+
+\textbf{Ex-}
+A bag contains 30 white marbles and 20 black marbles, and 10 marbles are drawn at random.
+The number of white marbles in the sample follows a hypergeometric distribution.
 
 \end{document}
