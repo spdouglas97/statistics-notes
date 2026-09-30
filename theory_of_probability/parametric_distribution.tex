@@ -229,4 +229,61 @@ This means each individual draw is a Bernouli trial, but the draws are not indep
 A bag contains 30 white marbles and 20 black marbles, and 10 marbles are drawn at random.
 The number of white marbles in the sample follows a hypergeometric distribution.
 
+\begin{definition}
+Let $p\in(0,1)$ and $k\in\mathbb{Z}^+$.
+Say a random vairable $X$ has a negative binomial distribution, $X\sim NBinom(p,k)$ whenever it has PDF $f(n)=\binom{n+k-1}{k-1}p^k(1-p)^n$ for $n\in \mathbb{Z}^+$.
+\end{definition}
+
+\begin{lemma}
+Let $X_1, X_2, ..., X_k {iid \atop \sim} Geo(P)$ and let $X=\sum_i X_i$.
+Then $X\sim NBinom(p,k)$.
+\end{lemma}
+\begin{proof}
+Notice that $(X_1, X_2, ..., X_{k-1}, X_k) \rightarrow (X_1, X_2, ..., X_{k-1}, X)$ is a one-to-one transformation.
+Also, the Jacobian of hte transofrmation is 1.
+THus, the joint PDF of the random vector is $f(N-1, n_2, ..., n_{k-1}, n)=p^k(1-p)^n$.
+Computing the marginal PDF of $X$ gives $f(n)=\binom{n-k-1}{k-1}p^k(1-p)^n$.
+\end{proof}
+
+\begin{theorem}
+The moment generating function is $M(t)=\frac{p^k}{\left(1-p+pe^t\right)^k}$.
+\end{theorem}
+\begin{proof}
+Let $M_X(t)$ be the MGF of $Gep(p)$.
+Then
+\begin{align*}
+M(t)&=(M_X(t))^k\\
+&=\frac{p^k}{\left(1-p+pe^t\right)^k}
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=\frac{k}{p}$ and $Var(X)=\frac{k(1-p)}{p^2}$.
+\end{corrolary}
+
+\begin{definition}
+Say a random variable has a Rademacher distribution, $X\sim Rad$ whenever $Pr(X=1)=Pr(X=-1)=\frac{1}{2}$.
+\end{definition}
+
+\begin{lemma}
+Let $X=Bernouli(\frac{1}{2})$.
+Then $Y=2X-1$ has a Rademacher distribution.
+\end{lemma}
+\begin{proof}
+By examining the PDF,
+\begin{align*}
+Pr(Y=1)&=Pr(2X-1=1)\\
+&=Pr(X=1)\\
+&=\frac{1}{2}
+\end{align*}
+Similar logic applies to $Y=-1$.
+\end{proof}
+
+\begin{definition}
+Let $\{p_k\}_{k=1}^K$ such that $\sum_k p_k=1$ and let $n\in\mathbb{Z}^+$.
+Say a random vector $X$ has a multinomial distribution, $X\sim Multinom(n,\{p_k\})$, whenever the support is $n_1, n_2, ..., n_K\in \mathbb{Z}^+$ such that $\sum_k n_k = n$ and the PDF on that support is
+\begin{equation}
+f(n_1, n_2, ..., n_K)=\frac{1}{n!}\prod_k n_k! p_k^{n_k}
+\end{equation}
+\end{definition}
+
 \end{document}
