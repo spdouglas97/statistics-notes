@@ -1,7 +1,174 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{stackengine}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{definition}
+A parametric distribution is a class of probability distributions indexed by finitely many variables.
+\end{definition}
+
+\begin{definition}
+Let $a,b\in \mathbb{R}$.
+Say $X$ has a uniform distribution, $X \sim Unif(a,b)$ when the PDF is $f(x)=\frac{1}{b-a}$ for $x\in (a,b)$.
+\end{definition}
+
+\begin{theorem}
+THe CDF is $F(x)=\frac{x-a}{b-a}$ and MGF $M(t)=\frac{e^{tb}-e^{ta}}{t(b-a)}$.
+\end{theorem}
+\begin{proof}
+Assume $a<x<b$.
+For the CDF,
+\begin{align*}
+F(x)&=\int_a^x 1dF\\
+&=\int_a^x \frac{1}{b-a}dy\\
+&=\frac{y}{b-a}|_a^x\\
+&=\frac{x-a}{b-a}
+\end{align*}
+For the MGF,
+\begin{align*}
+M(t)&=\mathbb{E}(e^{tX})\\
+&= \int_a^b e^{tx}dF\\
+&=\int_a^b \frac{e^{tx}}{b-a}dx\\
+&=\frac{e^{tx}}{t(b-a)}|_a^b\\
+&=\frac{e^{tb}-e^{ta}}{t(b-a)}
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=\frac{a+b}{2}$ and $Var(X)=\frac{(b-a)^2}{12}$.
+\end{corrolary}
+
+\begin{definition}
+A Bernouli trial is a random experiment with two outcomes: success, which happens with probability $p$, and failure, which happens with probability $1-p$.
+\end{definition}
+
+\begin{definition}
+Let $p\in (0,1)$.
+Say a random variable has a Bernoouli distribution whenever it has pdf $f(k)=p^k(1-p)^{1-k}$ for $k\in \{0,1\}$.
+\end{definition}
+
+\begin{theorem}
+A Bernouli distribution has CDF $F(k)=1-p+kp$ and MGF $M(t)=1-p+pe^t$.
+\end{theorem}
+\begin{proof}
+For the CDF,
+\begin{align*}
+F9x)&=\int_0^k1dF\\
+&=\sum_{i=0}^k p^i(1-p)^{1-i}\\
+&=1-p+kp
+\end{align*}
+Note that the easiest way to do this summation is to simply plug in both $k=0$ and $k=1$ and find the values.
+For the MGF, we perform a similar process
+\begin{align*}
+M(t)&=\mathbb{E}(e^{tX})\\
+&=\int_0^ke^{ti}dF\\
+&=\sum_{i=0}^k e^{ti}p^i(1-p)^{1-i}\\
+&=1-p+pe^t
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=p$ and $Var(X)=p(1-p)$.
+\end{corrolary}
+
+\textbf{Ex-}
+A coin has a $50\%$ chance of being hads and will either be hads or tails.
+Thus, flipping a coin is a Bernouli trial, and whether it comes up heads follows a Bernouli distribution.
+
+\begin{definition}
+Let $p\in(0,1)$ and $n\in\mathbb{Z}^+$.
+Say a random vairable has a binomial distribution, $X\sim Binom(p,n)$, whenever i has PDF $f(k)=\binom{n}{k} p^k (1-p)^{n-k}$ for $k\in \{0, 1, 2, ..., n\}$.
+\end{definition}
+
+\begin{theorem}
+A binomial distribution has MGF $M(t)=\left( 1-p+pe^t\right)^n$.
+\end{theorem}
+\begin{proof}
+Notice
+\begin{align*}
+M(t)&=\mathbb{E}(e^{tX})\\
+&=\int_0^k e^{ti}dF\\
+&=\sum_{i=0}^k e^{ti}\binom{n}{i}p^i(1-p)^{n-i}\\
+&=\sum_{i=0}^k \binom{n}{i}\left( pe^t\right)^i(1-p)^{n-i}\\
+&=\left(1-p+pe^t\right)^n
+\end{align*}
+For the final step, we have used the binomial theorem.
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=np$ and $Var(X)=np(1-p)$.
+\end{corrolary}
+
+\textbf{Note-} The binomail distribution does not have a closed-form representation of the CDF, so we have not definte one here.
+The CDF can be defined as a simple summation, but that sum does not have a simple evaluation in general.\\
+
+\textbf{Ex-}
+If a fair coin is flipped 10 times, the results are independent.
+Thus, the number of heads resulting from 10 cooin flips follows a binomial distribution.
+
+\begin{theorem}
+Let $p\in (0,1)$, $n\in \mathbb{Z}^+$, and $X_k  { {iid} \atop \sim} Bernouli(p)$ for $1\leq k\leq n$.
+Then
+\begin{equation}
+\sum_{k=1}^n X_k \sim Binom(p,n)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $M_X$ be the MGF of $X_k$.
+Notice the MGF is the same for all $k$ because the $X_k$ are defined to be iid.
+Thus, the MGF of the sum is
+\begin{align*}
+M(t)&=\left(M(t)\right)^n\\
+&=\left( 1-p+pe^t\right)^n
+\end{align*}
+This is the MGF of the binomial distribution.
+Thus, the sum follows the binomial distribution.
+\end{proof}
+
+\textbf{Note-}
+The binomial distribution can be described as the probability that $n$ independent Bernouli trials result in $k$ successes.
+This situation often arises in applications of the probability distribution.
+
+\begin{definition}
+Let $p\in (0,1)$.
+Say a random variable has a geometric distribution, $X\sim Geo(p)$, whenever it has PDF $f(k)=p(1-p)^k$ for $k\in \mathbb{Z}^+$.
+\end{definition}
+
+\begin{theorem}
+The geometric distribution has CDF $F(k)=1-(1-p)^k$ and MGF $M(t)=\frac{p}{1-(1-p)e^t}$.
+\end{theorem}
+\begin{proof}
+In order to compute the CDF, we consider
+\begin{align*}
+Pr(X>k)&=\int_k^\infty 1dF\\
+&=\sum_k^\infty p(1-p)^i\\
+&=(1-p)^k
+\end{align*}
+This summation is an example of a geometric series, which is where the distribution gets its name.
+To compute the CDF, we simply take the compliment of htis event, so $F(k)=1-p(1-p)^k$.\\
+To compute the MGF, we can compute a similar geometric series
+\begin{align*}
+M(t)&=\mathbb{E}(e^{tX})\\
+&=\int_0^\infty 1dF\\
+&=\sum_{k=0}^\infty e^{tk}p(1-p)^k\\
+&=\sum_{k=0}^\infty p(e^t(1-p))^k\\
+&=\frac{p}{1-(1-p)e^t}
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=\frac{1}{p}$ and $Var(X)=\frac{1-p}{p^2}$
+\end{corrolary}
+
+\textbf{Note-}
+The geometric distribution can be interpreted as the probability that the first success in a series of independent Bernouli trials occurs on trial $k$.
 
 \end{document}
