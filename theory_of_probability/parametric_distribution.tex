@@ -21,7 +21,10 @@ A parametric distribution is a class of probability distributions indexed by fin
 
 \begin{definition}
 Let $a,b\in \mathbb{R}$.
-Say $X$ has a uniform distribution, $X \sim Unif(a,b)$ when the PDF is $f(x)=\frac{1}{b-a}$ for $x\in (a,b)$.
+Say $X$ has a uniform distribution, $X \sim Unif(a,b)$ when the support is $(a,b)$ and the PDF on the support is
+\begin{equation}
+f(x)=\frac{1}{b-a}
+\end{equation}
 \end{definition}
 
 \begin{theorem}
@@ -55,7 +58,10 @@ A Bernouli trial is a random experiment with two outcomes: success, which happen
 
 \begin{definition}
 Let $p\in (0,1)$.
-Say a random variable has a Bernoouli distribution whenever it has pdf $f(k)=p^k(1-p)^{1-k}$ for $k\in \{0,1\}$.
+Say a random variable has a Bernoouli distribution whenever it has pdf support $k\in \{0,1\}$ and the PDF on the support is
+\begin{equation}
+f(k)=p^k(1-p)^{1-k}
+\end{equation}
 \end{definition}
 
 \begin{theorem}
@@ -87,7 +93,10 @@ Thus, flipping a coin is a Bernouli trial, and whether it comes up heads follows
 
 \begin{definition}
 Let $p\in(0,1)$ and $n\in\mathbb{Z}^+$.
-Say a random vairable has a binomial distribution, $X\sim Binom(n,p)$, whenever i has PDF $f(k)=\binom{n}{k} p^k (1-p)^{n-k}$ for $k\in \{0, 1, 2, ..., n\}$.
+Say a random vairable has a binomial distribution, $X\sim Binom(n,p)$, whenever it has support $k\in \{0, 1, 2, ..., n\}$ and the PDF on the support is
+\begin{equation}
+f(k)=\binom{n}{k} p^k (1-p)^{n-k}
+\end{equation}
 \end{definition}
 
 \begin{theorem}
@@ -109,11 +118,7 @@ $\mathbb{E}(X)=np$ and $Var(X)=np(1-p)$.
 \end{corrolary}
 
 \textbf{Note-} The binomail distribution does not have a closed-form representation of the CDF, so we have not definte one here.
-The CDF can be defined as a simple summation, but that sum does not have a simple evaluation in general.\\
-
-\textbf{Ex-}
-If a fair coin is flipped 10 times, the results are independent.
-Thus, the number of heads resulting from 10 cooin flips follows a binomial distribution.
+The CDF can be defined as a simple summation, but that sum does not have a simple evaluation in general.
 
 \begin{theorem}
 Let $p\in (0,1)$, $n\in \mathbb{Z}^+$, and $X_k  { {iid} \atop \sim} Bernouli(p)$ for $1\leq k\leq n$.
@@ -136,11 +141,18 @@ Thus, the sum follows the binomial distribution.
 
 \textbf{Note-}
 The binomial distribution can be described as the probability that $n$ independent Bernouli trials result in $k$ successes.
-This situation often arises in applications of the probability distribution.
+This situation often arises in applications of the probability distribution.\\
+
+\textbf{Ex-}
+If a fair coin is flipped 10 times, the results are independent.
+Thus, the number of heads resulting from 10 cooin flips follows a binomial distribution.
 
 \begin{definition}
 Let $p\in (0,1)$.
-Say a random variable has a geometric distribution, $X\sim Geo(p)$, whenever it has PDF $f(k)=p(1-p)^k$ for $k\in \mathbb{Z}^+$.
+Say a random variable has a geometric distribution, $X\sim Geo(p)$, whenever it has support $k\in \mathbb{Z}^+$ and the PDF on the support is
+\begin{equation}
+f(k)=p(1-p)^k
+\end{equation}
 \end{definition}
 
 \begin{theorem}
@@ -231,14 +243,21 @@ The number of white marbles in the sample follows a hypergeometric distribution.
 
 \begin{definition}
 Let $p\in(0,1)$ and $k\in\mathbb{Z}^+$.
-Say a random vairable $X$ has a negative binomial distribution, $X\sim NBinom(p,k)$ whenever it has PDF $f(n)=\binom{n+k-1}{k-1}p^k(1-p)^n$ for $n\in \mathbb{Z}^+$.
+Say a random vairable $X$ has a negative binomial distribution, $X\sim NBinom(p,k)$ whenever it has support $n\in \mathbb{Z}^+$ and the PDF on the support is 
+\begin{equation}
+f(n)=\binom{n+k-1}{k-1}p^k(1-p)^n
+\end{equation}
 \end{definition}
 
 \begin{lemma}
-Let $X_1, X_2, ..., X_k {iid \atop \sim} Geo(P)$ and let $X=\sum_i X_i$.
-Then $X\sim NBinom(p,k)$.
+Let $X_1, X_2, ..., X_k {iid \atop \sim} Geo(P)$.
+Then
+\begin{equation}
+\sum_i X_i \sim NBinom(p,k)
+\end{equation}
 \end{lemma}
 \begin{proof}
+Let $X=\sum_i X_i$.
 Notice that $(X_1, X_2, ..., X_{k-1}, X_k) \rightarrow (X_1, X_2, ..., X_{k-1}, X)$ is a one-to-one transformation.
 Also, the Jacobian of hte transofrmation is 1.
 THus, the joint PDF of the random vector is $f(N-1, n_2, ..., n_{k-1}, n)=p^k(1-p)^n$.
@@ -285,5 +304,211 @@ Say a random vector $X$ has a multinomial distribution, $X\sim Multinom(n,\{p_k\
 f(n_1, n_2, ..., n_K)=\frac{1}{n!}\prod_k n_k! p_k^{n_k}
 \end{equation}
 \end{definition}
+
+\begin{lemma}
+Let $\{e_k\}$ be the standard basis vectors in $\mathbb{R}^K$.
+Let $X_i$ be $n$ iid random vectors with distribution $Pr(X_i = e_k)=p_k$.
+Then 
+\begin{equation}
+\sum_i X_i \sim Multinom(n, \{p_k\})
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $X=(n_1, n_2, ..., n_K)$.
+Clearly, by constructoin, $\sum_k n_k = n$.
+Also notice that hte components of each $X_i$ are Bernouli random variables each with probability $p_k$.
+Finally, $(X_1, X_2, ..., X_{n-1}, X_n) \rightarrow (X_1, X_2, ..., X_{n-1}, X)$ is a one-to-one transformation with Jacobian 1.
+SO the joint PDF is $f(x_1, x_2, ..., x_{k-1}, x)=\prod_k p_k^{n_k}$.
+By finding hte marginal distribution, this gives $f(x)=\frac{1}{n!}\prod_k p_k^{n_k}$.
+\end{proof}
+\begin{corrolary}
+If $(N_1, N_2, ..., N_K)\sim Multinom(n, \{p, 1-p\})$ then $N_k\sim Binom(n,p_k)$.
+\end{corrolary}
+
+\begin{theorem}
+The MGF is $M(t)=\left(\sum_k p_k e^{t_k}\right)^n$.
+\end{theorem}
+\begin{proof}
+Let $X_i=e_k$ with probability $p_k$ where $e_k$ is a standard basis vector of $\mathbb{R}^K$.
+Clearly,
+\begin{align*}
+M_X(t)&=\mathbb{E}(X_i)\\
+&=\sum_k p_k e^{t_k}
+\end{align*}
+By the previous lemma, a multinomaial random vector is the sum of $n$ such iid random vectors.
+So, by properties of the MGF,
+\begin{align*}
+M(t)&=(M_X(t))^n\\
+&=\left( \sum_k p_k e^{t_k}\right)^n
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+Let $p=(p_1, p_2, ..., p_K)$.
+Then $\mathbb{E}(X)=np$ and $Cov(X_i, X_j)=np_i (\delta_{ij}p_j)$ where $\delta$ is the Kronecker delta function
+\end{theorem}
+\begin{proof}
+Recall that if $X=(N_1, N_2, ..., N_K)$ then each $N_k\sim Binom(n,p_K)$.
+So
+\begin{align*}
+\mathbb{E}(X)&=\mathbb{E}((N_1, N_2, ..., N_K))\\
+&=(np_1, np_2, ..., np_K)\\
+&=np
+\end{align*}
+Similar logic allows us to find the varaiance.
+Finally, to find the covariance,
+\begin{equation*}
+\frac{\partial^2 M}{\partial t_i \partial t_j} =n (n-1) p_i p_j e^{t_i+t_j}\left( \sum_k p_k e^{t_k}\right)^{n-2}
+\end{equation*}
+Thus, $M(0)=n(n-1)p_i p_j$.
+So, assuming $i\neq j$,
+\begin{align*}
+Cov(X_i, X_j)&=\mathbb{E}(N_i N_j) - \mathbb{E}(N_i)\mathbb{E}(N_j)\\
+&=n(n-1)p_i p_J - (np_i)(np_j)\\
+&=-np_ip_j
+\end{align*}
+FInally, notice the Kronecker delta function gives a consie way to write the covariance even when $i=j$.
+\end{proof}
+
+\textbf{Note-}
+If we generalize the Bernouli trial to have $K$ outputs, the result of hte trial can be represented by the random variable $X_i$ and its distribution over $e_k$.
+Thus, the Multinomaial distribution is the quivalent of a binomial distribution for this random experiment.
+
+\begin{definition}
+A Poisson trial is a random experiment in which points are distributed through a space.
+\end{definition}
+
+\begin{definition}
+Let $\lambda \in \mathbb{R}^+$.
+Say a random variable has a Poisson distribution, $X\sim Poisson(\lambda)$, whenever it has support $\mathbb{N}$ and the PDF on the support is
+\begin{equation}
+f(x)=\frac{\lambda^k e^{-\lambda}}{k!}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+The MGF is $M(t)=e^{\lambda (e^t-1)}$.
+\end{theorem}
+\begin{proof}
+By Taylor's theorem,
+\begin{align*}
+M(t)&=\mathbb{E}(e^{tX})\\
+&=\sum_{k=0}^\infty \frac{\lambda^k e^{-\lambda}e^{t^k}}{k!}\\
+&=\sum_{k=0}^\infty \frac{(\lambda e^t)^ke^{-\lambda}}{k!}\\
+&=e^{\lambda (e^t-1)}
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=\lambda$ and $Var(X)=\lambda$
+\end{corrolary}
+
+\textbf{Note-}
+A common interpretation ofhte Poisson distribution is the number of times an event occurs when it can occur at any point within the interval.
+In that sense, teh Poisson distribution is a continuous version of the binomial distribution.\\
+
+\textbf{Ex-}
+Over a 5 minute period, an average of 4.3 people will enter a particular Tarbucks.
+The number of people who walk into the Starbucks can be modeled as a Poisson distribution with $\lambda=4.3$.
+
+\begin{definition}
+Let $\lambda \in \mathbb{R}^+$.
+Say a random variable has an exponential distribution, $X\sim Exp(\lambda)$ whenever it has support $\mathbb{R}^+$ and the PDF on the support is
+\begin{equation}
+f(x)=\lambda e^{-\lambda x}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+The CDF is $F(x)=1-e^{-\lambda x}$ and the MGF is $M(t)=\frac{\lambda}{\lambda - t}$
+\end{theorem}
+\begin{proof}
+For the CDF,
+\begin{align*}
+F(x)&=\int_0^x 1dF\\
+&=\int_0^x \lambda e^{-\lambda t}dt\\
+&=-e^{-\lambda t}|_0^x\\
+&=1-e^{-\lambda x}
+\end{align*}
+Similarly, for the MGF,
+\begin{align*}
+M(t)&=\mathbb{E}(e^{tX})\\
+&=\int_0^\infty e^{tx} \lambda e^{-\lambda x} dx\\
+&= \int_0^\infty \lambda e^{(t-\lambda)x}dx\\
+&= \frac{\lambda}{t-\lambda} e^{(t-\lambda)x}|_0^\infty\\
+&= 0-\frac{\lambda}{t-\lambda}\\
+&= \frac{\lambda}{\lambda -t}
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=\frac{1}{\lambda}$ and $Var(X)=\frac{1}{\lambda}$
+\end{corrolary}
+
+\begin{theorem}
+The waiting time for a poisson process is an exponential distribution with the same $\lambda$.
+\end{theorem}
+\begin{proof}
+Let $T$ be the time between successes.
+We want to find $Pr(T\leq t)$ for a given $t\in \mathbb{R}^+$.
+Say there are an average of $\lambda$ successes per unit time.
+Then there are an average of $\lambda t$ successes in an interval of length $t$.
+Let $X$ be the number of successes in that interval.
+Then $X\sim Poisson(\lambda t)$.
+Also notice that the waiting time is less than $t$ if there is at least one success, so $Pr(T\leq t)=Pr(X>0)$.
+We can compute
+\begin{align*}
+Pr(T>t)&=Pr(X=0)\\
+&=\frac{(\lambda t)^0e^{-\lambda t}}{0!}\\
+&=e^{-\lambda t}
+\end{align*}
+So the CDF of $T$ is $Pr(T\leq t)=1-e^{-\lambda t}$ which is hte CDF of hte exponential distribution.
+Therefore, $T\sim Exp(\lambda)$.
+\end{proof}
+
+\begin{definition}
+Let $\theta \in \mathbb{R}$ and $\lambda \in \mathbb{R}^+$.
+Say a random variable has a Laplacian distribution, $X\sim Laplace(\lambda, \theta)$ when it has support $\mathbb{R}$ and PDF
+\begin{equation}
+f(x)=\frac{\lambda}{2}e^{-\lambda |x-\theta |}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $X_1, X_2 {iid \atop \sim} Exp(\lambda)$ .
+Then 
+\begin{equation}
+X_1 -X_2\sim Laplace(\lambda, 0)
+\end{equation}
+\end{theorem}
+\begin{proof}
+The joint PDF of $(X_1, X_2)$ is $f(x_1, x_2)= \lambda^2 e^{-\lambda (x_1+x_2)}$.
+Let $Y_1=X_1-X_2$ and $Y_2=X_2$.
+Then $(X_1, X_2)\rightarrow (Y_1, Y_2)$ is a one-to-one transformation with Jacobian 1.
+So the joint PDF of $Y$ is $f(y_1, y_2)=\lambda^2 e^{-\lambda (y_1 + 2y_2)}$.
+So the marginal PDF of $Y_1$ is
+\begin{align*}
+f(y_2)&=\int_0^\infty \lambda^2 e^{-\lambda (y_1 +2y_2)}\\
+&=\frac{\lambda}{2}e^{-\lambda(y_1+2y_2)}|_0^\infty\\
+&=\frac{\lambda}{2}e^{-\lambda y_1}
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+THe MGF of a laplace distribution is $M(t)=\frac{\lambda^2}{\lambda^2 -t^2}e^{t\theta}$
+\end{theorem}
+\begin{proof}
+First, suppose $\theta=0$.
+Let $X_1, X_2{iid \atop \sim} Exp(\lambda)$.
+Then THe MGF of $X=X_1-X_2$ is
+\begin{align*}
+M(t)&=M_{X_1}(t)M_{X_2}(-t)\\
+&=\left(\frac{\lambda}{\lambda - t}\right) \left( \frac{\lambda}{\lambda + t}\right)\\
+&=\frac{\lambda^2}{\lambda^2 - t^2}
+\end{align*}
+Next, notice that if $X\sim Laplace(\lambda, \theta)$, $X-\theta \sim Laplace(\lambda, 0)$.
+So $M(t)=\frac{\lambda^2}{\lambda^2 -t^2}e^{t\theta}$.
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=\theta$ and $Var(X)=\frac{2}{\lambda^2}$
+\end{corrolary}
 
 \end{document}
