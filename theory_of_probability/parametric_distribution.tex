@@ -511,4 +511,102 @@ So $M(t)=\frac{\lambda^2}{\lambda^2 -t^2}e^{t\theta}$.
 $\mathbb{E}(X)=\theta$ and $Var(X)=\frac{2}{\lambda^2}$
 \end{corrolary}
 
+\begin{definition}
+Let $\alpha, \beta \in \mathbb{R}^+$.
+Say a random variable has a gamma distribution, $X\sim Gamma(\alpha, \beta)$ when it has support $\mathbb{R}^+$ and the PDF on its support is
+\begin{equation}
+f(x)=\frac{1}{\Gamma (\alpha)} x^{\alpha -1}e^{\frac{-x}{\beta}}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+The MGF is $M(t)=\left( \frac{1}{1-\beta e^t}\right)^\alpha$.
+\end{theorem}
+\begin{proof}
+\begin{align*}
+M(t)&=\mathbb{E}(e^{tX})\\
+&=\int_0^\infty e^{tx}dF\\
+&=\int_0^\infty \frac{1}{\Gamma (\alpha)}x^{\alpha-1}e^{x(\frac{1}{\beta}+t)}dx
+\end{align*}
+Let $u=\left(\frac{1-\beta t}{\beta}\right)x$.
+Then $du = \frac{1-\beta t}{\beta} dx$, or $dx = \frac{\beta}{1-\beta t}du$.
+So
+\begin{align*}
+M(t)&=\int_0^\infty \frac{1}{\Gamma (\alpha)}x^{\alpha-1}e^{x(\frac{1}{\beta}+t)}dx\\
+&=\int_0^\infty \frac{1}{\Gamma (\alpha)(1-\beta t)^\alpha} u^{\alpha-1} e^{-u} du\\
+&=\frac{1}{\Gamma (\alpha)(1-\beta t)^\alpha} \int_0^\infty u^{\alpha -1}e^{-u}du\\
+&=\frac{1}{(1-\beta t)^\alpha}
+\end{align*}
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=\alpha \beta$ and $Var(X)=\alpha \beta^2$.
+\end{corrolary}
+\begin{corrolary}
+If $X\sim Exp(\lambda)$ then $X\sim Gamma(1, \frac{1}{\lambda})$.
+\end{corrolary}
+\begin{corrolary}
+If $X_1 \sim Gamma(\alpha_1, \beta)$ and $X_2\sim Gamma(\alpha_2, \beta)$ are independent, then
+\begin{equation}
+X_1 + X_2 \sim Gamma(\alpha_1 + \alpha_2, \beta)
+\end{equation}
+\end{corrolary}
+
+\begin{definition}
+Let $\alpha, \beta\in \mathbb{R}^+$.
+Say a random variable has a beta distribution, $X\sim Beta(\alpha, \beta)$,when it has support $(0,1)$ and the PDF on the support is
+\begin{equation}
+f(x)=\frac{\Gamma (\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha -1}(1-x)^{\beta -1}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $X_1\sim Gamma(\alpha, 1)$ and $X_2\sim Gamma(\beta, 1)$  be independent random variables.
+Then
+\begin{equation}
+\frac{X_1}{X_1 + X_2} \sim Beta(\alpha, \beta)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $Y_1=X_1 + X_2$ and $Y_2 = \frac{X_1}{X_1 + X_2}$.
+Then $(X_1, X_2)\rightarrow (Y_1, Y_2)$ is a one-to-one transformation.
+Also notice that $X_!=Y_1 Y_2$ and $X_2 = Y_!(1-Y_2)$.
+Then the Jacobian is
+\begin{align*}
+J&=
+\begin{vmatrix}
+\frac{\partial X_1}{\partial Y_1} & \frac{\partial X_1}{\partial Y_2}\\
+\frac{\partial X_2}{\partial Y_1} & \frac{\partial X_2}{\partial Y_2}\\
+\end{vmatrix}\\
+&=
+\begin{vmatrix}
+y_2 & y_1\\
+1-y_2 & -y_1\\
+\end{vmatrix}\\
+&=-y_1
+\end{align*}
+The joint distributin of $X$ is $f(x_1, x_2)=x_1^{\alpha-1}x_2^{\beta-1}e^{-(x_1+x_2)}$.
+So we can compute the marginal PDF of $Y_2$ as
+\begin{align*}
+f(y_2)&=\int_\mathbb{R} Jf(x_1(y_1, y_2), x_2(y_1, y_2))dy_1\\
+&=\int_0^\infty \frac{1}{\Gamma(\alpha)\Gamma(\beta)} y_1 y_1^{\alpha-1} y_2^{\alpha-1} y_1^{\beta -1} (1-y_2)^{\beta-1} e^{-y_1}dy_1\\
+&=\int_0^\infty \frac{1}{\Gamma(\alpha)\Gamma(\beta)} y_1^{\alpha + \beta -1} y_2^{\alpha -1} (1-y_2)^{\beta -1} e^{-y_1}dy_1\\
+&=\frac{1}{\Gamma(\alpha)\Gamma(\beta)} y_2^{\alpha-1} (1-y_2)^{\beta-1} \int_0^\infty y_1^{\alpha + \beta -1}e^{-y_1}dy_1\\
+&=\frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} y_2^{\alpha-1} (1-y_2)^{\beta-1}
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+$\mathbb{E}(X)=\frac{\alpha}{\alpha + \beta}$ and $Var(X)=\frac{\alpha \beta}{(\alpha +\beta)^2 (\alpha +\beta +1)}$
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\mathbb{E}(X)&=\int_\mathbb{R} xdF\\
+&=\int_0^1 \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} x^\alpha (1-x)^{\beta -1}dx\\
+&=\frac{\alpha}{\alpha+\beta} \int_0^1 \frac{\Gamma(\alpha + \beta+1)}{\Gamma(\alpha+1)\Gamma(\beta)} x^\alpha (1-x)^{\beta -1}dx\\
+&=\frac{\alpha}{\alpha + \beta}
+\end{align*}
+By similar logic, we can find $\mathbb{E}(X)=\frac{\alpha (\alpha+1)}{(\alpha+\beta)(\alpha+\beta+1)}$.
+Thus, the variance is $Var(X)=\frac{\alpha \beta}{(\alpha +\beta)^2 (\alpha +\beta +1)}$.
+\end{proof}
+
 \end{document}
