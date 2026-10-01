@@ -609,4 +609,72 @@ By similar logic, we can find $\mathbb{E}(X)=\frac{\alpha (\alpha+1)}{(\alpha+\b
 Thus, the variance is $Var(X)=\frac{\alpha \beta}{(\alpha +\beta)^2 (\alpha +\beta +1)}$.
 \end{proof}
 
+\begin{definition}
+Let $\alpha_i\in\mathbb{R}^{+}$ for $1\leq i \leq n$.
+Say a random vector has a Dirichlet distribution, $X\sim Dir(\{\alpha_i \})$ , whenever its support is the standard $n-1$-simplex, $\Delta^{n-1}$, and its PDF on that support is
+\begin{equation}
+f(x_1, x_2, ..., x_n)=\Gamma(\sum_i \alpha_i) \prod_i \frac{x{\alpha_i-1}}{\Gamma(\alpha_i)}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $X_i \sim Gamma(\alpha_i ,1)$ be independent random varaiables.
+Then
+\begin{equation}
+\left(\frac{X_i}{\sum_k X_k}\right)_{i=1}^n \sim Dir(\{\alpha_i \})
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $Z=\sum_k X_k$ and let $Y=\frac{X}{Z}$.
+Clearly, $Z\sim Gamma(\sum_k \alpha_k,1)$.
+Now, consider $X \rightarrow (Y_1, Y_2, ..., Y_n, Z)$ is a one-to-one transformation.
+Notice $X_k=Y_kZ$, so the Jacobian is $z^{n-1}$.
+Thus, the joint distibution of htis vector is 
+\begin{equation*}
+f(y_1, y_2, ..., y_n, z)=\frac{1}{\prod_k \Gamma(\alpha_k)} z^{\sum_k \alpha_k -1} e^{-z} \prod_k y_k^{\alpha_k -1}
+\end{equation*}
+This is the product of the PDF of $Z$ and the PDF off a Dirichlet distribution.
+Notice that this means $Z$ and $Y$ are independent, and $Y$ has a Dirichlet distribution.
+\end{proof}
+
+\begin{theorem}
+Let $X\sim Dir(\{\alpha_i \})$ , let $\alpha_0 =\sum_i \alpha_i$, and let $\tilde{\alpha_i} = \frac{\alpha_i}{\alpha_0}$.
+Then $\mathbb{E}(X)=\tilde{\alpha}$ and $Cov(X_i, X_j)=\frac{\delta_{ij}\tilde{\alpha_i} - \tilde{\alpha_i}\tilde{\alpha_j}}{\alpha_0 +1}$
+\end{theorem}
+\begin{proof}
+To see the mean and variance, notice that the component of a Dirichlet distribution can be considered a beta random varaible with parameters $\alpha_i$ and $\sum_{k\neq i}\alpha_k$.
+Finally,
+\begin{align*}
+\mathbb{E}(X_i X_j)&=\int_{\Delta^{n-1}}x_i x_j dF\\
+&=\int_{\Delta^{n-1}} \frac{\Gamma(\sum_k \alpha_k)}{\prod_k \Gamma(\alpha_k)} x_i^{\alpha_i} x_j^{\alpha_j} \prod_{k\neq i,j} x_k^{\alpha_k-1}dx\\
+&=\frac{\alpha_i \alpha_j}{(\sum_k \alpha_k +1)(\sum_k \alpha_k)}
+\end{align*}
+Where we have re-written the integral as the PDF of a Dirichlet distribution with different parameters.
+Thus, we get hte covaiiance.
+\end{proof}
+
+\begin{definition}
+Let $r\in\mathbb{R}^+$.
+Say a random variable has a Chi-squared distribution with $r$ degrees of freedom, $X\sim \chi^2(r)$, whenever it has support $\mathbb{R}^+$ and the PDF on that support is
+\begin{equation}
+f(x)=\frac{1}{\Gamma(\frac{r}{2})2^\frac{r}{2}}x^{\frac{r}{2}-1}e^\frac{-x}{2}
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+If $X\sim \chi^2(r)$, $X\sim Gamma(\frac{r}{2},2)$.
+\end{lemma}
+\begin{proof}
+This is clear from teh PDFs of both distributions
+\end{proof}
+\begin{corrolary}
+The MGF is $M(t)=(1-2e^t)^\frac{r}{2}$, $\mathbb{E}(X)=r$ and $Var(X)=2r$.
+\end{corrolary}
+\begin{corrolary}
+If $X_1\sim \chi^2(r_1)$ and $X_2\sim \chi^2(r_2)$ are independent,
+\begin{equation}
+X_1 + X_2 \sim \chi^2 (r_1 + r_2)
+\end{equation}
+\end{corrolary}
+
 \end{document}
