@@ -677,4 +677,83 @@ X_1 + X_2 \sim \chi^2 (r_1 + r_2)
 \end{equation}
 \end{corrolary}
 
+\begin{definition}
+Let $\mu, \sigma^2 \in \mathbb{R}$ such that $\sigma^2>0$.
+Say a random varaible has a normal (Gaussian) distribution, $X\sim \mathcal{N}(\mu,\sigma^2)$ when it has support $\mathbb{R}$ and hte PDF on its support is
+\begin{equation}
+f(x)=\frac{1}{\sqrt{2\sigma^2 \pi}}e^\frac{-(x-\mu)^2}{2\sigma^2}
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Say a random variable has the standard normal distribution when $Z\sim \mathcal{N}(0,1)$.
+\end{definition}
+
+\begin{lemma}
+If $X\sim \mathcal{N}(\mu, \sigma^2)$ then
+\begin{equation}
+\frac{X-\mu}{\sigma}\sim \mathcal{N}(0,1)
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $Z=\frac{X-\mu}{\sigma}$.
+Then $X\rightarrow Z$ is a one-to-one transformation and $X=\sigma Z+\mu$.
+So the Jacobian is $\sigma$.
+Also, $\frac{-(x-\mu)^2}{2\sigma^2}=\frac{-z^2}{2}$.
+So the PDF fo $Z$ is $f(z)=\frac{1}{\sqrt{2\pi}}e^\frac{-z^2}{2}$.
+Thus, $Z\sim \mathcal{N}(0,1)$.
+\end{proof}
+
+\begin{theorem}
+The MGF is $M(t)=e^{\mu t+\frac{1}{2}\sigma^2 t^2}$
+\end{theorem}
+\begin{proof}
+First, let $Z\sim \mathcal{N}(0,1)$.
+Then
+\begin{align*}
+M_Z(t)&=\mathbb{E}(e^{tZ})\\
+&=\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}e^{tz-\frac{z^2}{2}}dz\\
+&=\int_{-\infty}^\infty e^\frac{t^2}{2}\frac{1}{\sqrt{2\pi}}e^{\frac{-t^2}{2}+tz-\frac{z^2}{2}}d\\
+&=e^\frac{t^2}{2}\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} e^\frac{-(z-t)^2}{2}dz\\
+&=e^\frac{t^2}{2}
+\end{align*}
+Next, for a general $X\sim \mathcal{N}(\mu, \sigma^2)$, we can say $X=\sigma Z+\mu$.
+So by properties of the MGF, $M(t)=e^{\mu t+\frac{1}{2}\sigma^2 t^2}$.
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=\mu$ and $Var(X)=\sigma^2$.
+\end{corrolary}
+
+\begin{theorem}
+If $Z_k {iid \atop \sim} \mathcal{N}(0,1)$ for $1 \leq n$, then
+\begin{equation}
+\sum_k Z_k^2 \sim \chi^2(n)
+\end{equation}
+\end{theorem}
+\begin{proof}
+We will prove this via induction on $n$.
+First, let $n=1$, $Y=Z_1^2$, and $y>0$.
+Then
+\begin{align*}
+\Pr(Y \le y) &= \Pr(Z_1^2 \le y) \\
+&= \Pr(|Z_1| \le y) \\
+&= 2\int_0^{\sqrt{y}} 1dF \\
+&= 2\int_0^{\sqrt{y}} \frac{1}{\sqrt{2\pi}} e^{-z^2/2}\,dz
+\end{align*}
+We can evaluate this integral with $u=z^2$, which means $dz=\frac{1}{2\sqrt{u}}du$.
+So,
+\begin{align*}
+\Pr(Y\le y)
+&= 2\int_0^{\sqrt y} \frac{1}{\sqrt{2\pi}} e^{-z^2/2}\,dz \\
+&= \int_0^y \frac{1}{\sqrt{2\pi}} u^{-1/2} e^{-u/2}\,du \\
+&= \int_0^y \frac{1}{\Gamma(1/2)2^{1/2}} u^{1/2-1} e^{-u/2}\,du.
+\end{align*}
+This is the definition of the CDF of hte chi-squared distribution with 1 degree of freedom.
+Thus, $Y\sim \chi^2(1)$.\\
+Now, suppose $\sum_{i=1}^k Z_i^2 \sim \chi^2(k)$ for some $k\in\mathbb{N}$.
+Then $\sum_{i=1}^{k+1}Z_i^2=\sum_{i=1}^k Z_i^2 + Z_{k+1}^2$.
+Because all $Z_i$ are independent, the sum and $Z_{k+1}^2$ are independent.
+So, by properties of hte chi-squared distributino, $\sum_{i=1}^{k+1}Z_i^2 \sim \chi^2 (k+1)$.
+\end{proof}
+
 \end{document}
