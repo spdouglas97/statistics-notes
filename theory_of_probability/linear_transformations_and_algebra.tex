@@ -1,7 +1,102 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{stackengine}
+\usepackage[mathscr]{eucal}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{definition}
+Let $X$ $Y$ be random variables.
+Say $X$ and $Y$ are linearly related whenever there are $\alpha, \beta\in \mathbb{R}$ and a random variable $\epsilon$ such that $X$ and $\epsilon$ are independent, $\mathbb{E}(\epsilon)=0$, and
+\begin{equation}
+Y=\alpha +\beta X + \epsilon
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $X$ and $Y$ be linearly related random variables with $\mathbb{E}(X)=\mu_x$, $\mathbb{E}(Y)=\mu_Y$, $Var(X)=\sigma_X^2$, $Var(Y)=\sigma_Y^2$, and correlation $\rho$.
+Then
+\begin{align}
+\mathbb{E}(\mathbb{E}(Y|X))&=\mu_Y\\
+Var(\mathbb{E}(Y|X))&=\rho^2 \sigma_Y^2\\
+Var(Y|X)&=(1-\rho^2)\sigma_Y^2
+\end{align}
+\end{theorem}
+\begin{proof}
+First, notice that $X$ and $\epsilon$ are independent, so
+\begin{align*}
+\mathbb{E}(\epsilon|X)&=\mathbb{E}(\epsilon)\\
+&=0
+\end{align*}
+Also, $Y=\alpha + \beta X + \epsilon$, so
+\begin{align*}
+\mathbb{E}(Y|X)&=\mathbb{E}(\alpha +\beta X +\epsilon|X)\\
+&=\alpha + \beta \mathbb{E}(X|X) + \mathbb{E}(\epsilon|X)\\
+&= \alpha + \beta X
+\end{align*}
+Thus, by taking the expected value, $\mathbb{E}(\mathbb{E}(Y|X))=\alpha + \beta \mu_X$.
+Also, taking the expected value of $Y$ gives
+\begin{align*}
+\mathbb{E}(Y)&=\mathbb{E}(\alpha +\beta X +\epsilon)\\
+&=\alpha + \beta \mu_X
+\end{align*}
+Thus, $\mathbb{E}(\mathbb{E}(Y|X))=\mathbb{E}(Y)=\mu_Y$.\\
+Next, notice that
+\begin{align*}
+\mathbb{E}(XY)&=\int_\mathbb{R} xy dF\\
+&= \int_\mathbb{R} \alpha x +\beta x^2 +\epsilon x dF\\
+&=\alpha \mu_X + \beta (\mu_X^2 + \sigma_X^2)
+\end{align*}
+Indeed, because $X$ and $\epsilon$ are independent, $\mathbb{E}(\epsilon X)=0$.
+Next, notice by definition of the covariance,
+\begin{align*}
+\rho \sigma_X \sigma_Y + \mu_X \mu_Y &= \alpha \mu_X + \beta \mu_X^2 + \beta \sigma_X^2\\
+&= (\mu_Y -\beta \mu_X) \mu_X + \beta \mu_X^2 +\beta \sigma_X^2\\
+&= \mu_X \mu_Y + \beta \sigma_X^2
+\end{align*}
+Thus, $\beta =\frac{\rho \sigma_Y}{\sigma_X}$.
+Also,
+\begin{align*}
+\mathbb{E}(Y) - \mathbb{E}(Y|X) &= \alpha + \beta \mu_X - \alpha -\beta X\\
+&= \beta (\mu_X -X)
+\end{align*}
+So,
+\begin{align*}
+Var(\mathbb{E}(Y|X))&=\mathbb{E}((\mathbb{E}(Y|X)-\mathbb{E}(\mathbb{E}(Y|X)))^2)\\
+&=\mathbb{E}((\mathbb{E}(Y|X)-\mathbb{E}(Y))^2)\\
+&=\mathbb{E}((\beta (X-\mu_X ))^2)\\
+&=\beta^2 Var(X)\\
+&= \beta^2 \sigma_X^2
+\end{align*}
+Finally, we can note 
+\begin{align*}
+Var(Y)&=Var(\alpha + \beta X + \epsilon)\\
+&= \beta^2 Var(X) + Var(\epsilon)
+\end{align*}
+Also, $Var(Y|X)=Var(\epsilon)$.
+So
+\begin{align*}
+Var(Y|X)&=Var(Y)-\beta^2 Var(X)\\
+&= \sigma_Y^2 - \frac{\rho^2 \sigma_Y^2}{\sigma_X^2} \sigma_X^2\\
+&= (1-\rho^2)\sigma_Y^2
+\end{align*}
+\end{proof}
+\begin{corrolary}
+\begin{align*}
+\beta &= \frac{\rho \sigma_Y}{\sigma_X}\\
+\alpha &= \mu_Y - \beta \mu_X
+\end{align*}
+\end{corrolary}
 
 \end{document}
