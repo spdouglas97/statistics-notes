@@ -28,7 +28,7 @@ f(x)=\frac{1}{b-a}
 \end{definition}
 
 \begin{theorem}
-THe CDF is $F(x)=\frac{x-a}{b-a}$ and MGF $M(t)=\frac{e^{tb}-e^{ta}}{t(b-a)}$.
+The CDF is $F(x)=\frac{x-a}{b-a}$ and MGF $M(t)=\frac{e^{tb}-e^{ta}}{t(b-a)}$.
 \end{theorem}
 \begin{proof}
 Assume $a<x<b$.
@@ -53,24 +53,24 @@ $\mathbb{E}(X)=\frac{a+b}{2}$ and $Var(X)=\frac{(b-a)^2}{12}$.
 \end{corrolary}
 
 \begin{definition}
-A Bernouli trial is a random experiment with two outcomes: success, which happens with probability $p$, and failure, which happens with probability $1-p$.
+A Bernoulli trial is a random experiment with two outcomes: success, which happens with probability $p$, and failure, which happens with probability $1-p$.
 \end{definition}
 
 \begin{definition}
 Let $p\in (0,1)$.
-Say a random variable has a Bernoouli distribution whenever it has pdf support $k\in \{0,1\}$ and the PDF on the support is
+Say a random variable has a Bernoulli distribution whenever it has pdf support $k\in \{0,1\}$ and the PDF on the support is
 \begin{equation}
 f(k)=p^k(1-p)^{1-k}
 \end{equation}
 \end{definition}
 
 \begin{theorem}
-A Bernouli distribution has CDF $F(k)=1-p+kp$ and MGF $M(t)=1-p+pe^t$.
+A Bernoulli distribution has CDF $F(k)=1-p+kp$ and MGF $M(t)=1-p+pe^t$.
 \end{theorem}
 \begin{proof}
 For the CDF,
 \begin{align*}
-F9x)&=\int_0^k1dF\\
+F(x)&=\int_0^k1dF\\
 &=\sum_{i=0}^k p^i(1-p)^{1-i}\\
 &=1-p+kp
 \end{align*}
@@ -88,12 +88,12 @@ $\mathbb{E}(X)=p$ and $Var(X)=p(1-p)$.
 \end{corrolary}
 
 \textbf{Ex-}
-A coin has a $50\%$ chance of being hads and will either be hads or tails.
-Thus, flipping a coin is a Bernouli trial, and whether it comes up heads follows a Bernouli distribution.
+A coin has a $50\%$ chance of being heads and will either be heads or tails.
+Thus, flipping a coin is a Bernoulli trial, and whether it comes up heads follows a Bernoulli distribution.
 
 \begin{definition}
 Let $p\in(0,1)$ and $n\in\mathbb{Z}^+$.
-Say a random vairable has a binomial distribution, $X\sim Binom(n,p)$, whenever it has support $k\in \{0, 1, 2, ..., n\}$ and the PDF on the support is
+Say a random variable has a binomial distribution, $X\sim Binom(n,p)$, whenever it has support $k\in \{0, 1, 2, ..., n\}$ and the PDF on the support is
 \begin{equation}
 f(k)=\binom{n}{k} p^k (1-p)^{n-k}
 \end{equation}
@@ -117,11 +117,11 @@ For the final step, we have used the binomial theorem.
 $\mathbb{E}(X)=np$ and $Var(X)=np(1-p)$.
 \end{corrolary}
 
-\textbf{Note-} The binomail distribution does not have a closed-form representation of the CDF, so we have not definte one here.
+\textbf{Note-} The binomial distribution does not have a closed-form representation of the CDF, so we have not defined one here.
 The CDF can be defined as a simple summation, but that sum does not have a simple evaluation in general.
 
 \begin{theorem}
-Let $p\in (0,1)$, $n\in \mathbb{Z}^+$, and $X_k  { {iid} \atop \sim} Bernouli(p)$ for $1\leq k\leq n$.
+Let $p\in (0,1)$, $n\in \mathbb{Z}^+$, and $X_k  { {iid} \atop \sim} Bernoulli(p)$ for $1\leq k\leq n$.
 Then
 \begin{equation}
 \sum_{k=1}^n X_k \sim Binom(n,p)
@@ -140,23 +140,23 @@ Thus, the sum follows the binomial distribution.
 \end{proof}
 
 \textbf{Note-}
-The binomial distribution can be described as the probability that $n$ independent Bernouli trials result in $k$ successes.
+The binomial distribution can be described as the probability that $n$ independent Bernoulli trials result in $k$ successes.
 This situation often arises in applications of the probability distribution.\\
 
 \textbf{Ex-}
 If a fair coin is flipped 10 times, the results are independent.
-Thus, the number of heads resulting from 10 cooin flips follows a binomial distribution.
+Thus, the number of heads resulting from 10 coin flips follows a binomial distribution.
 
 \begin{definition}
 Let $p\in (0,1)$.
 Say a random variable has a geometric distribution, $X\sim Geo(p)$, whenever it has support $k\in \mathbb{Z}^+$ and the PDF on the support is
 \begin{equation}
-f(k)=p(1-p)^k
+f(k)=p(1-p)^{k-1}
 \end{equation}
 \end{definition}
 
 \begin{theorem}
-The geometric distribution has CDF $F(k)=1-(1-p)^k$ and MGF $M(t)=\frac{p}{1-(1-p)e^t}$.
+The geometric distribution has CDF $F(k)=1-(1-p)^k$ and MGF $M(t)=\frac{pe^t}{1-(1-p)e^t}$.
 \end{theorem}
 \begin{proof}
 In order to compute the CDF, we consider
@@ -166,14 +166,14 @@ Pr(X>k)&=\int_k^\infty 1dF\\
 &=(1-p)^k
 \end{align*}
 This summation is an example of a geometric series, which is where the distribution gets its name.
-To compute the CDF, we simply take the compliment of htis event, so $F(k)=1-p(1-p)^k$.\\
+To compute the CDF, we simply take the complement of this event, so $F(k)=1-(1-p)^k$.\\
 To compute the MGF, we can compute a similar geometric series
 \begin{align*}
 M(t)&=\mathbb{E}(e^{tX})\\
 &=\int_0^\infty 1dF\\
-&=\sum_{k=0}^\infty e^{tk}p(1-p)^k\\
-&=\sum_{k=0}^\infty p(e^t(1-p))^k\\
-&=\frac{p}{1-(1-p)e^t}
+&=\sum_{k=1}^\infty e^{tk}p(1-p)^{k-1}\\
+&=\sum_{k=1}^\infty p(e^t(1-p))^{k-1}\\
+&=\frac{pe^t}{1-(1-p)e^t}
 \end{align*}
 \end{proof}
 \begin{corrolary}
@@ -181,10 +181,11 @@ $\mathbb{E}(X)=\frac{1}{p}$ and $Var(X)=\frac{1-p}{p^2}$
 \end{corrolary}
 
 \textbf{Note-}
-The geometric distribution can be interpreted as the probability that the first success in a series of independent Bernouli trials occurs on trial $k$.
+The geometric distribution can be interpreted as the probability that the first success in a series of independent Bernoulli trials occurs on trial $k$.
 
 \begin{definition}
-Let $N,n,K\in \mathbb{Z}^+$ such that $n,K\leq N$. Saya  random variable $X$ has a hypergeometric distribution, $X\sim Hypgeo(N,K,n)$ whenever it has PDF $f(k)=\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}$ for $k\in \{0,1,2,...,\min(n,K)\}$.
+Let $N,n,K\in \mathbb{Z}^+$ such that $n,K\leq N$.
+Say a  random variable $X$ has a hypergeometric distribution, $X\sim Hypgeo(N,K,n)$ whenever it has PDF $f(k)=\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}$ for $k\in \{0,1,2,...,\min(n,K)\}$.
 \end{definition}
 
 \begin{theorem}
@@ -199,7 +200,7 @@ Hypgeo(N,K,n)=Hypgeo(N,n,K)
 \end{proof}
 
 \begin{theorem}
-For teh hypergeometric distibution, $\mathbb{E}(X)=\frac{nK}{N}$ and $Var(X)=\frac{K(N-K)(N-n)}{N^1(N-1)}$
+For the hypergeometric distribution, $\mathbb{E}(X)=\frac{nK}{N}$ and $Var(X)=\frac{nK(N-K)(N-n)}{N^1(N-1)}$
 \end{theorem}
 \begin{proof}
 Without loss of generality, we can assume $n<K$.
@@ -213,10 +214,10 @@ The mean is
 &=\frac{nK}{N}\sum_{i=0}^{n-1}\frac{\binom{K-1}{i}\binom{N-K}{n-i-1}}{\binom{N-1}{n}}\\
 &=\frac{nK}{N}
 \end{align*}
-THe final summation is the PDF of hte $Hypgeo(N-1,K-1,n)$ distribution.\\
+The final summation is the PDF of the $Hypgeo(N-1,K-1,n)$ distribution.\\
 To find the variance, it is easiest to start by computing
 \begin{align*}
-\mathbb{E}(X(X-1)&=\int_0^nk(k-1)dF\\
+\mathbb{E}(X(X-1))&=\int_0^nk(k-1)dF\\
 &=\sum_{k=0}^n k(k-1)\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}\\
 &=0+\sum_{k=2}^n k(k-1)\frac{K!n!(N-n)!\binom{N-K}{n-k}}{k!(K-k)!N!}\\
 &=\frac{K(K-1)n(n-1)}{N(N-1)}\sum_{k=2}^n\frac{(K-2)!(n-2)!(N-n)!\binom{N-K}{n-k}}{(N-2)!(k-2)!(K-k)!}\\
@@ -229,13 +230,13 @@ Var(X)&=\mathbb{E}(X^2)-\mathbb{E}(X)^2\\
 &=\mathbb{E}(X(X-1))+\mathbb{E}(X)-\mathbb{E}(X)^2\\
 &=\frac{K(K-1)n(n-1)}{N(N-1)}+\frac{nK}{N}-\left(\frac{nK}{N}\right)^2\\
 &=\frac{K(K-1)n(n-1)N}{N^2(N-1)}+\frac{nKN(N-1)}{N^2(N-1)}-\frac{n^2K^2(N-1)}{N^2(N-1)}\\
-&=\frac{K(N-K)(N-n)}{N^2(N-1)}
+&=\frac{nK(N-K)(N-n)}{N^2(N-1)}
 \end{align*}
 \end{proof}
 
 \textbf{Note-}
 The hypergeometric distribution represents selecting $n$ samples and getting $k$ successes from a population of size $N$ with $K$ successes, sampling without replacement.
-This means each individual draw is a Bernouli trial, but the draws are not independent, unlike the binomial distribution.\\
+This means each individual draw is a Bernoulli trial, but the draws are not independent, unlike the binomial distribution.\\
 
 \textbf{Ex-}
 A bag contains 30 white marbles and 20 black marbles, and 10 marbles are drawn at random.
@@ -243,9 +244,9 @@ The number of white marbles in the sample follows a hypergeometric distribution.
 
 \begin{definition}
 Let $p\in(0,1)$ and $k\in\mathbb{Z}^+$.
-Say a random vairable $X$ has a negative binomial distribution, $X\sim NBinom(p,k)$ whenever it has support $n\in \mathbb{Z}^+$ and the PDF on the support is 
+Say a random variable $X$ has a negative binomial distribution, $X\sim NBinom(p,k)$ whenever it has support $n\in \mathbb{N}$ for $n\geq k$ and the PDF on the support is 
 \begin{equation}
-f(n)=\binom{n+k-1}{k-1}p^k(1-p)^n
+f(n)=\binom{n}{k-1}p^k(1-p)^{n-k}
 \end{equation}
 \end{definition}
 
@@ -259,20 +260,20 @@ Then
 \begin{proof}
 Let $X=\sum_i X_i$.
 Notice that $(X_1, X_2, ..., X_{k-1}, X_k) \rightarrow (X_1, X_2, ..., X_{k-1}, X)$ is a one-to-one transformation.
-Also, the Jacobian of hte transofrmation is 1.
-THus, the joint PDF of the random vector is $f(N-1, n_2, ..., n_{k-1}, n)=p^k(1-p)^n$.
-Computing the marginal PDF of $X$ gives $f(n)=\binom{n-k-1}{k-1}p^k(1-p)^n$.
+Also, the Jacobian of the transformation is 1.
+Thus, the joint PDF of the random vector is $f(N-1, n_2, ..., n_{k-1}, n)=p^k(1-p)^{n-k}$.
+Computing the marginal PDF of $X$ gives $f(n)=\binom{n}{k-1}p^k(1-p)^{n-k}$.
 \end{proof}
 
 \begin{theorem}
-The moment generating function is $M(t)=\frac{p^k}{\left(1-p+pe^t\right)^k}$.
+The moment generating function is $M(t)=\frac{p^k}{\left(1-(1-p)e^t\right)^k}$.
 \end{theorem}
 \begin{proof}
-Let $M_X(t)$ be the MGF of $Gep(p)$.
+Let $M_X(t)$ be the MGF of $Geo(p)$.
 Then
 \begin{align*}
 M(t)&=(M_X(t))^k\\
-&=\frac{p^k}{\left(1-p+pe^t\right)^k}
+&=\frac{p^k}{\left(1-(1-p)e^t\right)^k}
 \end{align*}
 \end{proof}
 \begin{corrolary}
@@ -284,7 +285,7 @@ Say a random variable has a Rademacher distribution, $X\sim Rad$ whenever $\Pr(X
 \end{definition}
 
 \begin{lemma}
-Let $X=Bernouli(\frac{1}{2})$.
+Let $X=Bernoulli(\frac{1}{2})$.
 Then $Y=2X-1$ has a Rademacher distribution.
 \end{lemma}
 \begin{proof}
@@ -301,7 +302,7 @@ Similar logic applies to $Y=-1$.
 Let $\{p_k\}_{k=1}^K$ such that $\sum_k p_k=1$ and let $n\in\mathbb{Z}^+$.
 Say a random vector $X$ has a multinomial distribution, $X\sim Multinom(n,\{p_k\})$, whenever the support is $n_1, n_2, ..., n_K\in \mathbb{Z}^+$ such that $\sum_k n_k = n$ and the PDF on that support is
 \begin{equation}
-f(n_1, n_2, ..., n_K)=\frac{1}{n!}\prod_k n_k! p_k^{n_k}
+f(n_1, n_2, ..., n_K)=n! \prod_k \frac{p_k^{n_k}}{n_k!}
 \end{equation}
 \end{definition}
 
@@ -315,11 +316,11 @@ Then
 \end{lemma}
 \begin{proof}
 Let $X=(n_1, n_2, ..., n_K)$.
-Clearly, by constructoin, $\sum_k n_k = n$.
-Also notice that hte components of each $X_i$ are Bernouli random variables each with probability $p_k$.
+Clearly, by construction, $\sum_k n_k = n$.
+Also notice that the components of each $X_i$ are Bernoulli random variables each with probability $p_k$.
 Finally, $(X_1, X_2, ..., X_{n-1}, X_n) \rightarrow (X_1, X_2, ..., X_{n-1}, X)$ is a one-to-one transformation with Jacobian 1.
-SO the joint PDF is $f(x_1, x_2, ..., x_{k-1}, x)=\prod_k p_k^{n_k}$.
-By finding hte marginal distribution, this gives $f(x)=\frac{1}{n!}\prod_k p_k^{n_k}$.
+So the joint PDF is $f(x_1, x_2, ..., x_{k-1}, x)=\prod_k p_k^{n_k}$.
+By finding the marginal distribution, this gives $f(x)=n!\prod_k \frac{p_k^{n_k}}{n_k!}$.
 \end{proof}
 \begin{corrolary}
 If $(N_1, N_2, ..., N_K)\sim Multinom(n, \{p, 1-p\})$ then $N_k\sim Binom(n,p_k)$.
@@ -335,7 +336,7 @@ Clearly,
 M_X(t)&=\mathbb{E}(X_i)\\
 &=\sum_k p_k e^{t_k}
 \end{align*}
-By the previous lemma, a multinomaial random vector is the sum of $n$ such iid random vectors.
+By the previous lemma, a multinomial random vector is the sum of $n$ such iid random vectors.
 So, by properties of the MGF,
 \begin{align*}
 M(t)&=(M_X(t))^n\\
@@ -345,7 +346,7 @@ M(t)&=(M_X(t))^n\\
 
 \begin{theorem}
 Let $p=(p_1, p_2, ..., p_K)$.
-Then $\mathbb{E}(X)=np$ and $Cov(X_i, X_j)=np_i (\delta_{ij}p_j)$ where $\delta$ is the Kronecker delta function
+Then $\mathbb{E}(X)=np$ and $Cov(X_i, X_j)=np_i (\delta_{ij}-p_j)$ where $\delta$ is the Kronecker delta function
 \end{theorem}
 \begin{proof}
 Recall that if $X=(N_1, N_2, ..., N_K)$ then each $N_k\sim Binom(n,p_K)$.
@@ -367,12 +368,12 @@ Cov(X_i, X_j)&=\mathbb{E}(N_i N_j) - \mathbb{E}(N_i)\mathbb{E}(N_j)\\
 &=n(n-1)p_i p_J - (np_i)(np_j)\\
 &=-np_ip_j
 \end{align*}
-FInally, notice the Kronecker delta function gives a consie way to write the covariance even when $i=j$.
+Finally, notice the Kronecker delta function gives a concise way to write the covariance even when $i=j$.
 \end{proof}
 
 \textbf{Note-}
-If we generalize the Bernouli trial to have $K$ outputs, the result of hte trial can be represented by the random variable $X_i$ and its distribution over $e_k$.
-Thus, the Multinomaial distribution is the quivalent of a binomial distribution for this random experiment.
+If we generalize the Bernoulli trial to have $K$ outputs, the result of the trial can be represented by the random variable $X_i$ and its distribution over $e_k$.
+Thus, the Multinomial distribution is the equivalent of a binomial distribution for this random experiment.
 
 \begin{definition}
 A Poisson trial is a random experiment in which points are distributed through a space.
@@ -403,11 +404,11 @@ $\mathbb{E}(X)=\lambda$ and $Var(X)=\lambda$
 \end{corrolary}
 
 \textbf{Note-}
-A common interpretation ofhte Poisson distribution is the number of times an event occurs when it can occur at any point within the interval.
-In that sense, teh Poisson distribution is a continuous version of the binomial distribution.\\
+A common interpretation of the Poisson distribution is the number of times an event occurs when it can occur at any point within the interval.
+In that sense, the Poisson distribution is a continuous version of the binomial distribution.\\
 
 \textbf{Ex-}
-Over a 5 minute period, an average of 4.3 people will enter a particular Tarbucks.
+Over a 5 minute period, an average of 4.3 people will enter a particular Starbucks.
 The number of people who walk into the Starbucks can be modeled as a Poisson distribution with $\lambda=4.3$.
 
 \begin{definition}
@@ -440,7 +441,7 @@ M(t)&=\mathbb{E}(e^{tX})\\
 \end{align*}
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\frac{1}{\lambda}$ and $Var(X)=\frac{1}{\lambda}$
+$\mathbb{E}(X)=\frac{1}{\lambda}$ and $Var(X)=\frac{1}{\lambda^2}$
 \end{corrolary}
 
 \begin{theorem}
@@ -460,7 +461,7 @@ We can compute
 &=\frac{(\lambda t)^0e^{-\lambda t}}{0!}\\
 &=e^{-\lambda t}
 \end{align*}
-So the CDF of $T$ is $\Pr(T\leq t)=1-e^{-\lambda t}$ which is hte CDF of hte exponential distribution.
+So the CDF of $T$ is $\Pr(T\leq t)=1-e^{-\lambda t}$ which is the CDF of the exponential distribution.
 Therefore, $T\sim Exp(\lambda)$.
 \end{proof}
 
@@ -493,12 +494,12 @@ f(y_2)&=\int_0^\infty \lambda^2 e^{-\lambda (y_1 +2y_2)}\\
 \end{proof}
 
 \begin{theorem}
-THe MGF of a laplace distribution is $M(t)=\frac{\lambda^2}{\lambda^2 -t^2}e^{t\theta}$
+The MGF of a laplace distribution is $M(t)=\frac{\lambda^2}{\lambda^2 -t^2}e^{t\theta}$
 \end{theorem}
 \begin{proof}
 First, suppose $\theta=0$.
 Let $X_1, X_2{iid \atop \sim} Exp(\lambda)$.
-Then THe MGF of $X=X_1-X_2$ is
+Then The MGF of $X=X_1-X_2$ is
 \begin{align*}
 M(t)&=M_{X_1}(t)M_{X_2}(-t)\\
 &=\left(\frac{\lambda}{\lambda - t}\right) \left( \frac{\lambda}{\lambda + t}\right)\\
@@ -515,24 +516,24 @@ $\mathbb{E}(X)=\theta$ and $Var(X)=\frac{2}{\lambda^2}$
 Let $\alpha, \beta \in \mathbb{R}^+$.
 Say a random variable has a gamma distribution, $X\sim Gamma(\alpha, \beta)$ when it has support $\mathbb{R}^+$ and the PDF on its support is
 \begin{equation}
-f(x)=\frac{1}{\Gamma (\alpha)} x^{\alpha -1}e^{{-x/\beta}}
+f(x)=\frac{1}{\Gamma (\alpha)\beta^\alpha} x^{\alpha -1}e^{{-x/\beta}}
 \end{equation}
 \end{definition}
 
 \begin{theorem}
-The MGF is $M(t)=\left( \frac{1}{1-\beta e^t}\right)^\alpha$.
+The MGF is $M(t)=\left( \frac{1}{1-\beta t}\right)^\alpha$.
 \end{theorem}
 \begin{proof}
 \begin{align*}
 M(t)&=\mathbb{E}(e^{tX})\\
 &=\int_0^\infty e^{tx}dF\\
-&=\int_0^\infty \frac{1}{\Gamma (\alpha)}x^{\alpha-1}e^{x({1/\beta}+t)}dx
+&=\int_0^\infty \frac{1}{\Gamma (\alpha)\beta^\alpha}x^{\alpha-1}e^{x({1/\beta}+t)}dx
 \end{align*}
 Let $u=\left(\frac{1-\beta t}{\beta}\right)x$.
 Then $du = \frac{1-\beta t}{\beta} dx$, or $dx = \frac{\beta}{1-\beta t}du$.
 So
 \begin{align*}
-M(t)&=\int_0^\infty \frac{1}{\Gamma (\alpha)}x^{\alpha-1}e^{x(\frac{1}{\beta}+t)}dx\\
+M(t)&=\int_0^\infty \frac{1}{\Gamma (\alpha)\beta^\alpha}x^{\alpha-1}e^{x(\frac{1}{\beta}+t)}dx\\
 &=\int_0^\infty \frac{1}{\Gamma (\alpha)(1-\beta t)^\alpha} u^{\alpha-1} e^{-u} du\\
 &=\frac{1}{\Gamma (\alpha)(1-\beta t)^\alpha} \int_0^\infty u^{\alpha -1}e^{-u}du\\
 &=\frac{1}{(1-\beta t)^\alpha}
@@ -618,7 +619,7 @@ f(x_1, x_2, ..., x_n)=\Gamma(\sum_i \alpha_i) \prod_i \frac{x^{\alpha_i-1}}{\Gam
 \end{definition}
 
 \begin{theorem}
-Let $X_i \sim Gamma(\alpha_i ,1)$ be independent random varaiables.
+Let $X_i \sim Gamma(\alpha_i ,1)$ be independent random variables.
 Then
 \begin{equation}
 \left(\frac{X_i}{\sum_k X_k}\right)_{i=1}^n \sim Dir(\{\alpha_i \})
@@ -629,11 +630,11 @@ Let $Z=\sum_k X_k$ and let $Y=\frac{X}{Z}$.
 Clearly, $Z\sim Gamma(\sum_k \alpha_k,1)$.
 Now, consider $X \rightarrow (Y_1, Y_2, ..., Y_n, Z)$ is a one-to-one transformation.
 Notice $X_k=Y_kZ$, so the Jacobian is $z^{n-1}$.
-Thus, the joint distibution of htis vector is 
+Thus, the joint distribution of this vector is 
 \begin{equation*}
 f(y_1, y_2, ..., y_n, z)=\frac{1}{\prod_k \Gamma(\alpha_k)} z^{\sum_k \alpha_k -1} e^{-z} \prod_k y_k^{\alpha_k -1}
 \end{equation*}
-This is the product of the PDF of $Z$ and the PDF off a Dirichlet distribution.
+This is the product of the PDF of $Z$ and the PDF of a Dirichlet distribution.
 Notice that this means $Z$ and $Y$ are independent, and $Y$ has a Dirichlet distribution.
 \end{proof}
 
@@ -642,7 +643,7 @@ Let $X\sim Dir(\{\alpha_i \})$ , let $\alpha_0 =\sum_i \alpha_i$, and let $\tild
 Then $\mathbb{E}(X)=\tilde{\alpha}$ and $Cov(X_i, X_j)=\frac{\delta_{ij}\tilde{\alpha_i} - \tilde{\alpha_i}\tilde{\alpha_j}}{\alpha_0 +1}$
 \end{theorem}
 \begin{proof}
-To see the mean and variance, notice that the component of a Dirichlet distribution can be considered a beta random varaible with parameters $\alpha_i$ and $\sum_{k\neq i}\alpha_k$.
+To see the mean and variance, notice that the component of a Dirichlet distribution can be considered a beta random variable with parameters $\alpha_i$ and $\sum_{k\neq i}\alpha_k$.
 Finally,
 \begin{align*}
 \mathbb{E}(X_i X_j)&=\int_{\Delta^{n-1}}x_i x_j dF\\
@@ -650,7 +651,7 @@ Finally,
 &=\frac{\alpha_i \alpha_j}{(\sum_k \alpha_k +1)(\sum_k \alpha_k)}
 \end{align*}
 Where we have re-written the integral as the PDF of a Dirichlet distribution with different parameters.
-Thus, we get hte covaiiance.
+Thus, we get the covariance.
 \end{proof}
 
 \begin{definition}
@@ -665,10 +666,10 @@ f(x)=\frac{1}{\Gamma(\frac{r}{2})2^{r/2}}x^{{r/2}-1}e^{-x/2}
 If $X\sim \chi^2(r)$, $X\sim Gamma(\frac{r}{2},2)$.
 \end{lemma}
 \begin{proof}
-This is clear from teh PDFs of both distributions
+This is clear from the PDFs of both distributions
 \end{proof}
 \begin{corrolary}
-The MGF is $M(t)=(1-2e^t)^{r/2}$, $\mathbb{E}(X)=r$ and $Var(X)=2r$.
+The MGF is $M(t)=(1-2t)^{-r/2}$, $\mathbb{E}(X)=r$ and $Var(X)=2r$.
 \end{corrolary}
 \begin{corrolary}
 If $X_1\sim \chi^2(r_1)$ and $X_2\sim \chi^2(r_2)$ are independent,
@@ -679,7 +680,7 @@ X_1 + X_2 \sim \chi^2 (r_1 + r_2)
 
 \begin{definition}
 Let $\mu, \sigma^2 \in \mathbb{R}$ such that $\sigma^2>0$.
-Say a random varaible has a normal (Gaussian) distribution, $X\sim \mathcal{N}(\mu,\sigma^2)$ when it has support $\mathbb{R}$ and hte PDF on its support is
+Say a random variable has a normal (Gaussian) distribution, $X\sim \mathcal{N}(\mu,\sigma^2)$ when it has support $\mathbb{R}$ and the PDF on its support is
 \begin{equation}
 f(x)=\frac{1}{\sqrt{2\sigma^2 \pi}}e^{-(x-\mu)^2/2\sigma^2}
 \end{equation}
@@ -700,7 +701,7 @@ Let $Z=\frac{X-\mu}{\sigma}$.
 Then $X\rightarrow Z$ is a one-to-one transformation and $X=\sigma Z+\mu$.
 So the Jacobian is $\sigma$.
 Also, $\frac{-(x-\mu)^2}{2\sigma^2}=\frac{-z^2}{2}$.
-So the PDF fo $Z$ is $f(z)=\frac{1}{\sqrt{2\pi}}e^\frac{-z^2}{2}$.
+So the PDF of $Z$ is $f(z)=\frac{1}{\sqrt{2\pi}}e^\frac{-z^2}{2}$.
 Thus, $Z\sim \mathcal{N}(0,1)$.
 \end{proof}
 
@@ -748,12 +749,12 @@ So,
 &= \int_0^y \frac{1}{\sqrt{2\pi}} u^{-1/2} e^{-u/2}\,du \\
 &= \int_0^y \frac{1}{\Gamma(1/2)2^{1/2}} u^{1/2-1} e^{-u/2}\,du.
 \end{align*}
-This is the definition of the CDF of hte chi-squared distribution with 1 degree of freedom.
+This is the definition of the CDF of the chi-squared distribution with 1 degree of freedom.
 Thus, $Y\sim \chi^2(1)$.\\
 Now, suppose $\sum_{i=1}^k Z_i^2 \sim \chi^2(k)$ for some $k\in\mathbb{N}$.
 Then $\sum_{i=1}^{k+1}Z_i^2=\sum_{i=1}^k Z_i^2 + Z_{k+1}^2$.
 Because all $Z_i$ are independent, the sum and $Z_{k+1}^2$ are independent.
-So, by properties of hte chi-squared distributino, $\sum_{i=1}^{k+1}Z_i^2 \sim \chi^2 (k+1)$.
+So, by properties of the chi-squared distribution, $\sum_{i=1}^{k+1}Z_i^2 \sim \chi^2 (k+1)$.
 \end{proof}
 
 \begin{definition}
@@ -870,8 +871,8 @@ For $r>1$, $\mathbb{E}(X)=0$ and for $r>2$, $Var(X)=\frac{r}{r-2}$.
 \end{corrolary}
 
 \begin{theorem}
-\textbf{Student's THeorem:}
-Let $X_k {iid \atop \sim } \mathcal{N}(0,1)$ for $1\leq k \leq n$, $\bar{X}=\frac{1}{n}\sum_k X_k$ and $S^2=\frac{1}{n-1}\sum_k (X-\bar{X})^2$
+\textbf{Student's Theorem:}
+Let $X_k {iid \atop \sim } \mathcal{N}(\mu,\sigma^2)$ for $1\leq k \leq n$, $\bar{X}=\frac{1}{n}\sum_k X_k$ and $S^2=\frac{1}{n-1}\sum_k (X_k -\bar{X})^2$
 \begin{enumerate}
 \item\begin{equation*}
 \bar{X}\sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)
@@ -898,7 +899,7 @@ M_{\bar X}(t)
 \end{align*}
 Thus, $\bar{X}\sim \mathcal{N}(\mu, \frac{\sigma^2}{n})$.\\
 Next, let $v$ be the vector of all $\frac{1}{n}$ in $\mathbb{R}^n$ and let $X$ be the vector whose components are $X_k$.
-THen $\bar{X}=v^T X$.
+Then $\bar{X}=v^T X$.
 Let $Y=X-nv\bar{X}$.
 So
 \begin{equation*}
@@ -941,16 +942,235 @@ Next, notice
 &=\sum_k \frac{(X_k -\bar{X})^2}{\sigma^2} +\frac{n(\bar{X}-\mu)^2}{\sigma^2}\\
 &=\frac{(n-1)S^2}{\sigma^2} + \frac{n(\bar{X}-\mu)^2}{\sigma^2}
 \end{align*}
-Because $X_k {iid \atop \sim} \mathcal{N}(\mu, frac{\sigma^2}{n})$, the sum has a chi-squared distribution with $n$ degrees of freedom..
+Because $X_k {iid \atop \sim} \mathcal{N}(\mu, \frac{\sigma^2}{n})$, the sum has a chi-squared distribution with $n$ degrees of freedom.
 Also, the second term on the right side has a chi-squared distribution with 1 degree of freedom.
 So, taking the MGFs of the terms gives
 \begin{equation*}
-\left(1-2e^t \right)^{n/2} = M(t) \left( 1-2e^t \right)^{1/2}
+\left(1-2t \right)^{-n/2} = M(t) \left( 1-2t \right)^{-1/2}
 \end{equation*}
-This means the MGF is $M(t)=\left( 1-2e^t \right)^{(n-1)/2}$.
-Thus, it has a chi-squared idstibution with $n-1$ degrees of freedom. \\
+This means the MGF is $M(t)=\left( 1-2t \right)^{-(n-1)/2}$.
+Thus, it has a chi-squared distribution with $n-1$ degrees of freedom. \\
 Finally, let $U=\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}$ and $W=\frac{(n-1)S^2}{\sigma^2}$, so $\frac{U}{\sqrt{W/(n-1)}}=\frac{\bar{X}-\mu}{S/\sqrt{n}}$.
 So it has a T distribution with $n-1$ degrees of freedom.
 \end{proof}
+
+\begin{definition}
+Let $r_1, r_2 \in \mathbb{R}^+$.
+Say a random variable has an F-distribution with $r_1$ and $r_2$ degrees of freedom whenever it has support $\mathbb{R}^+$ and the PDF on the support is
+\begin{equation}
+f(x)=\frac{\Gamma\left( \frac{r_1 +r_2}{2}\right)}{\Gamma \left( \frac{r_1}{2}\right)\Gamma \left( \frac{r_2}{2}\right)}\left( \frac{r_1}{r_2}\right)^{r_1/2}x^{r_1/2-1}\left( \frac{r_1}{r_2} x +1\right)^{- \left( r_1 + r_2 \right) /2}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $U\sim \chi^2(r_1)$ and $V\sim \chi^2(r_2)$ be independent random variables.
+Then
+\begin{equation}
+\frac{U/r_1}{V/r_2}\sim F(r_1, r_2)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Notice $(U,V)\rightarrow (F,V)$ is a one-to-one transformation.
+The joint pdf of $(U,V)$ is
+\begin{equation*}
+f(u,v)=\frac{1}{\Gamma\left( \frac{r_1}{2}\right) \Gamma \left(\frac{r_2}{2}\right) 2^{(r_1+r_2)/2}} u^{r_1/2 -1} v^{r_2/2 -1} e^{-(u_v)/2}
+\end{equation*}
+Notice $U=\frac{r_1 FV}{r_2}$, so the Jacobian is $\frac{r_1 V}{r_2}$.
+So the PDF of F is
+\begin{equation*}
+f(w)= \int_0^\infty \frac{1}{\Gamma\left( \frac{r_1}{2}\right) \Gamma \left(\frac{r_2}{2}\right) 2^{(r_1+r_2)/2}} \left( \frac{r_1}{r_2} \right)^{r_1/2} w^{r_1 /2 - 1} v^{(r_1 +r_2 )/2-1}e^{-v(w r_1 / r_2 +1)}dv
+\end{equation*}
+Let $x=\frac{v}{2}\left( \frac{r_1 w}{r_2} +1\right)$.
+Then $dx=\frac{v}{2}\left( \frac{r_1 w}{r_2} +1\right)$.
+Also, $v=2x\left( \frac{r_1 w}{r_2} +1\right)^{-1}$.
+So
+\begin{align*}
+f(w)
+&= \int_0^\infty
+\frac{1}{
+\Gamma\!\left(\frac{r_1}{2}\right)
+\Gamma\!\left(\frac{r_2}{2}\right)
+2^{(r_1+r_2)/2}
+}
+\left(\frac{r_1}{r_2}\right)^{r_1/2}
+w^{r_1/2 - 1}
+v^{(r_1+r_2)/2 - 1}
+e^{-v\left(wr_1/r_2 + 1\right)}
+\, dv
+\\
+&= \int_0^\infty
+\frac{1}{
+\Gamma\!\left(\frac{r_1}{2}\right)
+\Gamma\!\left(\frac{r_2}{2}\right)
+}
+\left(\frac{r_1}{r_2}\right)^{r_1/2}
+\left(\frac{r_1 w}{r_2} + 1\right)^{-(r_1+r_2)/2}
+x^{(r_1+r_2)/2 - 1}
+w^{r_1/2 - 1}
+e^{-x}
+\, dx
+\\
+&=
+\frac{1}{
+\Gamma\!\left(\frac{r_1}{2}\right)
+\Gamma\!\left(\frac{r_2}{2}\right)
+}
+\left(\frac{r_1}{r_2}\right)^{r_1/2}
+\left(\frac{r_1 w}{r_2} + 1\right)^{-(r_1+r_2)/2}
+w^{r_1/2 - 1}
+\int_0^\infty x^{(r_1+r_2)/2 - 1} e^{-x} \, dx
+\\
+&=
+\frac{
+\Gamma\!\left(\frac{r_1+r_2}{2}\right)
+}{
+\Gamma\!\left(\frac{r_1}{2}\right)
+\Gamma\!\left(\frac{r_2}{2}\right)
+}
+\left(\frac{r_1}{r_2}\right)^{r_1/2}
+\left(\frac{r_1 w}{r_2} + 1\right)^{-(r_1+r_2)/2}
+w^{r_1/2 - 1}.
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+The MGF does not exist.
+\end{theorem}
+\begin{proof}
+Let $U\sim \chi^2(r_1)$, $V\sim \chi^2 (r_2)$, and $F=\frac{U/r_1}{V/4_2}$.
+Then $F\\sim F(r_1, r_2)$ and $F, U, V>0$.
+So
+\begin{align*}
+\mathbb{E}(F^k) &= \frac{\mathbb{E}(U^k)/r_1}{\mathbb{E}(V^k)/r_2}\\
+&= \frac{\mathbb{E}(U^k)\mathbb{E}V^{-k})r_2}{r_1}
+\end{align*}
+The expectation of $V^{-k}$ is not defined for $k>r_2$, so the MGF does not exist.
+\end{proof}
+\begin{corrolary}
+If $r_2 >2$, $\mathbb{E}(X)=\frac{r_2}{r_2 -2}$.
+Also, if $r_2 >4$, $Var(X)=\frac{2r_2^2 (r_1 + r_2 -2)}{r_1 (r_2 -2)^2 (r_2 -4)}$.
+\end{corrolary}
+
+\begin{theorem}
+If $T\sim T(r)$, $T^2 \sim F(1, r)$.
+\end{theorem}
+\begin{proof}
+Let $U\sim \mathcal{N}(0,1)$ and $V\sim \chi^2(r)$.
+Then $T=\frac{U}{\sqrt{V/r}}$.
+So $T^2=\frac{U^2}{V/r}$.
+Also, by properties of the normal distribution,  $U^2\sim \chi^2(1)$.
+So $F\sim F(1,r)$.
+\end{proof}
+
+\begin{definition}
+Let $\mu \in \mathbb{R}$ and $s\in \mathbb{R}^+$.
+Say a random variable has a logistic distribution, $X\sim Logistic(\mu, s)$ whenever it has support $\mathbb{R}$ and the PDF on its support is
+\begin{equation}
+f(x)=\frac{1}{s}e^{-(x-\mu )/s} \left( 1+e^{-(x-\mu )/s}\right)^{-2}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+The CDF is $F(x)=(1+e^{-(x-\mu )/s})^{-1}$ and the MGF is $M(t)=e^{t\mu} \Gamma(1-st)\Gamma(1+st)$.
+\end{theorem}
+\begin{proof}
+Let $u=e^{-(y-\mu)/s}$.
+Then $du = \frac{-1}{s}e^{-(y-\mu)/s}$.
+So
+\begin{align*}
+F(x)&=\int_{-\infty}^x 1dF \\
+&= \int_{-\infty}^{x} \frac{1}{s}e^{-(y-\mu )/s} \left( 1+e^{-(y-\mu )/s}\right)^{-2} dy\\
+&= \int_\infty^{e^{-(x-\mu)/s}} -(1+u)^{-2} du\\
+&=\frac{1}{u}|_\infty^{e^{-(x-\mu)/s}}\\
+&=\left( 1+e^{-(x-\mu)/s}\right)^{-1}
+\end{align*}
+Next, for the MGF, consider $Z\sim Logistic(0,1)$.
+In general, if $X\sim Logistic(\mu, s)$, then $X=\mu +sX$.
+Thus,
+\begin{align*}
+M_Z(t)&=\mathbb{E}(e^{tZ})\\
+&=\int_\mathbb{R} e^{tz} dF\\
+&= \int_\mathbb{R} e^{tz-z} \left( 1+ e^{-z}\right)^{-2} dz
+\end{align*}
+Let $u=\left( 1+e^{-z}\right)^{-1}$.
+Then $du=e^{-z}\left(1+e^{-z}\right)^{-2}$.
+Also, $e^z=u(1-u)^{-1}$.
+Thus,
+\begin{align*}
+M_Z(t)&=\int_\mathbb{R} e^{tz-z} \left( 1+ e^{-z}\right)^{-2} dz \\
+&= \_0^1 u^t (1-u)^{-t} du\\
+&=\frac{\Gamma (1-t)\Gamma(1+t)}{\Gamma(2)}
+\end{align*}
+Here, we have used the definition of the Beta function to evaluate the integral.
+Finally, to get a general MGF, we use properties of the MGF to find $M(t)=e^{t\mu}M_Z(st)$.
+\end{proof}
+\begin{corrolary}
+$\mathbb{E}(X)=\mu$ and $Var(X)=\frac{\pi^2 s^2}{3}$
+\end{corrolary}
+
+\begin{definition}
+Let $\{f_k\}_{k=1}^n$ be a sequence of PDFs all with support $S$ and $\{p_k\}_{k=1}^n$ be a probability distribution.
+Say a random variable has a mixture model when it has support $S$ and its PDF on this support is
+\begin{equation}
+f(x)=\sum_{k=1}^n p_k f_k (x)
+\end{equation}
+\end{definition}
+
+\textbf{Note-}
+A random variable with a mixture model does not have a distribution that is the linear combination of the random variables $X_k \sim F_k$.
+The PDF is the linear combination of the PDFs of $X_k$, but this does not give the same distribution.
+
+\begin{theorem}
+Let $X_k \sim F_k$ be a finite collection of random variables and $p_k$ be a finite probability distribution.
+Also, let $\mathbb{E}(X_k)=\mu_k$ and $Var(X_k)=\sigma_k^2$ for all $k$.
+Let $X$ be a random variable with mixture model PDF $f(x)=\sum_k p_k f_k(x)$.
+Then $\mathbb{E}(X)=\sum_k p_k \mu_k =\mu$ and $Var(X)=\sum_k \left[ p_k \sigma_k^2 + p_k (\mu_k -\mu)^2 \right]$.
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\mathbb{E}(X)&=\int_\mathbb{R} xdF\\
+&= \int_\mathbb{R} \sum_k p_k x f_k(x) dx\\
+&= \sum_k p_k \int_\mathbb{R} x f_k(x)dx\\
+&= \sum_k p_k \mu_k
+\end{align*}
+To compute the variance,
+\begin{align*}
+Var(X)&=\int_\mathbb{R} (x-\mu)^2 dF\\
+&= \int_\mathbb{R} (x-\mu )^2 \sum_k p_k  f_k (x) dx\\
+&= \int_\mathbb{R} \sum_k p_k (x-\mu )^2 f_k(x) dx\\
+&= \int_\mathbb{R} \sum_k p_k (x-\mu_k + \mu_k -\mu)^2  f_k(x) dx\\
+&= \int_\mathbb{R} \sum_k \left[ p_k (x-\mu_k)^2 + 2p_k (x-\mu_k )(\mu_k -\mu) + p_k (\mu_k -\mu )^2\right] f_k (x) dx\\
+&= \sum_k p_k \int_\mathbb{R} (x-\mu_k )^2 f_k(x) dx + 2 \sum_k p_k (\mu_k -\mu) \int_\mathbb{R} (x-\mu_k )f_k(x) dx\\
+&\quad \quad \quad \quad + \sum_k p_k (\mu_k -\mu )^2 \int_\mathbb{R} f_k(x) dx\\
+&= \sum_k p_k \sigma_k^2 + \sum_k p_k (\mu_k -\mu)^2
+\end{align*}\
+Indeed, for the first term in that summmation, we have simply used the definition of $Var(X_k)$.
+For the second term, notice that for all $k$, by definition of the expected value, $\int_\mathbb{R} (x-\mu_k )f_k(x) dx=0$.
+So the entire summation is 0.
+Finally, for the third summation we are using the properties of a PDF to evaluate the integral to 1.
+\end{proof}
+
+\begin{definition}
+A hierarchical model is a parametric distribution whose parameters are random variables.
+\end{definition}
+
+\textbf{Ex-}
+Let $X|Y\sim Poisson(Y)$ and let $Y\sim Gamma(\alpha, \frac{1}{\lambda})$.
+Then, $f_{X|Y}(k|y)=\frac{y^k e^{-y}}{k!}$ and $f_Y(y)=\frac{\lambda^\alpha}{\Gamma (\alpha )} y^{\alpha -1}e^{-y\lambda}$.
+So
+\begin{align*}
+f_X(x)
+& =\int_\mathbb{R} f_{X|Y}(k|y)f_Y(y) dy\\
+&= \int_\mathbb{R} \frac{y^k e^{-y} \lambda^\alpha}{\Gamma (\alpha) k!} y^{\alpha -1} e^{-y\lambda} dy\\
+&= \frac{\lambda^\alpha}{\Gamma(\alpha) k!} \int_\mathbb{R} y^{k+\alpha -1}e^{-y(1+\lambda)} dy\\
+&= \frac{\lambda^\alpha}{\Gamma(\alpha) k!} \Gamma(k+ \alpha) \left(\frac{1}{\lambda +1}\right)^{k+\alpha} \\
+&= \frac{\Gamma(k+\alpha)}{\Gamma(\alpha) k!} \left( \frac{\lambda}{\lambda +1}\right)^k \left( \frac{1}{\lambda +1}\right)^\alpha
+\end{align*}
+Thus, $X\sim NBinom(\frac{1}{1+\lambda}, \alpha)$.\\
+
+\textbf{Note-}
+In the particular case of a Poisson-Gamma model, we can explicitly find the distribution of the random variable.
+However, we typically use hierarchical models in situations where we can not compute the distribution of the variable in question.
+Hierarchical models are also highly related to Bayesian statistics (Ch \ref{Bayesian}).
 
 \end{document}
