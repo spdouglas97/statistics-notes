@@ -41,7 +41,7 @@ Then the characteristic function is the Fourier transform
 \end{equation}
 \end{lemma}
 \begin{proof}
-By definition of the Fourier transform,
+By definition of the Fourier transform (Def \ref{Fourier}),
 \begin{align*}
 \mathscr{F}\{f\}\left(\frac{t}{2\pi}\right) &= \int_\mathbb{R} e^{\frac{2\pi itx}{2\pi}} f(x) dx\\
 &= \int_\mathbb{R} e^{itx}f(x)dx\\
@@ -105,8 +105,9 @@ Thus,
 &\leq \mathbb{E}(|hX|)\\
 &=|h|\mathbb{E}(|X|)
 \end{align*}
-Conversely, if the expected value does not exist, $|e^{ith}-1|\rightarrow 0$ as $h\rightarrow 0$.
-Thus, in either case, we have uniform continuity.
+Conversely, if the expected value does not exist, $|e^{ith}-1|\leq 2$.
+Thus, we can use the dominated convergence theorem to see that $|e^{ith}-1| \rightarrow 0$ as $h\rightarrow 0$.
+Therefore, we can let $\delta>0$ and find an $\epsilon>0$ that gives continuity and does not depend on $x$.
 \end{proof}
 
 \begin{lemma}
@@ -137,7 +138,7 @@ This lemma is related to measures of uncertainty in physics, including the Heise
 Let $X$ be a random variable with characteristic function $\varphi_X$.
 Say the $n^{th}$ cumulant of $X$ are the Taylor coefficients $K_n(X)$ such that
 \begin{equation}
-\ln \varphi_X(t)=\sum_{n=0}^\infty \frac{K_n(X) t^n}{n!}
+\ln \varphi_X(t)=\sum_{n=0}^\infty \frac{K_n(X)i^n t^n}{n!}
 \end{equation}
 \end{definition}
 
@@ -145,17 +146,17 @@ Say the $n^{th}$ cumulant of $X$ are the Taylor coefficients $K_n(X)$ such that
 Let $X$ and $Y$ be independent random variables.
 Then
 \begin{equation}
-K_n(X+Y) = K_N(X) + K_N(Y)
+K_n(X+Y) = K_n(X) + K_n(Y)
 \end{equation}
 \end{theorem}
 \begin{proof}
 Because $X$ and $Y$ are independent, $\varphi_{X+Y}(t)=\varphi_X(t)\varphi_Y(t)$.
 Thus,
 \begin{align*}
-\ln \varphi_{X+Y}(t) &= \ln \varphi_X(t) \varphi_Y(t)\\
+\ln \varphi_{X+Y}(t) &= \ln\left[ \varphi_X(t) \varphi_Y(t)\right]\\
 &= \ln \varphi_X(t) + \ln \varphi_Y(t)\\
-&=\sum_{n=1}^\infty \frac{K_n(X)t^n}{n!} + \sum_{n=0}^\infty \frac{K_n(Y)t^n}{n!}\\
-&=\sum_{n=0}^\infty \frac{[K_n(X)+K_n(Y)]t^n}{n!}
+&=\sum_{n=1}^\infty \frac{K_n(X)i^n t^n}{n!} + \sum_{n=0}^\infty \frac{K_n(Y)i^n t^n}{n!}\\
+&=\sum_{n=0}^\infty \frac{[K_n(X)+K_n(Y)]i^n t^n}{n!}
 \end{align*}
 \end{proof}
 
