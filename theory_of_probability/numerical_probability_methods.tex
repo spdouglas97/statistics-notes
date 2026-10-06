@@ -1,7 +1,121 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{stackengine}
+\usepackage[mathscr]{eucal}
+\usepackage{listings}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+\lstset{showstringspaces=false}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{lemma}
+Let $X$ be a continuous random variable with CDF $F$.
+Then $U\sim F(X)$ is a random variable with $U\sim Unif(0,1)$.
+\end{lemma}
+\begin{proof}
+First, suppose $F$ is one-to-one and let $u\in [0,1]$.
+Then there is an $x$ in the support $S_x$ such that $x=F^{-1}(u)$.
+So the CDF is $F(F^{-1}(u))=u$.
+Thus, $U\sim Unif(0,1)$.
+In general, if $F$ is not one-to-one, we can define
+\begin{equation*}
+G(u)=\min_{x\in S_x} \{x | F(x)=u\}
+\end{equation*}
+Then $F(G(u))=u$.
+So the distribution is $U\sim Unif(0,1)$.
+\end{proof}
+\begin{corrolary}
+Let $X$ be a discrete random variable with CDF $F$ and support $S_x$.
+let $U\sim Unif(0,1)$ and $G(u)=\min_{x\in S_x}\{x|F(x)=u\}$.
+Then $G(U)=X$.
+\end{corrolary}
+
+\begin{definition}
+Monte Carlo is an algorithm that uses random number generation (RNG) to sample a random variable.
+\end{definition}
+
+\begin{theorem}
+\textbf{Inverse Transform Method:}
+Let $X$ be a random variable with CDF $F$ and let \verb|invF| be a function that computes $F^{-1}$.
+Then the following generates samples from $X$ (in python):
+\end{theorem}
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+def invF(u: np.array) -> np.array:
+    /* Implementation of inverse CDF */
+
+u = np.random.rand(1)
+x = invF(u)
+\end{lstlisting}
+\begin{proof}
+Notice we use RNG to draw $U\sim Unif(0,1)$ as the variable \verb|u|.
+Thus, by the previous lemma, \verb|x| is a sample from the desired distribution.
+\end{proof}
+
+\textbf{Ex-} Model rolling a 6-sided die:
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+def roll_die() -> np.array:
+    u = np.random.rand(1)
+    x = np.floor(6 * u) + 1
+    return x
+\end{lstlisting}
+
+\begin{theorem}
+Let $X$ be a random variable with CDF $X$ and finite variance, and $g: \mathbb{R}\rightarrow \mathbb{R}$ a function.
+Then we can estimate the expected value, $\mathbb{E}(g(X))$, with:
+\end{theorem}
+\begin{lstlisting}[language=Python]
+import numpy as np
+from collections.abc import Callable
+
+def expected_value(n: int, g: Callable[[np.array], np.array],
+       invF: Callable[[np.array], np.array]) -> np.array:
+    u = np.random.rand(n)
+    x = invF(u)
+    y = g(x)
+    return np.mean(y)
+\end{lstlisting}
+\begin{proof}
+First, notice we have sampled \verb|x| from $X\sim F(x)$ by the inverse transform method.
+So \verb|y| is sampled from $g(X)$.
+Let $\sigma^2=Var(g(X))$.
+By Chebychev's inequality,
+$$\Pr\left( \middle| \frac{1}{n}\sum_k g(X_k) - \mathbb{E}(g(X))\middle| < \epsilon \right) \geq \frac{\sigma^2}{n}$$
+Thus, for sufficiently large $n$, the average of \verb|y| is a good estimate of $\mathbb{E}(g(X))$.
+\end{proof}
+
+\textbf{Ex-}
+Consider rolling 2 fair 20 sided dice and taking hte maximum.
+Estimate the average within 0.001 of the true value with 99\% probability.
+Notice that the outcome of a fair, 20 sided die is between 1 and 20.
+Thus, the outcome is a $\frac{19}{2}$-subgaussian random variable.
+So we can use Hoeffding's lemma.
+\begin{lstlisting}[language=Python]
+import math
+import numpy as np
+
+epsilon = 0.001
+delta = 0.01
+n = math.ceil(19 * math.log(2 / delta) / (2 * epsilon ** 2))
+u = np.random.rand(n, 2)
+dice = np.floor(20 * u) + 1
+dice_max = np.amax(dice, axis=1)
+print("Simulated rolling 1d20 with advantage, "
+        + f"found mean of {np.mean(dice_max)} with margin of"
+        + f"error {epsilon} and confidence {1-delta}.")
+\end{lstlisting}
 
 \end{document}
