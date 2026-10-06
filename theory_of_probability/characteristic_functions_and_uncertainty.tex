@@ -1,7 +1,163 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{stackengine}
+\usepackage[mathscr]{eucal}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{definition}
+Say the characteristic function of a random variable $X$ is
+\begin{equation}
+\varphi_X (t)=\mathbb{E}(e^{itX})
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+If $X$ has an MGF, the characteristic function is
+\begin{equation}
+\varphi_X (t) = M_X (it)
+\end{equation}
+\end{lemma}
+\begin{proof}
+$$\varphi_X (t) = \mathbb{E}(e^{itX})=M_X(it)$$
+\end{proof}
+
+\begin{lemma}
+Let $X$ be a random variable with PDF $f$.
+Then the characteristic function is the Fourier transform
+\begin{equation}
+\varphi_X (t)=\mathscr{F}\{f\}\left(\frac{t}{2\pi}\right)
+\end{equation}
+\end{lemma}
+\begin{proof}
+By definition of the Fourier transform (Def \ref{Fourier}),
+\begin{align*}
+\mathscr{F}\{f\}\left(\frac{t}{2\pi}\right) &= \int_\mathbb{R} e^{\frac{2\pi itx}{2\pi}} f(x) dx\\
+&= \int_\mathbb{R} e^{itx}f(x)dx\\
+&=\mathbb{E}(e^{itX})\\
+&=\varphi_X (t)
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+Every random variable has a characteristic function.
+\end{theorem}
+\begin{proof}
+Let $X$ be a random variable.
+By Euler's formula, $|e^{itx}|=1$.
+So,
+\begin{align*}
+\mathbb{E}(|e^{itX}|) &= \mathbb{E}(1)\\
+&= 1\\
+&<\infty
+\end{align*}
+Thus, by the definition of the Lebesgue integral, the characteristic function exists.
+\end{proof}
+\begin{corrolary}
+$\varphi_X (t)=\varphi_Y (t)$ if and only if $X$ and $Y$ have the same distribution.
+\end{corrolary}
+
+\begin{theorem}
+$\varphi_X(0)=1$ and $|\varphi_X(t)|\leq 1$.
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\varphi_X(0)&=\mathbb{E}(e^{i(0)X})\\
+&=\mathbb{E}(1)\\
+&=1
+\end{align*}
+Also, absolute value is a convex function.
+So by Jensen's inequality,
+\begin{align*}
+|\varphi_X (t)|&=|\mathbb{E}(e^{itX})|\\
+&\leq \mathbb{E}(|e^{itX}|)\\
+&=\mathbb{E}(1)\\
+&=1
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+Characteristic functions are uniformly continuous.
+\end{theorem}
+\begin{proof}
+First, notice that for any $x,y\in \mathbb{R}$,
+\begin{align*}
+|e^{ix}-e^{iy}|&=|\int_x^y e^{it}dt|\\
+&\leq \int_x^y |e^{it}| dt\\
+&= y-x
+\end{align*}
+Assuming $\mathbb{E}(X)$ exists, we can use this inequality to see $e^{ixh}-1|\leq |hx|$.
+Thus,
+\begin{align*}
+|\varphi(t+h)-\varphi(t)|&=|\mathbb{E}(e^{iX(t+h)}-e^{itAX})|\\
+&\leq \mathbb{E}(|e^{itX}||e^{iXh}-1|)\\
+&\leq \mathbb{E}(|hX|)\\
+&=|h|\mathbb{E}(|X|)
+\end{align*}
+Conversely, if the expected value does not exist, $|e^{ith}-1|\leq 2$.
+Thus, we can use the dominated convergence theorem to see that $|e^{ith}-1| \rightarrow 0$ as $h\rightarrow 0$.
+Therefore, we can let $\delta>0$ and find an $\epsilon>0$ that gives continuity and does not depend on $x$.
+\end{proof}
+
+\begin{lemma}
+Let $X\sim \mathcal{N}(0, \sigma^2)$ and $Y\sim \mathcal{N}(0, \frac{1}{\sigma^2})$.
+Then the PDF of $Y$ is $\frac{\sigma}{\sqrt{2\pi}} \varphi_X (t)$.
+\end{lemma}
+\begin{proof}
+By properites of the characteristic function,
+\begin{align*}
+\varphi_X(t) &= M(it)\\
+&=e^{\sigma^2 (it)^2 /2}\\
+&= e^{-\sigma^2 t^2 /2}
+\end{align*}
+Also, the PDF of $Y$ is
+\begin{equation*}
+f_Y(t)=\frac{\sigma}{\sqrt{2\pi}} e^{-\sigma^2 t^2 /2}
+\end{equation*}
+Thus,
+\begin{equation*}
+f_Y(t)=\frac{\sigma}{\sqrt{2\pi}} \varphi_X(t)
+\end{equation*}
+\end{proof}
+
+\textbf{Note-}
+This lemma is related to measures of uncertainty in physics, including the Heisenberg's Uncertainty Principle.
+
+\begin{definition}
+Let $X$ be a random variable with characteristic function $\varphi_X$.
+Say the $n^{th}$ cumulant of $X$ are the Taylor coefficients $K_n(X)$ such that
+\begin{equation}
+\ln \varphi_X(t)=\sum_{n=0}^\infty \frac{K_n(X)i^n t^n}{n!}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+Let $X$ and $Y$ be independent random variables.
+Then
+\begin{equation}
+K_n(X+Y) = K_n(X) + K_n(Y)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Because $X$ and $Y$ are independent, $\varphi_{X+Y}(t)=\varphi_X(t)\varphi_Y(t)$.
+Thus,
+\begin{align*}
+\ln \varphi_{X+Y}(t) &= \ln\left[ \varphi_X(t) \varphi_Y(t)\right]\\
+&= \ln \varphi_X(t) + \ln \varphi_Y(t)\\
+&=\sum_{n=1}^\infty \frac{K_n(X)i^n t^n}{n!} + \sum_{n=0}^\infty \frac{K_n(Y)i^n t^n}{n!}\\
+&=\sum_{n=0}^\infty \frac{[K_n(X)+K_n(Y)]i^n t^n}{n!}
+\end{align*}
+\end{proof}
 
 \end{document}
