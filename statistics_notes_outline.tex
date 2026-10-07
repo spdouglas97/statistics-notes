@@ -8,17 +8,45 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\newtheorem{theorem}{Theorem}
-\theoremstyle{definition}\newtheorem{definition}{DEF}
-\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
-\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\usepackage{stackengine}
+\usepackage[mathscr]{eucal}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{url}
+\newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{definition}\newtheorem{definition}{DEF}[chapter]
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}[chapter]
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}[chapter]
 \setlength{\parindent}{0pt}
-
-\numberwithin{theorem}{chapter}
-\numberwithin{lemma}{chapter}
-\numberwithin{definition}{chapter}
-\numberwithin{lemma}{chapter}
-\numberwithin{corrolary}{chapter}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codekeyword}{RGB}{0,76,153}
+\definecolor{codecomment}{RGB}{0,128,96}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codenumber}{RGB}{102,102,102}
+\lstdefinestyle{pythoncode}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codekeyword}\bfseries,
+    commentstyle=\color{codecomment}\itshape,
+    stringstyle=\color{codestring},
+    numberstyle=\scriptsize\color{codenumber},
+    numbers=left,
+    numbersep=10pt,
+    stepnumber=1,
+    showstringspaces=false,
+    breaklines=true,
+    keepspaces=true,
+    columns=fullflexible,
+    tabsize=4,
+    frame=single,
+    framerule=0pt,
+    rulecolor=\color{codebg},
+    backgroundcolor=\color{codebg}
+}
+\lstset{style=pythoncode}
 
 \begin{document}
 \title{Notes on Mathematical Statistics}
