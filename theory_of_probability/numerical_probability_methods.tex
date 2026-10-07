@@ -1,7 +1,268 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{stackengine}
+\usepackage[mathscr]{eucal}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{url}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codekeyword}{RGB}{0,76,153}
+\definecolor{codecomment}{RGB}{0,128,96}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codenumber}{RGB}{102,102,102}
+\lstdefinestyle{pythoncode}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codekeyword}\bfseries,
+    commentstyle=\color{codecomment}\itshape,
+    stringstyle=\color{codestring},
+    numberstyle=\scriptsize\color{codenumber},
+    numbers=left,
+    numbersep=10pt,
+    stepnumber=1,
+    showstringspaces=false,
+    breaklines=true,
+    keepspaces=true,
+    columns=fullflexible,
+    tabsize=4,
+    frame=single,
+    framerule=0pt,
+    rulecolor=\color{codebg},
+    backgroundcolor=\color{codebg}
+}
+\lstset{style=pythoncode}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{lemma}
+Let $X$ be a continuous random variable with CDF $F$.
+Then $U= F(X)$ is a random variable with $U\sim Unif(0,1)$.
+\end{lemma}
+\begin{proof}
+First, suppose $F$ is one-to-one and let $u\in [0,1]$.
+Then there is an $x$ in the support $S_x$ such that $x=F^{-1}(u)$.
+So the CDF is $F(F^{-1}(u))=u$.
+Thus, $U\sim Unif(0,1)$.
+In general, if $F$ is not one-to-one, we can define
+\begin{equation*}
+G(u)=\inf\{x : F(x)\ge u\}
+\end{equation*}
+Then $F(G(u))=u$.
+So the distribution is $U\sim Unif(0,1)$.
+\end{proof}
+\begin{corrolary}
+Let $X$ be a discrete random variable with CDF $F$ and support $S_x$.
+Let $U\sim Unif(0,1)$ and $G(u)=\inf\{x : F(x)\ge u\}$.
+Then $G(U)=X$.
+\end{corrolary}
+
+\begin{definition}
+Monte Carlo is an algorithm that uses random number generation (RNG) to sample a random variable.
+\end{definition}
+
+\textbf{Note-}
+Typically, we can not do true random number generation for a Monte Carlo algorithm.
+Instead, we do pseudo-random number generation (pRNG) to do it and rely on the pRNG being "close to random."
+This is because computers run deterministic programs, so generating truly random information is impossible in a computer.
+pRNG algorithms usually require a seed, and it is common to use the time as a seed so repeated runs of an algorithm will not produce the same results.
+In some specialized cases, an outside source of randomness is used to seed to have true RNG.
+For example, Cloudflare maintains a wall of lava lamps in their office in San Francisco with a camera pointing at it.
+Computers can then use this as a seed to generate truly random numbers.
+However, using a good pRNG algorithm is much more common for everyday use.
+
+\begin{definition}
+Let $n, w, r\in \mathbb{N}$ such that $2^{nw-r}-1$ is a Mersenne prime.
+Also let $1 \leq m < n$, let $0 \leq r < w$, let $1\leq u, s, t, l <w$, and let $a, b, c, f$ be binary sequences of length $w$.
+A Mersenne-prime pRNG in the Mersenne Twister family can be defined by the following algorithm:
+\begin{algorithm}[H]
+\caption{Generic Mersenne-Prime Generation Step}
+\begin{algorithmic}[1]
+\State \textbf{Input:} Seed $x[0]$, state array $x[0 \dots n-1]$, index $k$
+\State \textbf{Constants:} $n, w, m, r, a, b, c, f, u, s, t, l$
+\State \textbf{Masks:} $\text{lower\_mask} \leftarrow 2^r - 1$, $\text{upper\_mask} \leftarrow (2^w - 1) - \text{lower\_mask}$
+\If{the state is not initialized}
+    \For{$i = 1$ to $n-1$}
+        \State $x[i] \leftarrow \left(f \cdot \left(x[i-1] \text{ XOR } (x[i-1] \text{ RSHIFT } (w-2))\right) + i\right) \bmod 2^w$
+    \EndFor
+    \State $k \leftarrow n$
+\EndIf
+\If{$k \ge n$}
+    \For{$i = 0$ to $n-1$}
+        \State $y \leftarrow (x[i] \text{ AND } \text{upper\_mask}) \mid (x[(i+1) \bmod n] \text{ AND } \text{lower\_mask})$
+        \State $xA \leftarrow y \text{ RSHIFT } 1$
+        \If{$y \text{ AND } 1 \neq 0$}
+            \State $xA \leftarrow xA \text{ XOR } a$
+        \EndIf
+        \State $x[i] \leftarrow x[(i + m) \bmod n] \text{ XOR } xA$
+    \EndFor
+    \State $k \leftarrow 0$
+\EndIf
+\State $y \leftarrow x[k]$
+\State $k \leftarrow k + 1$
+\State \Comment{Tempering}
+\State $y \leftarrow y \text{ XOR } (y \text{ RSHIFT } u)$
+\State $y \leftarrow y \text{ XOR } ((y \text{ LSHIFT } s) \text{ AND } b)$
+\State $y \leftarrow y \text{ XOR } ((y \text{ LSHIFT } t) \text{ AND } c)$
+\State $z \leftarrow y \text{ XOR } (y \text{ RSHIFT } l)$
+\State \textbf{Output:} $z \in \{0, 1, \dots, 2^w-1\}$
+\end{algorithmic}
+\end{algorithm}
+\end{definition}
+
+\textbf{Note-}
+The basic idea behind the Mersenne Twister is that it has 2 parts.
+First, there is an internal state $x$ generated from a seed $x_0$.
+This is generated by a recursive function called the Twister function.
+At each step, the internal state is then transformed into the random number, called the tempering function.\\
+
+\textbf{Ex-}
+An example Mersenne Twister implementation in Python:
+\lstinputlisting[firstline=20]{theory_of_probability/scripts/mersenne_twister.py}
+An example of drawing numbers using this code with the MT19937 algorithm is provided in \path{theory_of_probability/scripts/run_mersenne_twister.py}
+
+\begin{definition}
+TestU01 is a library of statistical tests that determine whether a pRNG algorithm is distinguishable from draws of $Unif(0,1)$.
+\end{definition}
+
+\textbf{Ex-}
+MT19937, the original implementation of the Mersenne Twister, succeeds on most tests in TestU01.
+The 2 tests that it fails are related to binary representation of the generated numbers, which is due to the way in which it manipulates the binary data to generate the numbers.
+Despite this, it is a common algorithm used in Monte Carlo methods for RNG.
+
+\begin{theorem}
+\textbf{Inverse Transform Method:}
+Let $X$ be a random variable with CDF $F$ and let \verb|invF| be a function that computes $F^{-1}$.
+Then the following generates samples from $X$ (in Python):
+\end{theorem}
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+def invF(u: np.array) -> np.array:
+    # Implementation of inverse CDF
+
+u = np.random.rand(1)
+x = invF(u)
+\end{lstlisting}
+\begin{proof}
+Notice we use RNG to draw $U\sim Unif(0,1)$ as the variable \verb|u|.
+Thus, by the previous lemma, \verb|x| is a sample from the desired distribution.
+\end{proof}
+
+\textbf{Ex-} Model rolling a 6-sided die:
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+def roll_die() -> np.array:
+    u = np.random.rand(1)
+    x = np.floor(6 * u) + 1
+    return x
+\end{lstlisting}
+
+\begin{theorem}
+Let $X$ be a random variable with CDF $X$ and finite variance, and $g: \mathbb{R}\rightarrow \mathbb{R}$ a function.
+Then we can estimate the expected value, $\mathbb{E}(g(X))$, with:
+\end{theorem}
+\begin{lstlisting}[language=Python]
+import numpy as np
+from collections.abc import Callable
+
+def expected_value(n: int, g: Callable[[np.array], np.array],
+       invF: Callable[[np.array], np.array]) -> np.array:
+    u = np.random.rand(n)
+    x = invF(u)
+    y = g(x)
+    return np.mean(y)
+\end{lstlisting}
+\begin{proof}
+First, notice we have sampled \verb|x| from $X\sim F(x)$ by the inverse transform method.
+So \verb|y| is sampled from $g(X)$.
+Let $\sigma^2=Var(g(X))$.
+By Chebyshev's inequality,
+$$\Pr\left( \middle| \frac{1}{n}\sum_k g(X_k) - \mathbb{E}(g(X))\middle| < \epsilon \right) \geq \frac{\sigma^2}{n^2}$$
+Thus, for sufficiently large $n$, the average of \verb|y| is a good estimate of $\mathbb{E}(g(X))$.
+\end{proof}
+
+\textbf{Ex-}
+Consider rolling 2 fair 20 sided dice and taking the maximum.
+Estimate the average within 0.001 of the true value with 99\% probability.
+Notice that the outcome of a fair, 20 sided die is between 1 and 20.
+Thus, the outcome is a $\frac{19}{2}$-subgaussian random variable.
+So we can use Hoeffding's inequality (Thm \ref{HoefdingInequality}) to bound the accuracy.
+\begin{lstlisting}[language=Python]
+import math
+import numpy as np
+
+epsilon = 0.001
+delta = 0.01
+n = math.ceil(19 ** 2 * math.log(2 / delta) / (2 * epsilon ** 2))
+u = np.random.rand(n, 2)
+dice = np.floor(20 * u) + 1
+dice_max = np.amax(dice, axis=1)
+print("Simulated rolling 1d20 with advantage, "
+        + f"found mean of {np.mean(dice_max)} with margin of"
+        + f"error {epsilon} and confidence {1-delta}.")
+\end{lstlisting}
+
+\begin{theorem}
+\textbf{Box-Muller Transform:}
+Let $U_1, U_2 {iid \atop \sim} Unif(0,1)$.
+Let $Z_1 = \sqrt{-2\ln U_1}\cos (2\pi U_2)$ and $Z_2 = \sqrt{-2\ln U_1} \sin(2\pi U_2)$.
+Then $Z_1, Z_2 \sim \mathcal{N}(0,1)$.
+\end{theorem}
+\begin{proof}
+Let $R=\sqrt{-2\ln U_1}$.
+Then $U_1 = e^{-R^2/2}$.
+Thus, by the inverse transform method, the CDF of R is $F_R(r)=1-e^{-r^2/2}$.
+So the PDF of $R$ is $f_R(r)=re^{-r^2/2}$.
+Next, let $\phi = 2\pi U_2$.
+So it has PDF $f(\phi)=\frac{1}{2\pi}$.
+Clearly $R$ and $\phi$ are independent and have joint PDF $f(r,\phi)=\frac{r}{2\pi}e^{-r^2/2}$.
+Also notice that $(R, \phi) \rightarrow (Z_1, Z_2)$ is a bijection with jacobian $R$.
+Clearly, $R^2 = Z_1^2 + Z_2^2$.
+Thus, the joint PDF of $Z$ is $f(z_1, z_2)=\frac{1}{2\pi} e^{-(z_1^2 + z_2^2)/2}$.
+This is the PDF of $\mathcal{N}_2(0, \mathbb{I}_2)$.
+Thus, we have the desired distribution.
+\end{proof}
+
+\begin{definition}
+Rejection sampling is a technique in which a sample is taken from a larger space and rejected if it does not fall within the sample space.
+\end{definition}
+
+\textbf{Ex-}
+In order to sample from the unit disk, we can sample a point $(x,y)\in [-1,1]^2$ and reject it if $x^2 + y^2 > 1$.\\
+
+\textbf{Note-}
+Rejection sampling may seem like a poor idea, especially in the case of sampling from a unit disk.
+We could, instead, write an explicit formula to sample from the unit disk using the inverse transform method.
+However, this transform would require the computation of multiple trigonometric functions, which can take a long time.
+The probability of rejecting a point, on the other hand, is only $1-\frac{\pi}{4}$.
+When timing the difference in low-level languages, such as C, rejection sampling is faster.
+Python has unususally fast trigonometric functoins, so the reverse may be true for our example in \path{theory_of_probability/scripts/unit_disk_sampling.py}
+
+\begin{definition}
+Let $C\subseteq \mathbb{R}^n$.
+Hit and run sampling is a sampling technique in which points are sampled recursively.
+First, an initial point $x_0$ is the start of the algorithm.
+Then, both a direction $d\in \mathbb{S}^{n-1}$ and the distance $A$ to the boundary of $C$ is computed.
+Then, a distance $r\in [0,1]$ is sampled and $x_k=x_{k-1}+rd$.
+\end{definition}
+
+\textbf{Note-}
+Hit and run sampling will sample uniformly from $C$ after an initial "warm up" period.
+This is an example of the more general MCMC algorithm (\ref{MCMC}).
 
 \end{document}

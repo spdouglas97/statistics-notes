@@ -8,3 +8,4 @@
 *.dvi
 *.sta
 *.gz
+*.pyc
