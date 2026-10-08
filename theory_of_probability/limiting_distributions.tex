@@ -112,37 +112,220 @@ Thus, $X_n {D \atop \rightarrow} X$.
 
 \begin{definition}
 Let $\{X_n\}_{n=0}^\infty$ be a sequence of random variables and $X$ a random variable.
-Say the sequence $X_n$ converges in probability to $X$, $X_n {P \atop \rightarrow}$, whenever for all $\epsilon >0$,
+Say the sequence $X_n$ converges in probability to $X$, $X_n {P \atop \rightarrow} X$, whenever for all $\epsilon >0$,
 \begin{equation}
 \lim_{n\rightarrow \infty} \Pr(|X_n -X|>\epsilon)=0
 \end{equation}
 \end{definition}
 
 \begin{lemma}
-If $X_n {P \atop \rightarrow} X$ and $g: \mathbb{R} \rightarrow \mathbb{R}$ is a continuous and bounded function, $g(X_n) \rightarrow g(X)$.
+If $X_n {P \atop \rightarrow} X$ and $g: \mathbb{R} \rightarrow \mathbb{R}$ is a continuous and bounded function, then $g(X_n) {P \atop \rightarrow} g(X)$.
 \end{lemma}
+\begin{proof}
+Let $\epsilon, \eta>0$.
+Because $\Pr(|X|>M)\rightarrow 0$ as $M\rightarrow \infty$, we can choose $M>0$ such that $\Pr(|X|>M)<\frac{\eta}{2}$.
+Also, because $g$ is continuous on the compact interval $[-M-1,M+1]$, it is uniformly continuous there.
+Thus, there exists $\delta \in (0,1)$ such that whenever $x,y\in [-M-1,M+1]$ and $|x-y|<\delta$, we have $|g(x)-g(y)|<\epsilon$.
+
+Now suppose $|X|\leq M$ and $|X_n-X|<\delta$.
+Then because $\delta<1$, we have $|X_n|\leq M+1$.
+So both $X_n$ and $X$ lie in $[-M-1,M+1]$, and hence $|g(X_n)-g(X)|<\epsilon$.
+Therefore,
+\begin{align*}
+\Pr(|g(X_n)-g(X)|>\epsilon)
+&\leq \Pr(|X|>M)+\Pr(|X_n-X|\geq \delta).
+\end{align*}
+Because $X_n {P \atop \rightarrow} X$, we know $\Pr(|X_n-X|\geq \delta)<\frac{\eta}{2}$ for large $n$.
+Thus, for large $n$,
+\begin{equation*}
+\Pr(|g(X_n)-g(X)|>\epsilon)<\eta.
+\end{equation*}
+Therefore, $g(X_n) {P \atop \rightarrow} g(X)$.
+\end{proof}
 
 
 \begin{lemma}
 If $X_n {P \atop \rightarrow} X$, then $X_n {D \atop \rightarrow} X$.
 \end{lemma}
 \begin{proof}
-Let $K=\max \{ g(x) | x\in \mathbb{R}\}$.
-Also, let $\epsilon>0$ and $A_n$ be the event $\{|g(X_n) - \mathbb{E}(g(X))|>\frac{\epsilon}{2}\}$.
+Let $g: \mathbb{R}\rightarrow \mathbb{R}$ be a continuous and bounded function.
+Choose $K>0$ such that $|g(x)|\leq K$ for all $x\in \mathbb{R}$.
+Also, let $\epsilon>0$ and $A_n$ be the event $\{|g(X_n) - g(X)|>\frac{\epsilon}{2}\}$.
 Then
 \begin{align*}
 \left|\mathbb{E}[g(X_n)] - \mathbb{E}[g(X)]\right|
-&= \left|\mathbb{E}\bigl[g(X_n) - \mathbb{E}[g(X)]\bigr]\right| \\
-&\le \mathbb{E}\left[\left|g(X_n) - \mathbb{E}[g(X)]\right|\right] \\
-&= \int_{\mathbb{R}} \left|g(x) - \mathbb{E}[g(X)]\right| \, dF_n \\
-&= \int_{A_n} \left|g(x) - \mathbb{E}[g(X)]\right| \, dF_n
-  + \int_{A_n^c} \left|g(x) - \mathbb{E}[g(X)]\right| \, dF_n \\
-&\le \int_{A_n} K \, dF_n + \int_{A_n^c} \frac{\epsilon}{2} \, dF_n \\
-&= K\,p(A_n) + \frac{\epsilon}{2}\,p(A_n^c).
+&= \left|\mathbb{E}\bigl[g(X_n) - g(X)\bigr]\right| \\
+&\le \mathbb{E}\left[\left|g(X_n) - g(X)\right|\right] \\
+&= \mathbb{E}\left[\left|g(X_n) - g(X)\right|\mathbf{1}_{A_n}\right]
++ \mathbb{E}\left[\left|g(X_n) - g(X)\right|\mathbf{1}_{A_n^c}\right] \\
+&\le 2K\,\Pr(A_n) + \frac{\epsilon}{2}.
 \end{align*}
-Because $X_n {P\atop \rightarrow}X$, $p(A_n)<\frac{\epsilon}{2K}$ for large $n$.
-Therefore, $|\mathbb{E}(g(X_n)) - \mathbb{E}(g(X))| \rightarrow 0$.
-Finally, we can show this result implies convergence in distribution.
+By the previous lemma, $g(X_n) {P\atop \rightarrow}g(X)$, so $\Pr(A_n)<\frac{\epsilon}{4K}$ for large $n$.
+Thus, for large $n$,
+\begin{equation*}
+\left|\mathbb{E}[g(X_n)] - \mathbb{E}[g(X)]\right|<\epsilon.
+\end{equation*}
+Therefore, $\mathbb{E}[g(X_n)]\rightarrow \mathbb{E}[g(X)]$ for every continuous and bounded function $g$.
+
+Now let $x\in \mathbb{R}$ be a point where $F$ is continuous.
+For each $m\in \mathbb{N}$, define
+\begin{equation*}
+g_m^-(t)=
+\begin{cases}
+1, & t\leq x-\frac{1}{m}\\
+m(x-t), & x-\frac{1}{m}<t<x\\
+0, & t\geq x
+\end{cases}
+\end{equation*}
+and
+\begin{equation*}
+g_m^+(t)=
+\begin{cases}
+1, & t\leq x\\
+1-m(t-x), & x<t<x+\frac{1}{m}\\
+0, & t\geq x+\frac{1}{m}.
+\end{cases}
+\end{equation*}
+These are continuous and bounded, and they satisfy
+\begin{equation*}
+g_m^-(t)\leq \mathbf{1}_{(-\infty, x]}(t)\leq g_m^+(t).
+\end{equation*}
+So for every $n$,
+\begin{equation*}
+\mathbb{E}[g_m^-(X_n)]\leq F_n(x)\leq \mathbb{E}[g_m^+(X_n)].
+\end{equation*}
+Taking limits in $n$ gives
+\begin{equation*}
+\mathbb{E}[g_m^-(X)]\leq \liminf_{n\rightarrow \infty} F_n(x)\leq \limsup_{n\rightarrow \infty} F_n(x)\leq \mathbb{E}[g_m^+(X)].
+\end{equation*}
+Also,
+\begin{equation*}
+\mathbf{1}_{(-\infty, x-\frac{1}{m}]}(t)\leq g_m^-(t)\leq \mathbf{1}_{(-\infty, x)}(t)
+\end{equation*}
+and
+\begin{equation*}
+\mathbf{1}_{(-\infty, x]}(t)\leq g_m^+(t)\leq \mathbf{1}_{(-\infty, x+\frac{1}{m}]}(t).
+\end{equation*}
+Therefore,
+\begin{equation*}
+F\left(x-\frac{1}{m}\right)\leq \mathbb{E}[g_m^-(X)]\leq \Pr(X<x)
+\end{equation*}
+and
+\begin{equation*}
+F(x)\leq \mathbb{E}[g_m^+(X)]\leq F\left(x+\frac{1}{m}\right).
+\end{equation*}
+Because $F$ is continuous at $x$, we have
+\begin{equation*}
+F\left(x-\frac{1}{m}\right)\rightarrow F(x),
+\qquad
+\Pr(X<x)=F(x),
+\qquad
+F\left(x+\frac{1}{m}\right)\rightarrow F(x).
+\end{equation*}
+Thus,
+\begin{equation*}
+\mathbb{E}[g_m^-(X)]\rightarrow F(x)
+\qquad \text{and} \qquad
+\mathbb{E}[g_m^+(X)]\rightarrow F(x).
+\end{equation*}
+Therefore,
+\begin{equation*}
+\lim_{n\rightarrow \infty} F_n(x)=F(x).
+\end{equation*}
+Thus, $X_n {D \atop \rightarrow} X$.
+\end{proof}
+
+\begin{theorem}
+\textbf{Slutsky's Theorem:}
+Let $X_n {D \atop \rightarrow} X$ and $Y_n {P \atop \rightarrow} c$ for some constant $c\in \mathbb{R}$.
+Then
+\begin{align}
+X_n + Y_n &{D \atop \rightarrow} X_n +c\\
+X_n Y_n &{D \atop \rightarrow} cX_n\\
+\frac{X_n}{Y_n} &{D \atop \rightarrow} \frac{X_n}{c} 
+\end{align}
+where the last property only holds for $c\neq 0$.
+Furthermore, if $X_n {P \atop \rightarrow} X$, all above sequences converge in probability.
+\end{theorem}
+\begin{proof}
+First, suppose $X_n {D \atop \rightarrow} X$.
+Then we also have $Y_n {D \atop \rightarrow} c$.
+Thus, $(X_n, Y_n) {D \atop \rightarrow} (X, c)$.
+Also notice that addition, multiplication, and division are all continuous functions.
+Therefore, the continuous mapping theorem gives the result. \\
+Now suppose $X_n {P\atop \rightarrow} X$.
+Let $\epsilon, \delta>0$.
+Then, for large $n$,
+\begin{align*}
+\Pr(|X_n +Y_n -X -c|>\epsilon) &\leq \Pr(|X_n -X| + |Y_n -c|>\epsilon)\\
+&\leq \Pr\left(\middle|X_n -X\middle|>\frac{\epsilon}{2}\right) + \Pr\left(\middle|Y_n -c\middle|>\frac{\epsilon}{2}\right)\\
+&\leq \frac{\delta}{2} + \frac{\delta}{2}\\
+&= \delta
+\end{align*}
+Similarly,
+\begin{align*}
+\Pr(|X_n Y_n - Xc|>\epsilon)&\leq \Pr(|X_n Y_n -X_n c +X_n c-Xc|>\epsilon)\\
+&\leq \Pr(|X_n Y_n -X_n c| + |X_n c - Xc|>\epsilon)\\
+&\leq \Pr(|X_n Y_n - X_n c|>\frac{\epsilon}{2}) + \Pr(|X_n c-Xc|>\frac{\epsilon}{2})\\
+&\leq \frac{\delta}{2} + \frac{\delta}{2}\\
+&=\delta
+\end{align*}
+Finally, if $c\neq 0$, we can let $Z_n = \frac{1}{Y_n}$ and $b=\frac{1}{c}$.
+Then  $Z_n {P \atop \rightarrow} b$, so 
+$$\frac{X_n}{Y_n} = X_n Z_n {P \atop \rightarrow} Xd=\frac{X}{c}$$
+\end{proof}
+
+\textbf{Ex-}
+$T(r){P\atop \rightarrow} \mathcal{N}(0,1)$.\\
+Let $T_n \sim T(n)$, $X\sim \mathcal{N}(0,1)$, and $U_n \sim \chi^2(n)$.
+Then $T_n=\frac{X}{\sqrt{U_n/n}}$.
+Notice that $\mathbb{E}\left(\frac{U_n}{n}\right)=1$ and $Var\left( \frac{U_n}{n}\right)=\frac{2}{n}$.
+By Chebychev's theorem, 
+\begin{align*}
+\Pr\left(\middle| \frac{U_n}{n} -1\middle| > \epsilon\right) &\leq \frac{2}{n\epsilon^2} \\
+&\rightarrow 0
+\end{align*}
+So $\frac{U_n}{n} {P\atop \rightarrow} 1$ and clearly $X {P \atop \rightarrow} X$.
+Therefore, by Slutsky's theorem, we get the result.
+
+\lstinputlisting[firstline=12, lastline=31]{scripts/plot_t_distributions.py}
+
+\centering
+\includegraphics[scale=0.5]{images/t_distribution_comparison.png}
+\raggedright
+
+Notice that this example is the reverse of hte binomial-poisson example: the tails decrease and the peak increases as $n$ increases.
+Also unlike that case, all distributions share the same support, the diffference between the distributions is only where the density is distributed throughout the support.
+
+\begin{definition}
+Let $\{X_n \}_{n=1}^\infty$ be a sequence of random variables and $X$ a random variable.
+Say $X_n$ converges almost surely to $X$, $X_n {a.s. \atop \rightarrow} X$, whenever
+\begin{equation}
+\Pr\left( \lim_{n\rightarrow \infty} X_n = X\right) = 1
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+If $X_n {a.s.\atop \rightarrow}X$, $X_n {P \atop \rightarrow} X$.
+\end{lemma}
+\begin{proof}
+Suppose $X_n {a.s. \atop \rightarrow} X$ and let $(S, \Omega, p)$ be the probability space that forms the shared domain of all $X_n$ and $X$.
+Consider the event
+$$E=\left\{ s\in S\middle| \lim_{n\rightarrow \infty} X_n(s) = X(s)\right\}$$
+By definition of almost sure covergence, $p(E)=0$.
+Next, for $n \in \mathbb{N}$, consider the event
+$$E_n =\left\{ s\in S\middle| \,\middle| X_n(s) - X(s)\middle|>\epsilon\right\}$$
+Now suppose $s \notin E$.
+Then there is some $N\in \mathbb{N}$ such that for all $n\geq N$, $|X_n(s)-X(s)|<\epsilon$.
+This means $s\notin \limsup_n E_n$.
+Thus, $\limsup_n E_n \subseteq E$.
+Therefore,
+\begin{align*}
+\Pr\left( \middle| X_n - X \middle| >\epsilon\right) &= \Pr\left(  E_n \right)\\
+&\rightarrow \Pr\left(\limsup_n E_n \right)\\
+&\leq \Pr(E)\\
+&= 0
+\end{align*}
 \end{proof}
 
 \end{document}
