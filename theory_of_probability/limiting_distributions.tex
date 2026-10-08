@@ -110,4 +110,41 @@ Notice $F_n \circ g^{-1} \rightarrow F \circ g^{-1}$ pointwise.
 Thus, $X_n {D \atop \rightarrow} X$.
 \end{proof}
 
+\begin{definition}
+Let $\{X_n\}_{n=0}^\infty$ be a sequence of random variables and $X$ a random variable.
+Say the sequence $X_n$ converges in probability to $X$, $X_n {P \atop \rightarrow}$, whenever for all $\epsilon >0$,
+\begin{equation}
+\lim_{n\rightarrow \infty} \Pr(|X_n -X|>\epsilon)=0
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+If $X_n {P \atop \rightarrow} X$ and $g: \mathbb{R} \rightarrow \mathbb{R}$ is a continuous and bounded function, $\mathbb{E}(g(X_n)) \rightarrow \mathbb{E}(g(X))$.
+\end{lemma}
+\begin{proof}
+Let $K=\max \{ g(x) | x\in \mathbb{R}\}$.
+Also, let $\epsilon>0$ and $A_n$ be the event $\{|g(X_n) - \mathbb{E}(g(X))|>\frac{\epsilon}{2}\}$.
+Then
+\begin{align*}
+\left|\mathbb{E}[g(X_n)] - \mathbb{E}[g(X)]\right|
+&= \left|\mathbb{E}\bigl[g(X_n) - \mathbb{E}[g(X)]\bigr]\right| \\
+&\le \mathbb{E}\left[\left|g(X_n) - \mathbb{E}[g(X)]\right|\right] \\
+&= \int_{\mathbb{R}} \left|g(x) - \mathbb{E}[g(X)]\right| \, dF_n \\
+&= \int_{A_n} \left|g(x) - \mathbb{E}[g(X)]\right| \, dF_n
+  + \int_{A_n^c} \left|g(x) - \mathbb{E}[g(X)]\right| \, dF_n \\
+&\le \int_{A_n} K \, dF_n + \int_{A_n^c} \frac{\epsilon}{2} \, dF_n \\
+&= K\,p(A_n) + \frac{\epsilon}{2}\,p(A_n^c).
+\end{align*}
+Because $X_n {P\atop \rightarrow}X$, $p(A_n)<\frac{\epsilon}{2K}$ for large $n$.
+Therefore, $|\mathbb{E}(g(X_n)) - \mathbb{E}(g(X))| \rightarrow 0$.
+\end{proof}
+
+\begin{lemma}
+If $X_n {P \atop \rightarrow} X$, then $X_n {D \atop \rightarrow} X$.
+\end{lemma}
+\begin{proof}
+Notice that $|E^{ita}-e^{itb}|\leq |t||a-b|$.
+
+\end{proof}
+
 \end{document}
