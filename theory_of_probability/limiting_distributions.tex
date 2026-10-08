@@ -119,7 +119,12 @@ Say the sequence $X_n$ converges in probability to $X$, $X_n {P \atop \rightarro
 \end{definition}
 
 \begin{lemma}
-If $X_n {P \atop \rightarrow} X$ and $g: \mathbb{R} \rightarrow \mathbb{R}$ is a continuous and bounded function, $\mathbb{E}(g(X_n)) \rightarrow \mathbb{E}(g(X))$.
+If $X_n {P \atop \rightarrow} X$ and $g: \mathbb{R} \rightarrow \mathbb{R}$ is a continuous and bounded function, $g(X_n) \rightarrow g(X)$.
+\end{lemma}
+
+
+\begin{lemma}
+If $X_n {P \atop \rightarrow} X$, then $X_n {D \atop \rightarrow} X$.
 \end{lemma}
 \begin{proof}
 Let $K=\max \{ g(x) | x\in \mathbb{R}\}$.
@@ -137,14 +142,7 @@ Then
 \end{align*}
 Because $X_n {P\atop \rightarrow}X$, $p(A_n)<\frac{\epsilon}{2K}$ for large $n$.
 Therefore, $|\mathbb{E}(g(X_n)) - \mathbb{E}(g(X))| \rightarrow 0$.
-\end{proof}
-
-\begin{lemma}
-If $X_n {P \atop \rightarrow} X$, then $X_n {D \atop \rightarrow} X$.
-\end{lemma}
-\begin{proof}
-Notice that $|E^{ita}-e^{itb}|\leq |t||a-b|$.
-
+Finally, we can show this result implies convergence in distribution.
 \end{proof}
 
 \end{document}
