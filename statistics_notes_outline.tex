@@ -16,10 +16,12 @@
 \usepackage{float}
 \usepackage{xcolor}
 \usepackage{url}
+\usepackage{amssymb}
 \newtheorem{theorem}{Theorem}[chapter]
-\theoremstyle{definition}\newtheorem{definition}{DEF}[chapter]
-\theoremstyle{lemma}\newtheorem{lemma}{Lemma}[chapter]
-\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corrolary}[theorem]{Cor}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{DEF}
 \setlength{\parindent}{0pt}
 \definecolor{codebg}{RGB}{248,248,248}
 \definecolor{codekeyword}{RGB}{0,76,153}

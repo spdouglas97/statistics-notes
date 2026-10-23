@@ -1,7 +1,620 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{stackengine}
+\usepackage[mathscr]{eucal}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{amssymb}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codekeyword}{RGB}{0,76,153}
+\definecolor{codecomment}{RGB}{0,128,96}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codenumber}{RGB}{102,102,102}
+\lstdefinestyle{pythoncode}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codekeyword}\bfseries,
+    commentstyle=\color{codecomment}\itshape,
+    stringstyle=\color{codestring},
+    numberstyle=\scriptsize\color{codenumber},
+    numbers=left,
+    numbersep=10pt,
+    stepnumber=1,
+    showstringspaces=false,
+    breaklines=true,
+    keepspaces=true,
+    columns=fullflexible,
+    tabsize=4,
+    frame=single,
+    framerule=0pt,
+    rulecolor=\color{codebg},
+    backgroundcolor=\color{codebg}
+}
+\lstset{style=pythoncode}
+
 \begin{document}
 
-This is where the chapter goes
+\begin{definition}
+Let $(S, \Omega, p)$ be a probability space and let $\{X_n \}_{n=1}^\infty$ be a sequence of random variables and $X$ be a random variable such that $X_n, X: (S, \Omega, p)\rightarrow \mathbb{R}$.
+Say $X_n$ converges almost surely to $X$, $X_n {a.s. \atop \rightarrow} X$, whenever
+\begin{equation}
+\Pr\left( \lim_{n\rightarrow \infty} X_n(s) = X(s)\right) = 1
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+Let $\{ X_n \}, X: (S, \Omega, p) \rightarrow \mathbb{R}$.
+$X_n {a.s. \atop \rightarrow} X$ if and only if for all $\epsilon>0$,
+\begin{equation}
+\sum_{n=1}^\infty \Pr \left( \middle| X_n - X \middle| > \epsilon \right) < \infty
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $\epsilon >0$.
+Consider the event $E_n = \{ s\in S | \, |X_n(s)-X(s)|>\epsilon \}$ and let $E=\limsup_n E_n$.
+Then a sample $s\in S$ is in $E$ if and only if there are infinitely many $n$ such that $|X_n -X|>\epsilon$.
+Also, if $X_n(s) \rightarrow X(s)$, $s\notin E$.
+Thus,
+\begin{equation*}
+p(E)=1-\Pr\left(\lim_{n\rightarrow \infty} X_n(s) = X \right)
+\end{equation*}
+Now, suppose $\sum_{n=1}^\infty \Pr \left( \middle| X_n - X \middle| > \epsilon \right) < \infty$.
+Then, by the Borel-Cantelli lemma (Thm \ref{borel_cantelli}), $p(E)=0$.
+Therefore, by definition, $X_n {a.s. \atop \rightarrow} X$. \\
+Conversely, suppose $\sum_{n=1}^\infty \Pr \left( \middle| X_n - X \middle| > \epsilon \right) = \infty$.
+Then by the Borel-Cantelli lemma, $p(E)=1$.
+Therefore, the sequence does not converge.
+\end{proof}
+
+\begin{theorem}
+\textbf{Continuous Mapping Theorem for Almost Sure Convergence:}
+Let $X_n {a.s. \atop \rightarrow} X$ and $g: \mathbb{R} \rightarrow \mathbb{R}$.
+Then $g(X_n) {a.s. \atop \rightarrow} X$.
+\end{theorem}
+\begin{proof}
+By definition of continuity, if $X_n(s) \rightarrow X(s)$, then $g(X_n(s)) \rightarrow g(X(s))$.
+Thus,
+\begin{align*}
+\Pr\left( \lim_{n\rightarrow \infty} g(X_n(s)) = g(X(s)) \right)
+&\geq \Pr\left( \lim_{n\rightarrow \infty} X_n(s) = X(s)\right)\\
+&= 1
+\end{align*}
+So the $g(X_n)$ converges almost surely to $g(X)$.
+\end{proof}
+
+\begin{definition}
+Let $\{X_n\}_{n=1}^\infty$ be a sequence of random variables each with CDF $F$ and $X$ be a random variable with CDF $F$.
+Say $X_n$ converges to $X$ in distribution, $X_n {D \atop \rightarrow} X$ whenever $F_n \rightarrow F$ pointwise at all points where $F(x)$ is continuous.
+\end{definition}
+
+\textbf{Note-}
+For convergence almost surely, we must ensure all random variables have the same domain.
+However, for convergence in distribution, this requirement does not need to be met.
+Two random variables, defined on different probability spaces, may have the same CDF and thus fit the definition of convergence in distribution.
+This is an important difference between the types of convergece.\\
+
+\textbf{Ex-}
+Consider $X_n \sim Unif(0,\frac{1}{n})$ and $X=0$.
+Then $X_n {D\atop \rightarrow} X$, but $F_n(0) \nrightarrow F(0)$.
+This is why we care only about pointwise convergence where the CDFs are continuous.
+
+\begin{lemma}
+Let $\{X_n \}_{n=1}^\infty$ be a sequence of discrete random varaibles each with PDF $f_n$ and let $X$ be a discrete random variable with PDF $f$, with all random variables having a common support $S\subseteq \mathbb{Z}$.
+Then $X_n {D \atop \rightarrow} X$ if and only if $f_n \rightarrow f$ pointwise.
+\end{lemma}
+\begin{proof}
+First, suppose $X_n {D \atop \rightarrow} X$.
+For $x \notin \mathbb{Z}$, $f_n (x)=0$ and $f(x)=0$, so clearly $f_n \rightarrow f$.
+For any $k \in \mathbb{Z}$, $F_n(k+\frac{1}{2}) \rightarrow F(k+\frac{1}{2})$ and $F_n(x-\frac{1}{2}) \rightarrow F(k-\frac{1}{2})$.
+Thus, $F_n(k+\frac{1}{2}) - F_n(k-\frac{1}{2}) \rightarrow F(k+\frac{1}{2}) - F(k-\frac{1}{2})$.
+Because the random variables have support in $\mathbb{Z}$, we know $F_n(k+\frac{1}{2})-F_n(k-\frac{1}{2})=f_n(k)$ and $F(k+\frac{1}{2})-F(k-\frac{1}{2})=f(k)$.
+Thus, $f_n(k) \rightarrow f$.
+Therefore, $f_n \rightarrow f$ pointwise.\\
+Conversely, suppose $f_n\rightarrow f$.
+Then for all $k\in \mathbb{Z}$, $f_n(k)\rightarrow f(k)$.
+So $\sum_{k \leq x} f_n(k) \rightarrow \sum_{k \leq x} f(k)$.
+Thus, $F_n(x)\rightarrow F(x)$.
+Therefore, $X_n {D \atop \rightarrow} X$.
+\end{proof}
+
+\textbf{Ex-}
+$Binom(n, \frac{\lambda}{n})\rightarrow Poisson(\lambda)$. \\
+Let $k\in \mathbb{Z}$.
+For $n\geq k$,
+\begin{align*}
+f_n(k)&=\binom{n}{k} \left( \frac{\lambda}{n}\right)^k \left( 1-\frac{\lambda}{n}\right)^{n-k}\\
+&=\frac{1}{k!}(n)(n-1)...(n-k+1)\left( \frac{\lambda}{n}\right)^k \left( 1-\frac{\lambda}{n}\right)^{n-k}\\
+&= \frac{1}{k!} \frac{n(n-1)(n-2)...(n-k+1)}{n(n)(n)...(n)} \lambda^k \left( 1-\frac{\lambda}{n}\right)^n\left( 1-\frac{\lambda}{n}\right)^{-k}
+\end{align*}
+We can look at how these different terms evolve as $n\rightarrow \infty$.
+First, $\frac{`1}{k!}$ and $\lambda^k$ are constant, so it will not change.
+Second, $\frac{n(n-1)(n-2)...(n-k+1)}{n(n)(n)...(n)} \rightarrow 1$.
+Third, $\left( 1-\frac{\lambda}{n}\right)^{-k}\rightarrow 1$.
+Finally, we can let $u=\frac{-n}{\lambda}$, which gives $\left( 1-\frac{\lambda}{n}\right)^n =\left(1 + \frac{1}{u}\right)^{-u\lambda} \rightarrow e^{-\lambda}$.
+Thus, $f_n(k)\rightarrow \frac{\lambda^k e^{-\lambda}}{k!}$.
+
+\lstinputlisting[firstline=11, lastline=25]{theory_of_probability/scripts/plot_distributions.py}
+
+\centering
+\includegraphics[scale=0.5]{theory_of_probability/images/poisson_convergence.png}\\
+\raggedright
+
+Notice that as $n$ increases, the peak probability decreases and the tail probabilities increase.
+With $n=100$, the shape of the binomial is very close to that of the Poisson.
+Also recall that the Poisson is a discrete distribution, but here we have graphed an envelope for clarity.
+
+\begin{theorem}
+\textbf{Continuous Mapping Theorem for Convergence in Distribution:}
+Let $X_n {D \atop \rightarrow} X$ and $g: \mathbb{R} \rightarrow \mathbb{R}$ be continuous.
+Then $g(X_n) {D \atop \rightarrow} g(X)$.
+\end{theorem}
+\begin{proof}
+Let $F_n$ be the CDF of $X_n$ and $F$ be the CDF of $X$.
+Then the CDF of $g(X_n)$ is $F_n \circ g^{-1}$ and the CDF of $X$ is $F \circ g^{-1}$.
+Notice $F_n \circ g^{-1} \rightarrow F \circ g^{-1}$ pointwise.
+Thus, $X_n {D \atop \rightarrow} X$.
+\end{proof}
+
+\begin{theorem}
+\textbf{Skorokhod’s Representation Theorem:}
+Let $\{X_n\}$ be a sequence of random variables and $X$ be a random variable such that $X_n \rightarrow X$.
+Then there is a sequence of random variabels $\{Y_n\}$ and a random variable $Y$ such that
+\begin{enumerate}
+\item For all $n$, $X_n$ and $Y_n$ have the same distribution.
+\item $X$ and $Y$ have the same distribution.
+\item $Y_n {a.s. \atop \rightarrow} Y$
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Let $F_n$ be the CDF of $X_n$ and let $F$ be the CDF of $X$.
+Because $X_n {D \atop \rightarrow} X$, we know $F_n(x)\rightarrow F(x)$ at each continuity point of $F$.
+
+Let the common probability space be $((0,1),\mathcal{B},|.|)$, where $|.|$ is Lebesgue measure.
+For $u\in (0,1)$, define
+\begin{align*}
+Y_n(u)&=\inf\{x\in \mathbb{R}\, |\, F_n(x)\geq u\}\\
+Y(u)&=\inf\{x\in \mathbb{R}\, |\, F(x)\geq u\}.
+\end{align*}
+For any $x\in \mathbb{R}$, we have $Y_n(u)\leq x$ if and only if $u\leq F_n(x)$.
+Therefore,
+\begin{align*}
+\Pr\left( Y_n \leq x \right)
+ &= |\{u\in (0,1)\, |\, Y_n(u)\leq x\}|\\
+&=|\{u\in (0,1)\, |\, u\leq F_n(x)\}|\\
+&=F_n(x).
+\end{align*}
+So $Y_n$ has CDF $F_n$, and hence $Y_n$ has the same distribution as $X_n$.
+By the same argument, $Y$ has CDF $F$, so $Y$ has the same distribution as $X$.
+
+Now we show $Y_n {a.s. \atop \rightarrow} Y$.
+The function $Y$ is nondecreasing, so it has at most countably many discontinuities.
+Let $u$ be a continuity point of $Y$ and set $y=Y(u)$.
+Fix $\epsilon >0$.
+Because $Y$ is continuous at $u$, we have
+\begin{equation*}
+F(y-\epsilon)<u<F(y+\epsilon).
+\end{equation*}
+Choose $0<\delta<\epsilon$ such that $y-\delta$ and $y+\delta$ are continuity points of $F$.
+Then still
+\begin{equation*}
+F(y-\delta)<u<F(y+\delta).
+\end{equation*}
+Since $F_n(y-\delta)\rightarrow F(y-\delta)$ and $F_n(y+\delta)\rightarrow F(y+\delta)$, for large $n$,
+\begin{equation*}
+F_n(y-\delta)<u<F_n(y+\delta).
+\end{equation*}
+By the definition of $Y_n$, this implies
+\begin{equation*}
+y-\delta<Y_n(u)\leq y+\delta.
+\end{equation*}
+Thus $|Y_n(u)-y|<\epsilon$ for all large $n$, so $Y_n(u)\rightarrow Y(u)$.
+
+Therefore, $Y_n(u)\rightarrow Y(u)$ at every continuity point of $Y$.
+Because a monotone function has only countably many discontinuities, this happens for almost every $u$.
+So $Y_n {a.s. \atop \rightarrow} Y$.
+\end{proof}
+
+\begin{theorem}
+\textbf{Portmanteau Theorem:}
+Let $X_n$ and $X$ be random variables.
+The following statements are equivalent:
+\begin{enumerate}
+\item 
+\begin{equation}
+X_n {D \atop \rightarrow} X
+\end{equation}
+\item For all bounded, continuous functions $g: \mathbb{R} \rightarrow \mathbb{R}$,
+\begin{equation}
+\lim_{n\rightarrow \infty} \mathbb{E}(g(X_n)) = \mathbb{E}(g(X))
+\end{equation}
+\item For all bounded, $1$-Lipschitz functions $g: \mathbb{R} \rightarrow \mathbb{R}$,
+\begin{equation}
+\lim_{n\rightarrow \infty} \mathbb{E}(g(X_n)) = \mathbb{E}(g(X))
+\end{equation}
+\item For any continuous, non-negatvie function $g: \mathbb{R} \rightarrow \mathbb{R}$,
+\begin{equation}
+\liminf_n \mathbb{E}(g(X_n)) \geq \mathbb{E}(g(X))
+\end{equation}
+\item For any open $U\subseteq \mathbb{R}$,
+\begin{equation}
+\liminf_n \Pr\left( X_n \in U\right) \geq \Pr \left( X \in U \right)
+\end{equation}
+\item For any closed $C\subseteq \mathbb{R}$,
+\begin{equation}
+\limsup_n \Pr \left( X_n \in C\right) \leq \Pr \left( X \in C\right)
+\end{equation}
+\item For any $B \in \mathcal{B}$ such that $\Pr (X \in \partial B)=0$,
+\begin{equation}
+\lim_{n\rightarrow \infty} \Pr\left( X_n \in B\right) = \Pr \left( X \in B\right)
+\end{equation}
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+FIrst, suppose $X_n {D \atop \rightarrow} X$ and let $g$ be a bounded continuous function.
+THen, by Skorkhod's representation theorem, there are random variables $Y_n {a.s. \atop \rightarrow} Y$ that have the same distributions.
+THus, by the continuous mapping theorem for almost sure convergence, $g(Y_n) {a.s. \atop \rightarrow} g(Y)$.
+Thus, by the bounded convergence hteorem,
+\begin{align*}
+\lim_{n\rightarrow \infty} \mathbb{E}(g(Y_n)) 
+&= \int_\mathbb{R} g f_n dx\\
+&\rightarrow \int_\mathbb{R} g f dx\\
+&= \mathbb{E}(g(Y))
+\end{align*}
+Because hte distributions are the same, $\mathbb{E}(g(X))=\mathbb{E}(g(Y))$ and $\mathbb{E}(g(X_n)) =\mathbb{E}(g(Y_n))$.
+THerefore, we have result (2). \\
+Now suppose that for all continuous and bounded functions $g$, $\mathbb{E}(g(X_n)) \rightarrow \mathbb{E}(g(X))$.
+Notice that $1$-Lipschitz functions are continuous, so (3) follows trivially. \\
+Now suppose that all bounded, $1$-Lipschitz functions $g$, $\mathbb{E}(g(X_n)) \rightarrow \mathbb{E}(g(X))$.
+Let $U\subseteq \mathbb{R}$ be open.
+Then there is a sequence of $1$-Lipschitz bounded functions $g_n$ such that $g_m \nearrow g$ and $g_m (x) < g(x)$ if and only if $x \in U$.
+THen
+\begin{align*}
+\liminf_n \Pr\left( X_n \in U\right) 
+&= \liminf_n \mathbb{E}(g(X_n)) \\
+&\geq \liminf_n \mathbb{E}(g_m(X_n))\\
+&=\mathbb{E}(g_m(X)) \\
+&\rightarrow \mathbb{E}(g(X)) \\
+&= \Pr\left( X \in U\right)
+\end{align*}
+Here we have used property (3) to calculate the $\liminf$.
+Additionally, we have leveraged hte monotonicity of $g_m$ and used hte monotone convergence theoreem to get the limit over $m$.
+Thus, we have result (5). \\
+Suppose $\liminf_n \Pr\left( X_n \in U\right) \geq \Pr \left( X \in U \right)$ for all open sets $U$.
+Let $C\subseteq \mathbb{R}$.
+Then there is some open $U$ such that $U=C^C$.
+So
+\begin{align*}
+\limsup_n \Pr \left( X_n \in C \right)
+&= \limsup_n 1 - \Pr \left( X_n \in U \right) \\
+&= 1 - \liminf_n \Pr \left( X_n \in U \right) \\
+&\leq 1 - \Pr \left( X \in U \right) \\
+&= \Pr \left( X \in C \right)
+\end{align*}
+Thus, we have property (6). \\
+Now suppose we have both properties (5) and (6).
+Let $A \subseteq \mathbb{R}$ such that $\Pr\left( X \in \partial A \right) =0$.
+Then looking at the interior and closure of $A$ gives
+\begin{equation*}
+\Pr \left( X \in A^{\circ} \right) 
+= \Pr \left( X \in A \right)
+= \Pr \left( X \in \bar{A} \right)
+\end{equation*}
+This means that for any $A$,
+\begin{align*}
+\limsup_n \Pr \left( X_n \in A \right)
+&\leq \limsup_n \Pr \left( X_n \in \bar{A} \right) \\
+&\leq \Pr \left( X \in \bar{A} \right) \\
+&= \Pr \left( X \in A \right)
+\end{align*}
+and
+\begin{align*}
+\liminf_n \Pr \left( X_n \in A \right)
+&\geq \liminf_n \Pr \left( X_n \in A^{\circ} \right) \\
+&\geq \Pr \left( X \in A^{\circ} \right) \\
+&= \Pr \left( X \in A \right)
+\end{align*}
+Therefore, we have (7). \\
+Let $F_n$ be the CDF of $X_n$ and $F$ be the CDF of $X$.
+Also let $x\in \mathbb{R}$ such that alll $F_n$ are continusous at $x$.
+Then 
+\begin{align*}
+\Pr\left(X \in \partial A \right)
+&= \Pr \left( X=x \right) \\
+&=0
+\end{align*}
+Therefore, 
+\begin{align*}
+F_n \left( x \right)
+&= \Pr \left( X_n\leq x\right)\\
+&\rightarrow \Pr \left( X\leq x\right) \\
+&=F\left( x \right)
+\end{align*}
+Thus, $X_n {D \atop \rightarrow} X$\\
+Let $g$ be a non-negative continuous function.
+Suppose that for any bounded continuous function, $\mathbb{E}(h(X_n)) \rightarrow \mathbb{E}hg(X))$.
+For any $M>0$, let $g_M(x)=\min\{g(x), M\}$.
+Then $\mathbb{E}(g_M(X_n))\rightarrow \mathbb{E}(g_M(X))$.
+THen
+\begin{align*}
+\liminf_n \mathbb{E}(g(X_n))
+&\geq \lim_{n\rightarrow \infty} \mathbb{E}(g_M(X_n)) \\
+&= \mathbb{E}(g_M(X)) \\
+&\rightarrow \mathbb{E}(g(X))
+\end{align*}
+where we have used the Monotone Convergence Thoerem. Thus, we have (4).\\
+Finally, suppose (4).
+We can use the same logic as the implication $(3) \Rightarrow (4)$ to show that $(2) \Rightarrow (4)$.
+Thererfore, we have a cycle of implications that shows all statements are equivalent.
+\end{proof}
+
+\begin{definition}
+Let $\{X_n\}_{n=0}^\infty$ be a sequence of random variables and $X$ a random variable.
+Say the sequence $X_n$ converges in probability to $X$, $X_n {P \atop \rightarrow} X$, whenever for all $\epsilon >0$,
+\begin{equation}
+\lim_{n\rightarrow \infty} \Pr(|X_n -X|>\epsilon)=0
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+If $X_n {P \atop \rightarrow} X$ and $g: \mathbb{R} \rightarrow \mathbb{R}$ is a continuous and bounded function, then $g(X_n) {P \atop \rightarrow} g(X)$.
+\end{lemma}
+\begin{proof}
+Let $\epsilon, \eta>0$.
+Because $\Pr(|X|>M)\rightarrow 0$ as $M\rightarrow \infty$, we can choose $M>
+0$ such that $\Pr(|X|>M)<\frac{\eta}{2}$.
+Also, because $g$ is continuous on the compact interval $[-M-1,M+1]$, it is uniformly continuous there.
+Thus, there exists $\delta \in (0,1)$ such that whenever $x,y\in [-M-1,M+1]$ 
+and $|x-y|<\delta$, we have $|g(x)-g(y)|<\epsilon$.
+
+Now suppose $|X|\leq M$ and $|X_n-X|<\delta$.
+Then because $\delta<1$, we have $|X_n|\leq M+1$.
+So both $X_n$ and $X$ lie in $[-M-1,M+1]$, and hence $|g(X_n)-g(X)|<\epsilon$.
+Therefore,
+\begin{align*}
+\Pr(|g(X_n)-g(X)|>\epsilon)
+&\leq \Pr(|X|>M)+\Pr(|X_n-X|\geq \delta).
+\end{align*}
+Because $X_n {P \atop \rightarrow} X$, we know $\Pr(|X_n-X|\geq \delta)<\frac{\eta}{2}$ for large $n$.
+Thus, for large $n$,
+\begin{equation*}
+\Pr(|g(X_n)-g(X)|>\epsilon)<\eta.
+\end{equation*}
+Therefore, $g(X_n) {P \atop \rightarrow} g(X)$.
+\end{proof}
+
+\begin{lemma}
+If $X_n {P \atop \rightarrow} X$, then $X_n {D \atop \rightarrow} X$.
+\end{lemma}
+\begin{proof}
+Let $g: \mathbb{R}\rightarrow \mathbb{R}$ be a continuous and bounded function.
+Choose $K>0$ such that $|g(x)|\leq K$ for all $x\in \mathbb{R}$.
+Also, let $\epsilon>0$ and $A_n$ be the event $\{|g(X_n) - g(X)|>\frac{\epsilon}{2}\}$.
+Then
+\begin{align*}
+\left|\mathbb{E}[g(X_n)] - \mathbb{E}[g(X)]\right|
+&= \left|\mathbb{E}\bigl[g(X_n) - g(X)\bigr]\right| \\
+&\le \mathbb{E}\left[\left|g(X_n) - g(X)\right|\right] \\
+&= \mathbb{E}\left[\left|g(X_n) - g(X)\right|\mbox{\Large$\chi$}_{A_n}\right]
++ \mathbb{E}\left[\left|g(X_n) - g(X)\right|\mbox{\Large$\chi$}_{A_n^c}\right] \\
+&\le 2K\,\Pr(A_n) + \frac{\epsilon}{2}.
+\end{align*}
+By the previous lemma, $g(X_n) {P\atop \rightarrow}g(X)$, so $\Pr(A_n)<\frac{\epsilon}{4K}$ for large $n$.
+Thus, for large $n$,
+\begin{equation*}
+\left|\mathbb{E}[g(X_n)] - \mathbb{E}[g(X)]\right|<\epsilon.
+\end{equation*}
+Therefore, $\mathbb{E}[g(X_n)]\rightarrow \mathbb{E}[g(X)]$ for every continuous and bounded function $g$.
+
+Now let $x\in \mathbb{R}$ be a point where $F$ is continuous.
+For each $m\in \mathbb{N}$, define
+\begin{equation*}
+g_m^-(t)=
+\begin{cases}
+1, & t\leq x-\frac{1}{m}\\
+m(x-t), & x-\frac{1}{m}<t<x\\
+0, & t\geq x
+\end{cases}
+\end{equation*}
+and
+\begin{equation*}
+g_m^+(t)=
+\begin{cases}
+1, & t\leq x\\
+1-m(t-x), & x<t<x+\frac{1}{m}\\
+0, & t\geq x+\frac{1}{m}.
+\end{cases}
+\end{equation*}
+These are continuous and bounded, and they satisfy
+\begin{equation*}
+g_m^-(t)\leq \mbox{\Large$\chi$}_{(-\infty, x]}(t)\leq g_m^+(t).
+\end{equation*}
+So for every $n$,
+\begin{equation*}
+\mathbb{E}[g_m^-(X_n)]\leq F_n(x)\leq \mathbb{E}[g_m^+(X_n)].
+\end{equation*}
+Taking limits in $n$ gives
+\begin{equation*}
+\mathbb{E}[g_m^-(X)]\leq \liminf_{n\rightarrow \infty} F_n(x)\leq \limsup_{n\rightarrow \infty} F_n(x)\leq \mathbb{E}[g_m^+(X)].
+\end{equation*}
+Also,
+\begin{equation*}
+\mbox{\Large$\chi$}_{(-\infty, x-\frac{1}{m}]}(t)\leq g_m^-(t)\leq \mbox{\Large$\chi$}_{(-\infty, x)}(t)
+\end{equation*}
+and
+\begin{equation*}
+\mbox{\Large$\chi$}_{(-\infty, x]}(t)\leq g_m^+(t)\leq \mbox{\Large$\chi$}_{(-\infty, x+\frac{1}{m}]}(t).
+\end{equation*}
+Therefore,
+\begin{equation*}
+F\left(x-\frac{1}{m}\right)\leq \mathbb{E}[g_m^-(X)]\leq \Pr(X<x)
+\end{equation*}
+and
+\begin{equation*}
+F(x)\leq \mathbb{E}[g_m^+(X)]\leq F\left(x+\frac{1}{m}\right).
+\end{equation*}
+Because $F$ is continuous at $x$, we have
+\begin{equation*}
+F\left(x-\frac{1}{m}\right)\rightarrow F(x),
+\qquad
+\Pr(X<x)=F(x),
+\qquad
+F\left(x+\frac{1}{m}\right)\rightarrow F(x).
+\end{equation*}
+Thus,
+\begin{equation*}
+\mathbb{E}[g_m^-(X)]\rightarrow F(x)
+\qquad \text{and} \qquad
+\mathbb{E}[g_m^+(X)]\rightarrow F(x).
+\end{equation*}
+Therefore,
+\begin{equation*}
+\lim_{n\rightarrow \infty} F_n(x)=F(x).
+\end{equation*}
+Thus, $X_n {D \atop \rightarrow} X$.
+\end{proof}
+
+\begin{theorem}
+\textbf{Slutsky's Theorem:}
+Let $X_n {D \atop \rightarrow} X$ and $Y_n {P \atop \rightarrow} c$ for some constant $c\in \mathbb{R}$.
+Then
+\begin{align}
+X_n + Y_n &{D \atop \rightarrow} X +c\\
+X_n Y_n &{D \atop \rightarrow} cX\\
+\frac{X_n}{Y_n} &{D \atop \rightarrow} \frac{X}{c} 
+\end{align}
+where the last property only holds for $c\neq 0$.
+Furthermore, if $X_n {P \atop \rightarrow} X$, all above sequences converge in probability.
+\end{theorem}
+\begin{proof}
+First, suppose $X_n {D \atop \rightarrow} X$.
+Then we also have $Y_n {D \atop \rightarrow} c$.
+We now show that $(X_n, Y_n) {D \atop \rightarrow} (X, c)$.
+By the Portmanteau theorem, it suffices to show that for every bounded continuous function $g:\mathbb{R}^2\rightarrow \mathbb{R}$,
+\begin{equation*}
+\mathbb{E}(g(X_n, Y_n))\rightarrow \mathbb{E}(g(X,c)).
+\end{equation*}
+So let $g:\mathbb{R}^2\rightarrow \mathbb{R}$ be bounded and continuous, and let $M>0$ be such that $|g(x,y)|\leq M$ for all $(x,y)\in \mathbb{R}^2$.
+Also define $h:\mathbb{R}\rightarrow \mathbb{R}$ by $h(x)=g(x,c)$.
+Then $h$ is bounded and continuous, so because $X_n {D \atop \rightarrow} X$, the Portmanteau theorem gives
+\begin{equation*}
+\mathbb{E}(h(X_n))\rightarrow \mathbb{E}(h(X)).
+\end{equation*}
+It remains to show that
+\begin{equation*}
+\mathbb{E}(g(X_n, Y_n))-\mathbb{E}(h(X_n))\rightarrow 0.
+\end{equation*}
+Let $\epsilon, \eta>0$.
+Because $X_n {D \atop \rightarrow} X$, there is some compact interval $[-K,K]$ such that
+\begin{equation*}
+\sup_n \Pr(|X_n|>K)<\frac{\eta}{8M}.
+\end{equation*}
+Because $g$ is continuous on the compact set $[-K,K]\times [c-1,c+1]$, it is uniformly continuous there.
+Thus, there is some $\delta\in (0,1)$ such that whenever $|x|\leq K$ and $|y-c|<\delta$, we have
+\begin{equation*}
+|g(x,y)-g(x,c)|<\frac{\epsilon}{2}.
+\end{equation*}
+For large $n$, since $Y_n {P \atop \rightarrow} c$,
+\begin{equation*}
+\Pr(|Y_n-c|\geq \delta)<\frac{\eta}{8M}.
+\end{equation*}
+Then
+\begin{align*}
+\left|\mathbb{E}(g(X_n, Y_n))-\mathbb{E}(h(X_n))\right|
+&\leq \mathbb{E}\left(\left|g(X_n, Y_n)-g(X_n,c)\right|\right) \\
+&\leq \frac{\epsilon}{2} + 2M\Pr(|X_n|>K) + 2M\Pr(|Y_n-c|\geq \delta) \\
+&< \frac{\epsilon}{2} + 2M\left(\frac{\eta}{8M}\right) + 2M\left(\frac{\eta}{8M}\right)\\
+&= \frac{\epsilon+\eta}{2}.
+\end{align*}
+Therefore,
+\begin{align*}
+\mathbb{E}(g(X_n, Y_n))
+&= \mathbb{E}(h(X_n)) + o(1)\\
+&\rightarrow \mathbb{E}(h(X))\\
+&= \mathbb{E}(g(X,c)).
+\end{align*}
+So $(X_n, Y_n) {D \atop \rightarrow} (X,c)$.
+Also notice that addition, multiplication, and division are all continuous functions.
+Therefore, the continuous mapping theorem gives the result. \\
+Now suppose $X_n {P\atop \rightarrow} X$.
+Let $\epsilon, \delta>0$.
+Then, for large $n$,
+\begin{align*}
+\Pr(|X_n +Y_n -X -c|>\epsilon) &\leq \Pr(|X_n -X| + |Y_n -c|>\epsilon)\\
+&\leq \Pr\left(\middle|X_n -X\middle|>\frac{\epsilon}{2}\right) + \Pr\left(\middle|Y_n -c\middle|>\frac{\epsilon}{2}\right)\\
+&\leq \frac{\delta}{2} + \frac{\delta}{2}\\
+&= \delta
+\end{align*}
+Similarly,
+\begin{align*}
+\Pr(|X_n Y_n - Xc|>\epsilon)&\leq \Pr(|X_n Y_n -X_n c +X_n c-Xc|>\epsilon)\\
+&\leq \Pr(|X_n Y_n -X_n c| + |X_n c - Xc|>\epsilon)\\
+&\leq \Pr(|X_n Y_n - X_n c|>\frac{\epsilon}{2}) + \Pr(|X_n c-Xc|>\frac{\epsilon}{2})\\
+&\leq \frac{\delta}{2} + \frac{\delta}{2}\\
+&=\delta
+\end{align*}
+Finally, if $c\neq 0$, we can let $Z_n = \frac{1}{Y_n}$ and $b=\frac{1}{c}$.
+Then  $Z_n {P \atop \rightarrow} b$, so 
+$$\frac{X_n}{Y_n} = X_n Z_n {P \atop \rightarrow} Xb=\frac{X}{c}$$
+\end{proof}
+
+\textbf{Ex-}
+$T(r){P\atop \rightarrow} \mathcal{N}(0,1)$.\\
+Let $T_n \sim T(n)$, $X\sim \mathcal{N}(0,1)$, and $U_n \sim \chi^2(n)$.
+Then $T_n=\frac{X}{\sqrt{U_n/n}}$.
+Notice that $\mathbb{E}\left(\frac{U_n}{n}\right)=1$ and $Var\left( \frac{U_n}{n}\right)=\frac{2}{n}$.
+By Chebychev's theorem, 
+\begin{align*}
+\Pr\left(\middle| \frac{U_n}{n} -1\middle| > \epsilon\right) &\leq \frac{2}{n\epsilon^2} \\
+&\rightarrow 0
+\end{align*}
+So $\frac{U_n}{n} {P\atop \rightarrow} 1$ and clearly $X {P \atop \rightarrow} X$.
+Therefore, by Slutsky's theorem, we get the result.
+
+\lstinputlisting[firstline=12, lastline=31]{theory_of_probability/scripts/plot_t_distributions.py}
+
+\centering
+\includegraphics[scale=0.5]{theory_of_probability/images/t_distribution_comparison.png}\\
+\raggedright
+
+Notice that this example is the reverse of hte binomial-poisson example: the tails decrease and the peak increases as $n$ increases.
+Also unlike that case, all distributions share the same support, the diffference between the distributions is only where the density is distributed throughout the support.
+
+\begin{lemma}
+If $X_n {a.s.\atop \rightarrow}X$, $X_n {P \atop \rightarrow} X$.
+\end{lemma}
+\begin{proof}
+Suppose $X_n {a.s. \atop \rightarrow} X$ and let $(S, \Omega, p)$ be the probability space that forms the shared domain of all $X_n$ and $X$.
+Consider the event
+$$E=\left\{ s\in S\middle| \lim_{n\rightarrow \infty} X_n(s) = X(s)\right\}$$
+By definition of almost sure covergence, $p(E)=0$.
+Next, for $n \in \mathbb{N}$, consider the event
+$$E_n =\left\{ s\in S\middle| \,\middle| X_n(s) - X(s)\middle|>\epsilon\right\}$$
+Now suppose $s \notin E$.
+Then there is some $N\in \mathbb{N}$ such that for all $n\geq N$, $|X_n(s)-X(s)|<\epsilon$.
+This means $s\notin \limsup_n E_n$.
+Thus, $\limsup_n E_n \subseteq E$.
+Therefore,
+\begin{align*}
+\Pr\left( \middle| X_n - X \middle| >\epsilon\right) &= \Pr\left(  E_n \right)\\
+&\rightarrow \Pr\left(\limsup_n E_n \right)\\
+&\leq \Pr(E)\\
+&= 0
+\end{align*}
+\end{proof}
 
 \end{document}
