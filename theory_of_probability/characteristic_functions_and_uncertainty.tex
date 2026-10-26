@@ -19,7 +19,7 @@
 \begin{definition}
 Say the characteristic function of a random variable $X$ is
 \begin{equation}
-\varphi_X (t)=\mathbb{E}(e^{itX})
+\varphi_X (t)=\mathbb{E}[e^{itX}]
 \end{equation}
 \end{definition}
 
@@ -30,7 +30,7 @@ If $X$ has an MGF, the characteristic function is
 \end{equation}
 \end{lemma}
 \begin{proof}
-$$\varphi_X (t) = \mathbb{E}(e^{itX})=M_X(it)$$
+$$\varphi_X (t) = \mathbb{E}[e^{itX}]=M_X(it)$$
 \end{proof}
 
 \begin{lemma}
@@ -45,7 +45,7 @@ By definition of the Fourier transform (Def \ref{Fourier}),
 \begin{align*}
 \mathscr{F}\{f\}\left(\frac{t}{2\pi}\right) &= \int_\mathbb{R} e^{\frac{2\pi itx}{2\pi}} f(x) dx\\
 &= \int_\mathbb{R} e^{itx}f(x)dx\\
-&=\mathbb{E}(e^{itX})\\
+&=\mathbb{E}[e^{itX}]\\
 &=\varphi_X (t)
 \end{align*}
 \end{proof}
@@ -58,7 +58,7 @@ Let $X$ be a random variable.
 By Euler's formula, $|e^{itx}|=1$.
 So,
 \begin{align*}
-\mathbb{E}(|e^{itX}|) &= \mathbb{E}(1)\\
+\mathbb{E}[|e^{itX}|] &= \mathbb{E}[1]\\
 &= 1\\
 &<\infty
 \end{align*}
@@ -73,16 +73,16 @@ $\varphi_X(0)=1$ and $|\varphi_X(t)|\leq 1$.
 \end{theorem}
 \begin{proof}
 \begin{align*}
-\varphi_X(0)&=\mathbb{E}(e^{i(0)X})\\
-&=\mathbb{E}(1)\\
+\varphi_X(0)&=\mathbb{E}[e^{i(0)X}]\\
+&=\mathbb{E}[1]\\
 &=1
 \end{align*}
 Also, absolute value is a convex function.
 So by Jensen's inequality,
 \begin{align*}
-|\varphi_X (t)|&=|\mathbb{E}(e^{itX})|\\
-&\leq \mathbb{E}(|e^{itX}|)\\
-&=\mathbb{E}(1)\\
+|\varphi_X (t)|&=|\mathbb{E}[e^{itX}]|\\
+&\leq \mathbb{E}[|e^{itX}|]\\
+&=\mathbb{E}[1]\\
 &=1
 \end{align*}
 \end{proof}
@@ -97,13 +97,13 @@ First, notice that for any $x,y\in \mathbb{R}$,
 &\leq \int_x^y |e^{it}| dt\\
 &= y-x
 \end{align*}
-Assuming $\mathbb{E}(X)$ exists, we can use this inequality to see $e^{ixh}-1|\leq |hx|$.
+Assuming $\mathbb{E}[X]$ exists, we can use this inequality to see $e^{ixh}-1|\leq |hx|$.
 Thus,
 \begin{align*}
-|\varphi(t+h)-\varphi(t)|&=|\mathbb{E}(e^{iX(t+h)}-e^{itAX})|\\
-&\leq \mathbb{E}(|e^{itX}||e^{iXh}-1|)\\
-&\leq \mathbb{E}(|hX|)\\
-&=|h|\mathbb{E}(|X|)
+|\varphi(t+h)-\varphi(t)|&=|\mathbb{E}[e^{iX(t+h)}-e^{itAX}]|\\
+&\leq \mathbb{E}[|e^{itX}||e^{iXh}-1|]\\
+&\leq \mathbb{E}[|hX|]\\
+&=|h|\mathbb{E}[|X|]
 \end{align*}
 Conversely, if the expected value does not exist, $|e^{ith}-1|\leq 2$.
 Thus, we can use the dominated convergence theorem to see that $|e^{ith}-1| \rightarrow 0$ as $h\rightarrow 0$.

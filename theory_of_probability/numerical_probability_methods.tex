@@ -174,7 +174,7 @@ def roll_die() -> np.array:
 
 \begin{theorem}
 Let $X$ be a random variable with CDF $X$ and finite variance, and $g: \mathbb{R}\rightarrow \mathbb{R}$ a function.
-Then we can estimate the expected value, $\mathbb{E}(g(X))$, with:
+Then we can estimate the expected value, $\mathbb{E}[g(X)]$, with:
 \end{theorem}
 \begin{lstlisting}[language=Python]
 import numpy as np
@@ -192,8 +192,8 @@ First, notice we have sampled \verb|x| from $X\sim F(x)$ by the inverse transfor
 So \verb|y| is sampled from $g(X)$.
 Let $\sigma^2=Var(g(X))$.
 By Chebyshev's inequality,
-$$\Pr\left( \middle| \frac{1}{n}\sum_k g(X_k) - \mathbb{E}(g(X))\middle| < \epsilon \right) \geq \frac{\sigma^2}{n^2}$$
-Thus, for sufficiently large $n$, the average of \verb|y| is a good estimate of $\mathbb{E}(g(X))$.
+$$\Pr\left( \middle| \frac{1}{n}\sum_k g(X_k) - \mathbb{E}[g(X)]\middle| < \epsilon \right) \geq \frac{\sigma^2}{n^2}$$
+Thus, for sufficiently large $n$, the average of \verb|y| is a good estimate of $\mathbb{E}[g(X)]$.
 \end{proof}
 
 \textbf{Ex-}

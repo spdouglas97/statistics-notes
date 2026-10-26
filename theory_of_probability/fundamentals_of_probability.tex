@@ -150,12 +150,12 @@ THe probability of rolling either a prime or an even is $\frac{4}{5}<\frac{1}{2}
 \textbf{Note-}
 Often, we have an inequality that holds with a certain probability, and we may need to chain these inequalities together.
 The way we do this is with the union bound, in a roundabout way.
-Consider the expressions $A$, $B$, and $C$, with $Pr(A<B)\leq1-\frac{\delta}{2}$ and $Pr(B<C)\leq\frac{\delta}{2}$.
+Consider the expressions $A$, $B$, and $C$, with $\Pr(A<B)\leq1-\frac{\delta}{2}$ and $\Pr(B<C)\leq\frac{\delta}{2}$.
 Then we can bound the probability of $A<C$ with
 \begin{align*}
-Pr(A<C)&\leq Pr(A<B\text{ and }B<C)\\
-&=1-Pr(A\geq B\text{ or }B\geq C)\\
-&\leq 1-(Pr(A\geq B)+Pr(B\geq C))\\
+\Pr(A<C)&\leq \Pr(A<B\text{ and }B<C)\\
+&=1-\Pr(A\geq B\text{ or }B\geq C)\\
+&\leq 1-(\Pr(A\geq B)+\Pr(B\geq C))\\
 &\leq 1-\left(\frac{\delta}{2}+\frac{\delta}{2}\right)\\
 &=1-\delta
 \end{align*}
@@ -380,7 +380,7 @@ Without this, we can partition the sample space into fair subsets, but we have n
 \textbf{Ex-} Consider $\mathbb{N}$.
 This is not a compact metric space, so there is no guarontee there is a fair distibution on $\mathbb{N}$.
 Indeed, suppose there were such a distribution.
-Then $Pr(n) = p$ for some real number $p\geq 0$.
+Then $\Pr(n) = p$ for some real number $p\geq 0$.
 If $p>0$, $\sum_i p = \infty$.
 Conversely, if $p=0$, then $\sum_i p = 0$.
 In either case, this is not a valid probability distribution.

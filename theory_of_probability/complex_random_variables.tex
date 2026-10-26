@@ -80,7 +80,7 @@ f(x+iy)=\frac{\partial^2 F}{\partial x \partial y}
 Let $Z=X+iY$ be a complex random variable such that the expected value exists.
 Then the expected value is
 \begin{equation}
-\mathbb{E}(Z) = \mathbb{E}(X) + i\mathbb{E}(Y)
+\mathbb{E}[Z] = \mathbb{E}[X] + i\mathbb{E}[Y]
 \end{equation}
 \end{lemma}
 \begin{proof}
@@ -89,7 +89,7 @@ This is a consequence of the linearity of expectation.
 
 \begin{lemma}
 \begin{equation}
-\mathbb{E}(\bar{Z}) = \overline{\mathbb{E}(Z)}
+\mathbb{E}[\bar{Z}] = \overline{\mathbb{E}[Z]}
 \end{equation}
 \end{lemma}
 \begin{proof}
@@ -97,10 +97,10 @@ Let $X=\mathcal{R}(Z)$ and $Y=\mathcal{I}(Z)$.
 Then $\bar{Z}=X-iY$.
 So
 \begin{align*}
-\mathbb{E}(\bar{Z})
-&= \mathbb{E}(X-iY)\\
-&=\mathbb{E}(X) -i\mathbb{E}(Y)\\
-&=\overline{\mathbb{E}(Z)}
+\mathbb{E}[\bar{Z}]
+&= \mathbb{E}[X-iY]\\
+&=\mathbb{E}[X] -i\mathbb{E}[Y]\\
+&=\overline{\mathbb{E}[Z]}
 \end{align*}
 \end{proof}
 
@@ -108,23 +108,23 @@ So
 Let $Z$ be a complex random variable with expected value $\mu$.
 Say the variance of a complex random variable is
 \begin{equation}
-Var(Z) = \mathbb{E}(\overline{(Z-\mu)}(Z-\mu))
+Var(Z) = \mathbb{E}[\overline{(Z-\mu)}(Z-\mu)]
 \end{equation}
 \end{definition}
 
 \begin{lemma}
 \begin{equation}
-Var(Z) = \mathbb{E}(|Z|^2) - |\mathbb{E}(Z)|^2
+Var(Z) = \mathbb{E}[|Z|^2] - |\mathbb{E}[Z]|^2
 \end{equation}
 \end{lemma}
 \begin{proof}
 \begin{align*}
 Var(Z)
-&= \mathbb{E}(\overline{(Z - \mu)}(Z - \mu)) \\
-&= \mathbb{E}((\bar{Z} - \bar{\mu})(Z-\mu)) \\
-&=\mathbb{E}(\bar{Z}Z -\bar{Z}\mu -\bar{\mu}Z + \bar{\mu}\mu) \\
-&=\mathbb{E}(\bar{Z}Z) -\overline{\mathbb{E}(Z)}\mu - \bar{\mu}\mathbb{E}(Z) + \bar{\mu}\mu  \\
-&= \mathbb{E}(|Z|^2) - |\mu|^2
+&= \mathbb{E}[\overline{(Z - \mu)}(Z - \mu)] \\
+&= \mathbb{E}[(\bar{Z} - \bar{\mu})(Z-\mu)] \\
+&=\mathbb{E}[\bar{Z}Z -\bar{Z}\mu -\bar{\mu}Z + \bar{\mu}\mu] \\
+&=\mathbb{E}[\bar{Z}Z] -\overline{\mathbb{E}[Z]}\mu - \bar{\mu}\mathbb{E}[Z] + \bar{\mu}\mu  \\
+&= \mathbb{E}[|Z|^2] - |\mu|^2
 \end{align*}
 \end{proof}
 
@@ -132,21 +132,21 @@ Var(Z)
 Let $Z$ be a complex random variable with mean $\mu$.
 Say teh pseudo-variance is
 \begin{equation}
-pVar(Z) = \mathbb{E}((Z-\mu)^2)
+pVar(Z) = \mathbb{E}[(Z-\mu)^2]
 \end{equation}
 \end{definition}
 
 \begin{lemma}
 \begin{equation}
-pVar(Z) = \mathbb{E}(Z^2) - (\mathbb{E}(Z))^2
+pVar(Z) = \mathbb{E}[Z^2] - (\mathbb{E}[Z])^2
 \end{equation}
 \end{lemma}
 \begin{proof}
 \begin{align*}
 pVar(Z)
-&= \mathbb{E}((Z-\mu)^2) \\
-&= \mathbb{E}(Z^2 - 2\mu Z + \mu^2) \\
-&= \mathbb{E}(Z^2) - \mu^2
+&= \mathbb{E}[(Z-\mu)^2] \\
+&= \mathbb{E}[Z^2 - 2\mu Z + \mu^2] \\
+&= \mathbb{E}[Z^2] - \mu^2
 \end{align*}
 \end{proof}
 
@@ -160,7 +160,7 @@ Say a measurable function $Z: (S, \Omega, p)\rightarrow \mathbb{C}^n$ is a compl
 \begin{definition}
 The covariance of two complex randomm variables is
 \begin{equation}
-Cov(Z, W) = \mathbb{E}(\overline{(Z - \mathbb{E}(Z))}(W-\mathbb{E}(W)))
+Cov(Z, W) = \mathbb{E}[\overline{(Z - \mathbb{E}[Z])}(W-\mathbb{E}[W])]
 \end{equation}
 \end{definition}
 
@@ -175,16 +175,16 @@ This follows from the definitions of variance and covariance.
 
 \begin{lemma}
 \begin{equation}
-Cov(Z, W) = \mathbb{E}(\bar{Z}W) - \mathbb{E}(\bar{Z}) \mathbb{E}(W)
+Cov(Z, W) = \mathbb{E}[\bar{Z}W] - \mathbb{E}[\bar{Z}] \mathbb{E}[W]
 \end{equation}
 \end{lemma}
 \begin{proof}
 Notice that for any random variables $W$ and $Z$,
 \begin{align*}
-\mathbb{E}(\overline{(Z - \mathbb{E}(Z))}(W - \mathbb{E}(W)))
-&= \mathbb{E}(\bar{Z}W -\mathbb{E}(\bar{Z})W -\bar{Z}\mathbb{E}(W) + \mathbb{E}(\bar{Z})\mathbb{E}(W)) \\
-&= \mathbb{E}(\bar{Z}W) -2\mathbb{E}(\bar{Z})\mathbb{E}(W) + \mathbb{E}(\bar{Z})\mathbb{E}(W)\\
-&= \mathbb{E}(\bar{Z}W)-\mathbb{E}(\bar{Z})\mathbb{E}(W)
+\mathbb{E}[\overline{(Z - \mathbb{E}[Z])}(W - \mathbb{E}[W])]
+&= \mathbb{E}[\bar{Z}W -\mathbb{E}[\bar{Z}]W -\bar{Z}\mathbb{E}[W] + \mathbb{E}[\bar{Z}]\mathbb{E}[W]] \\
+&= \mathbb{E}[\bar{Z}W] -2\mathbb{E}[\bar{Z}]\mathbb{E}[W] + \mathbb{E}[\bar{Z}]\mathbb{E}[W]\\
+&= \mathbb{E}[\bar{Z}W]-\mathbb{E}[\bar{Z}]\mathbb{E}[W]
 \end{align*}
 \end{proof}
 
@@ -196,9 +196,9 @@ Cov(Z,W)=\overline{Cov(W,Z)}
 \begin{proof}
 \begin{align*}
 Cov(Z,W)
-&= \mathbb{E}(\overline{(Z - \mathbb{E}(Z))}(W - \mathbb{E}(W))) \\
-&= \overline{\mathbb{E}((Z - \mathbb{E}(Z))\overline{(W - \mathbb{E}(W))})} \\
-&= \overline{\mathbb{E}(\overline{(W - \mathbb{E}(W))}(Z - \mathbb{E}(Z)))} \\
+&= \mathbb{E}[\overline{(Z - \mathbb{E}[Z])}(W - \mathbb{E}[W])] \\
+&= \overline{\mathbb{E}[(Z - \mathbb{E}[Z])\overline{(W - \mathbb{E}[W])}]} \\
+&= \overline{\mathbb{E}[\overline{(W - \mathbb{E}[W])}(Z - \mathbb{E}[Z])]} \\
 &=\overline{Cov(W,Z)}
 \end{align*}
 \end{proof}
@@ -210,11 +210,11 @@ Var(Z + W) = Var(Z) + Var(W) + Cov(Z,W) + Cov(W,Z)
 \end{theorem}
 \begin{proof}
 \begin{align*}
-\overline{(W + Z - \mathbb{E}(W + Z))}(W + Z - \mathbb{E}(W + Z)) \\
-&=\overline{(Z - \mathbb{E}(Z) + W - \mathbb{E}(W))}(Z - \mathbb{E}(Z) + W - \mathbb{E}(W)) \\
-&= (\overline{(Z - \mathbb{E}(Z))}(Z - \mathbb{E}(Z)) + \overline{Z - \mathbb{E}(Z))}(W - \mathbb{E}(W)) \\
-&\quad \quad \quad \quad + \overline{(W - \mathbb{E}(W))}(Z - \mathbb{E}(Z)) \\
-&\quad \quad \quad \quad + \overline{(W - \mathbb{E}(W))}(W - \mathbb{E}(W))
+\overline{(W + Z - \mathbb{E}[W + Z])}(W + Z - \mathbb{E}[W + Z]) \\
+&=\overline{(Z - \mathbb{E}[Z] + W - \mathbb{E}[W])}(Z - \mathbb{E}[Z] + W - \mathbb{E}[W]) \\
+&= (\overline{(Z - \mathbb{E}[Z])}(Z - \mathbb{E}[Z]) + \overline{Z - \mathbb{E}[Z])}(W - \mathbb{E}[W]) \\
+&\quad \quad \quad \quad + \overline{(W - \mathbb{E}[W])}(Z - \mathbb{E}[Z]) \\
+&\quad \quad \quad \quad + \overline{(W - \mathbb{E}[W])}(W - \mathbb{E}[W])
 \end{align*}
 Taking the expected value gives the desired result.
 \end{proof}
@@ -226,20 +226,20 @@ Cov(W, aZ_1 + bZ_2) = a Cov(W, Z_1) + b\, Cov(W, Z_2)
 \end{equation}
 \end{theorem}
 \begin{proof}
-By linearity of expectation, $\mathbb{E}(aZ_1 + bZ_2) = a\mathbb{E}(Z_1) + b\mathbb{E}(Z_2)$.
+By linearity of expectation, $\mathbb{E}[aZ_1 + bZ_2] = a\mathbb{E}[Z_1] + b\mathbb{E}[Z_2]$.
 Thus,
 \begin{equation*}
-\mathbb{E}(\bar{W})\mathbb{E}(aZ_1 + bZ_2) = a\mathbb{E}(\bar{W})\mathbb{E}(Z_1) + b\mathbb{E}(\bar{W})\mathbb{E}(Z_2)
+\mathbb{E}[\bar{W}]\mathbb{E}[aZ_1 + bZ_2] = a\mathbb{E}[\bar{W}]\mathbb{E}[Z_1] + b\mathbb{E}[\bar{W}]\mathbb{E}[Z_2]
 \end{equation*}
 Similarly,
 \begin{equation*}
-\mathbb{E}(\bar{W}(aZ_1 + bZ+_2)) = a\mathbb{E}(\bar{W}Z_1) + b\mathbb{E}(\bar{W}Z_2)
+\mathbb{E}[\bar{W}(aZ_1 + bZ+_2)] = a\mathbb{E}[\bar{W}Z_1] + b\mathbb{E}[\bar{W}Z_2]
 \end{equation*}
 Thus,
 \begin{align*}
 Cov(W, aZ_1 + bZ_2)
-&=\mathbb{E}(\bar{W}(aZ_1 + bZ+_2)) - \mathbb{E}(\bar{W})\mathbb{E}(aZ_1 + bZ_2) \\
-&= a\mathbb{E}(\bar{W}Z_1) + b\mathbb{E}(\bar{W}Z_2) -a\mathbb{E}(\bar{W})\mathbb{E}(Z_1) - b\mathbb{E}(\bar{W})\mathbb{E}(Z_2)\\
+&=\mathbb{E}[\bar{W}(aZ_1 + bZ+_2)] - \mathbb{E}[\bar{W}]\mathbb{E}[aZ_1 + bZ_2] \\
+&= a\mathbb{E}[\bar{W}Z_1] + b\mathbb{E}[\bar{W}Z_2] -a\mathbb{E}[\bar{W}]\mathbb{E}[Z_1] - b\mathbb{E}[\bar{W}]\mathbb{E}[Z_2]\\
 &=aCov(W,Z_1) + b\, Cov(W, Z_2)
 \end{align*}
 \end{proof}
@@ -252,7 +252,7 @@ Cov(aZ_1 + bZ_2, W) = \bar{a}Cov(Z_1, W) + \bar{b}\, Cov(Z_2, W)
 \begin{definition}
 The pseudocovariance of two complex random variables is
 \begin{equation}
-pCov(Z,W)=\mathbb{E}((Z-\mathbb{E}(Z))(W-\mathbb{E}(W)))
+pCov(Z,W)=\mathbb{E}[(Z-\mathbb{E}[Z])(W-\mathbb{E}[W])]
 \end{equation}
 \end{definition}
 
@@ -264,14 +264,14 @@ pCov(Z,W) = Cov(\bar{Z},W)
 \begin{proof}
 \begin{align*}
 pCov(Z,W)
-&= \mathbb{E}((Z -\mathbb{E}(Z))(W - \mathbb{E}(W)))\\
-&= \mathbb{E}(\overline{(\bar{Z} - \mathbb{E}(\bar{Z}))}(W - \mathbb{E}(W))) \\
+&= \mathbb{E}[(Z -\mathbb{E}[Z])(W - \mathbb{E}[W])]\\
+&= \mathbb{E}[\overline{(\bar{Z} - \mathbb{E}[\bar{Z}])}(W - \mathbb{E}[W])] \\
 &= Cov(\bar{Z}, W)
 \end{align*}
 \end{proof}
 \begin{corrolary}
 \begin{equation}
-pCov(Z,W) = \mathbb{E}(ZW) - \mathbb{E}(Z)\mathbb{E}(W)
+pCov(Z,W) = \mathbb{E}[ZW] - \mathbb{E}[Z]\mathbb{E}[W]
 \end{equation}
 \end{corrolary}
 \begin{corrolary}
@@ -291,20 +291,20 @@ pCov(W, aZ_1 + bZ_2) = apCov(W,Z_1) + b\, pCov(W,Z_2)
 \end{corrolary}
 
 \begin{definition}
-Say a complex random variable $Z$ is proper whenever $\mathbb{E}(Z)=0$, $\mathbb{E}(Z^2)=0$, and $Var(Z)<\infty$.
+Say a complex random variable $Z$ is proper whenever $\mathbb{E}[Z]=0$, $\mathbb{E}[Z^2]=0$, and $Var(Z)<\infty$.
 \end{definition}
 
 \textbf{Note-}
 Proper random variables are a generalization ofrandom variables with finite variance.
-The requirement that $\mathbb{E}(Z^2)=0$ preserves some important features that will not generalize to the complex plane with only 0 mean and finite variance.
+The requirement that $\mathbb{E}[Z^2]=0$ preserves some important features that will not generalize to the complex plane with only 0 mean and finite variance.
 
 \begin{lemma}
 If $Z=X+iY$ is a proper complex random variable then $Cov(X,Y)=0$.
 \end{lemma}
 \begin{proof}
 Notice $Z^2 = (X+iY)^2 = (X^2 - Y^2) + 2iXY$.
-Let $Z$ be proper, so $\mathbb{E}(Z^2)=0$.
-Then the real and imaginary parts must both also be 0, so $\mathbb{E}(XY)=0$.
+Let $Z$ be proper, so $\mathbb{E}[Z^2]=0$.
+Then the real and imaginary parts must both also be 0, so $\mathbb{E}[XY]=0$.
 Also, $Z$ has 0 mean, so $X$ and $Y$ are also both 0 mean.
 Thus, $Cov(X,Y)=0$.
 \end{proof}
@@ -320,24 +320,24 @@ If $Z$ is a circularly symmetric random variable with finite variance then it is
 Let $Z$ be a circularly symmetric random variable with $Var(Z)<\infty$.
 Then $e^{i\theta}Z$ has the same distribution for all $\theta$.
 In particular, consider $\theta=\frac{\pi}{2}$.
-Then $\mathbb{E}(Z)=\mathbb{E}(iZ)=i\mathbb{E}(Z)$.
-Thus, $\mathbb{E}(Z)=0$.
-Similarly, $\mathbb{E}(Z^2)=\mathbb{E}(-Z^2)=-\mathbb{E}(Z^2)$.
-So $\mathbb{E}(Z^2)=0$.
+Then $\mathbb{E}[Z]=\mathbb{E}[iZ]=i\mathbb{E}[Z]$.
+Thus, $\mathbb{E}[Z]=0$.
+Similarly, $\mathbb{E}[Z^2]=\mathbb{E}[-Z^2]=-\mathbb{E}[Z^2]$.
+So $\mathbb{E}[Z^2]=0$.
 Therefore, $Z$ must be proper.
 \end{proof}
 
 \begin{definition}
 Say the covariance matrix of a complex random vector $Z$ is
 \begin{equation}
-Cov(Z) = \mathbb{E}((Z - \mathbb{E}(Z))(Z - \mathbb{E}(Z))^H)
+Cov(Z) = \mathbb{E}[(Z - \mathbb{E}[Z])(Z - \mathbb{E}[Z])^H]
 \end{equation}
 \end{definition}
 
 \begin{definition}
 Say the pseudo-covariance matrix of a complex random vector is
 \begin{equation}
-pCov(Z) = \mathbb{E}((Z - \mathbb{E}(Z))(Z - \mathbb{E}(Z))^T)
+pCov(Z) = \mathbb{E}[(Z - \mathbb{E}[Z])(Z - \mathbb{E}[Z])^T]
 \end{equation}
 \end{definition}
 
@@ -388,7 +388,7 @@ Therefore, $Z$ has the desired distribution.
 \end{proof}
 
 \begin{theorem}
-If $Z\sim \mathcal{CN}_p (\mu, \Gamma, C)$, then $\mathbb{E}(Z)=\mu$, $Cov(Z)=\Gamma$, and $pCov(Z)=C$.
+If $Z\sim \mathcal{CN}_p (\mu, \Gamma, C)$, then $\mathbb{E}[Z]=\mu$, $Cov(Z)=\Gamma$, and $pCov(Z)=C$.
 \end{theorem}
 \begin{proof}
 Let
@@ -441,7 +441,7 @@ K = (T^H \Sigma^{-1} T)^{-1}
 \end{equation*}
 Now
 \begin{equation*}
-\mathbb{E}(Z) = \mathbb{E}(X+iY) = \mathbb{E}(X) + i\mathbb{E}(Y) = \mu_R + i\mu_I = \mu
+\mathbb{E}[Z] = \mathbb{E}[X+iY] = \mathbb{E}[X] + i\mathbb{E}[Y] = \mu_R + i\mu_I = \mu
 \end{equation*}
 Also,
 \begin{align*}
@@ -480,11 +480,11 @@ Z-\mu \\
 \end{equation*}
 Comparing block entries gives
 \begin{equation*}
-\mathbb{E}((Z-\mu)(Z-\mu)^H)=\Gamma
+\mathbb{E}[(Z-\mu)(Z-\mu)^H]=\Gamma
 \end{equation*}
 and
 \begin{equation*}
-\mathbb{E}((Z-\mu)(Z-\mu)^T)=C
+\mathbb{E}[(Z-\mu)(Z-\mu)^T]=C
 \end{equation*}
 Therefore, $Cov(Z)=\Gamma$ and $pCov(Z)=C$.
 \end{proof}

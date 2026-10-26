@@ -41,7 +41,7 @@ F(x)&=\int_a^x 1dF\\
 \end{align*}
 For the MGF,
 \begin{align*}
-M(t)&=\mathbb{E}(e^{tX})\\
+M(t)&=\mathbb{E}[e^{tX}]\\
 &= \int_a^b e^{tx}dF\\
 &=\int_a^b \frac{e^{tx}}{b-a}dx\\
 &=\frac{e^{tx}}{t(b-a)}|_a^b\\
@@ -49,7 +49,7 @@ M(t)&=\mathbb{E}(e^{tX})\\
 \end{align*}
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\frac{a+b}{2}$ and $Var(X)=\frac{(b-a)^2}{12}$.
+$\mathbb{E}[X]=\frac{a+b}{2}$ and $Var(X)=\frac{(b-a)^2}{12}$.
 \end{corrolary}
 
 \begin{definition}
@@ -77,14 +77,14 @@ F(x)&=\int_0^k1dF\\
 Note that the easiest way to do this summation is to simply plug in both $k=0$ and $k=1$ and find the values.
 For the MGF, we perform a similar process
 \begin{align*}
-M(t)&=\mathbb{E}(e^{tX})\\
+M(t)&=\mathbb{E}[e^{tX}]\\
 &=\int_0^ke^{ti}dF\\
 &=\sum_{i=0}^k e^{ti}p^i(1-p)^{1-i}\\
 &=1-p+pe^t
 \end{align*}
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=p$ and $Var(X)=p(1-p)$.
+$\mathbb{E}[X]=p$ and $Var(X)=p(1-p)$.
 \end{corrolary}
 
 \textbf{Ex-}
@@ -105,7 +105,7 @@ A binomial distribution has MGF $M(t)=\left( 1-p+pe^t\right)^n$.
 \begin{proof}
 Notice
 \begin{align*}
-M(t)&=\mathbb{E}(e^{tX})\\
+M(t)&=\mathbb{E}[e^{tX}]\\
 &=\int_0^k e^{ti}dF\\
 &=\sum_{i=0}^k e^{ti}\binom{n}{i}p^i(1-p)^{n-i}\\
 &=\sum_{i=0}^k \binom{n}{i}\left( pe^t\right)^i(1-p)^{n-i}\\
@@ -114,7 +114,7 @@ M(t)&=\mathbb{E}(e^{tX})\\
 For the final step, we have used the binomial theorem.
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=np$ and $Var(X)=np(1-p)$.
+$\mathbb{E}[X]=np$ and $Var(X)=np(1-p)$.
 \end{corrolary}
 
 \textbf{Note-} The binomial distribution does not have a closed-form representation of the CDF, so we have not defined one here.
@@ -161,7 +161,7 @@ The geometric distribution has CDF $F(k)=1-(1-p)^k$ and MGF $M(t)=\frac{pe^t}{1-
 \begin{proof}
 In order to compute the CDF, we consider
 \begin{align*}
-Pr(X>k)&=\int_k^\infty 1dF\\
+\Pr(X>k)&=\int_k^\infty 1dF\\
 &=\sum_k^\infty p(1-p)^i\\
 &=(1-p)^k
 \end{align*}
@@ -169,7 +169,7 @@ This summation is an example of a geometric series, which is where the distribut
 To compute the CDF, we simply take the complement of this event, so $F(k)=1-(1-p)^k$.\\
 To compute the MGF, we can compute a similar geometric series
 \begin{align*}
-M(t)&=\mathbb{E}(e^{tX})\\
+M(t)&=\mathbb{E}[e^{tX}]\\
 &=\int_0^\infty 1dF\\
 &=\sum_{k=1}^\infty e^{tk}p(1-p)^{k-1}\\
 &=\sum_{k=1}^\infty p(e^t(1-p))^{k-1}\\
@@ -177,7 +177,7 @@ M(t)&=\mathbb{E}(e^{tX})\\
 \end{align*}
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\frac{1}{p}$ and $Var(X)=\frac{1-p}{p^2}$
+$\mathbb{E}[X]=\frac{1}{p}$ and $Var(X)=\frac{1-p}{p^2}$
 \end{corrolary}
 
 \textbf{Note-}
@@ -200,13 +200,13 @@ Hypgeo(N,K,n)=Hypgeo(N,n,K)
 \end{proof}
 
 \begin{theorem}
-For the hypergeometric distribution, $\mathbb{E}(X)=\frac{nK}{N}$ and $Var(X)=\frac{nK(N-K)(N-n)}{N^1(N-1)}$
+For the hypergeometric distribution, $\mathbb{E}[X]=\frac{nK}{N}$ and $Var(X)=\frac{nK(N-K)(N-n)}{N^1(N-1)}$
 \end{theorem}
 \begin{proof}
 Without loss of generality, we can assume $n<K$.
 The mean is
 \begin{align*}
-\mathbb{E}(X)&=\int_0^n kdF\\
+\mathbb{E}[X]&=\int_0^n kdF\\
 &=\sum_{k=0}^n k\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}\\
 &=0+\sum_{k=1}^n k\frac{K!n!(N-n)!\binom{N-K}{n-k}}{k!(K-k)!N!}\\
 &=\frac{nK}{N}\sum_{k=1}^n \frac{(K-1)!(n-1)!(N-n)!\binom{N-K}{n-k}}{(k-1)!(K-k)!(N-1)!}\\
@@ -217,17 +217,17 @@ The mean is
 The final summation is the PDF of the $Hypgeo(N-1,K-1,n)$ distribution.\\
 To find the variance, it is easiest to start by computing
 \begin{align*}
-\mathbb{E}(X(X-1))&=\int_0^nk(k-1)dF\\
+\mathbb{E}[X(X-1)]&=\int_0^nk(k-1)dF\\
 &=\sum_{k=0}^n k(k-1)\frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}\\
 &=0+\sum_{k=2}^n k(k-1)\frac{K!n!(N-n)!\binom{N-K}{n-k}}{k!(K-k)!N!}\\
 &=\frac{K(K-1)n(n-1)}{N(N-1)}\sum_{k=2}^n\frac{(K-2)!(n-2)!(N-n)!\binom{N-K}{n-k}}{(N-2)!(k-2)!(K-k)!}\\
 &=\frac{K(K-1)n(n-1)}{N(N-1)}\sum_{i=0}^{n-2} \frac{i!(n-2)!(N-n)!\binom{N-K}{n-i-2}}{(N-2)!i!(K-i-2)!}\\
 &=\frac{K(K-1)n(n-1)}{N(N-1)}
 \end{align*}
-To compute the variance, we take advantage of linearity of variance to compute $\mathbb{E}(X^2)$.
+To compute the variance, we take advantage of linearity of variance to compute $\mathbb{E}[X^2]$.
 \begin{align*}
-Var(X)&=\mathbb{E}(X^2)-\mathbb{E}(X)^2\\
-&=\mathbb{E}(X(X-1))+\mathbb{E}(X)-\mathbb{E}(X)^2\\
+Var(X)&=\mathbb{E}[X^2]-\mathbb{E}[X]^2\\
+&=\mathbb{E}[X(X-1)]+\mathbb{E}[X]-\mathbb{E}[X]^2\\
 &=\frac{K(K-1)n(n-1)}{N(N-1)}+\frac{nK}{N}-\left(\frac{nK}{N}\right)^2\\
 &=\frac{K(K-1)n(n-1)N}{N^2(N-1)}+\frac{nKN(N-1)}{N^2(N-1)}-\frac{n^2K^2(N-1)}{N^2(N-1)}\\
 &=\frac{nK(N-K)(N-n)}{N^2(N-1)}
@@ -277,7 +277,7 @@ M(t)&=(M_X(t))^k\\
 \end{align*}
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\frac{k}{p}$ and $Var(X)=\frac{k(1-p)}{p^2}$.
+$\mathbb{E}[X]=\frac{k}{p}$ and $Var(X)=\frac{k(1-p)}{p^2}$.
 \end{corrolary}
 
 \begin{definition}
@@ -333,7 +333,7 @@ The MGF is $M(t)=\left(\sum_k p_k e^{t_k}\right)^n$.
 Let $X_i=e_k$ with probability $p_k$ where $e_k$ is a standard basis vector of $\mathbb{R}^K$.
 Clearly,
 \begin{align*}
-M_X(t)&=\mathbb{E}(X_i)\\
+M_X(t)&=\mathbb{E}[X_i]\\
 &=\sum_k p_k e^{t_k}
 \end{align*}
 By the previous lemma, a multinomial random vector is the sum of $n$ such iid random vectors.
@@ -346,13 +346,13 @@ M(t)&=(M_X(t))^n\\
 
 \begin{theorem}
 Let $p=(p_1, p_2, ..., p_K)$.
-Then $\mathbb{E}(X)=np$ and $Cov(X_i, X_j)=np_i (\delta_{ij}-p_j)$ where $\delta$ is the Kronecker delta function
+Then $\mathbb{E}[X]=np$ and $Cov(X_i, X_j)=np_i (\delta_{ij}-p_j)$ where $\delta$ is the Kronecker delta function
 \end{theorem}
 \begin{proof}
 Recall that if $X=(N_1, N_2, ..., N_K)$ then each $N_k\sim Binom(n,p_K)$.
 So
 \begin{align*}
-\mathbb{E}(X)&=\mathbb{E}((N_1, N_2, ..., N_K))\\
+\mathbb{E}[X]&=\mathbb{E}[(N_1, N_2, ..., N_K)]\\
 &=(np_1, np_2, ..., np_K)\\
 &=np
 \end{align*}
@@ -364,7 +364,7 @@ Finally, to find the covariance,
 Thus, $M(0)=n(n-1)p_i p_j$.
 So, assuming $i\neq j$,
 \begin{align*}
-Cov(X_i, X_j)&=\mathbb{E}(N_i N_j) - \mathbb{E}(N_i)\mathbb{E}(N_j)\\
+Cov(X_i, X_j)&=\mathbb{E}[N_i N_j] - \mathbb{E}[N_i]\mathbb{E}[N_j]\\
 &=n(n-1)p_i p_J - (np_i)(np_j)\\
 &=-np_ip_j
 \end{align*}
@@ -393,14 +393,14 @@ The MGF is $M(t)=e^{\lambda (e^t-1)}$.
 \begin{proof}
 By Taylor's theorem,
 \begin{align*}
-M(t)&=\mathbb{E}(e^{tX})\\
+M(t)&=\mathbb{E}[e^{tX}]\\
 &=\sum_{k=0}^\infty \frac{\lambda^k e^{-\lambda}e^{t^k}}{k!}\\
 &=\sum_{k=0}^\infty \frac{(\lambda e^t)^ke^{-\lambda}}{k!}\\
 &=e^{\lambda (e^t-1)}
 \end{align*}
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\lambda$ and $Var(X)=\lambda$
+$\mathbb{E}[X]=\lambda$ and $Var(X)=\lambda$
 \end{corrolary}
 
 \textbf{Note-}
@@ -432,7 +432,7 @@ F(x)&=\int_0^x 1dF\\
 \end{align*}
 Similarly, for the MGF,
 \begin{align*}
-M(t)&=\mathbb{E}(e^{tX})\\
+M(t)&=\mathbb{E}[e^{tX}]\\
 &=\int_0^\infty e^{tx} \lambda e^{-\lambda x} dx\\
 &= \int_0^\infty \lambda e^{(t-\lambda)x}dx\\
 &= \frac{\lambda}{t-\lambda} e^{(t-\lambda)x}|_0^\infty\\
@@ -441,7 +441,7 @@ M(t)&=\mathbb{E}(e^{tX})\\
 \end{align*}
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\frac{1}{\lambda}$ and $Var(X)=\frac{1}{\lambda^2}$
+$\mathbb{E}[X]=\frac{1}{\lambda}$ and $Var(X)=\frac{1}{\lambda^2}$
 \end{corrolary}
 
 \begin{theorem}
@@ -509,7 +509,7 @@ Next, notice that if $X\sim Laplace(\lambda, \theta)$, $X-\theta \sim Laplace(\l
 So $M(t)=\frac{\lambda^2}{\lambda^2 -t^2}e^{t\theta}$.
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\theta$ and $Var(X)=\frac{2}{\lambda^2}$
+$\mathbb{E}[X]=\theta$ and $Var(X)=\frac{2}{\lambda^2}$
 \end{corrolary}
 
 \begin{definition}
@@ -525,7 +525,7 @@ The MGF is $M(t)=\left( \frac{1}{1-\beta t}\right)^\alpha$.
 \end{theorem}
 \begin{proof}
 \begin{align*}
-M(t)&=\mathbb{E}(e^{tX})\\
+M(t)&=\mathbb{E}[e^{tX}]\\
 &=\int_0^\infty e^{tx}dF\\
 &=\int_0^\infty \frac{1}{\Gamma (\alpha)\beta^\alpha}x^{\alpha-1}e^{x({1/\beta}+t)}dx
 \end{align*}
@@ -540,7 +540,7 @@ M(t)&=\int_0^\infty \frac{1}{\Gamma (\alpha)\beta^\alpha}x^{\alpha-1}e^{x(\frac{
 \end{align*}
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\alpha \beta$ and $Var(X)=\alpha \beta^2$.
+$\mathbb{E}[X]=\alpha \beta$ and $Var(X)=\alpha \beta^2$.
 \end{corrolary}
 \begin{corrolary}
 If $X\sim Exp(\lambda)$ then $X\sim Gamma(1, \frac{1}{\lambda})$.
@@ -597,16 +597,16 @@ f(y_2)&=\int_\mathbb{R} Jf(x_1(y_1, y_2), x_2(y_1, y_2))dy_1\\
 \end{proof}
 
 \begin{theorem}
-$\mathbb{E}(X)=\frac{\alpha}{\alpha + \beta}$ and $Var(X)=\frac{\alpha \beta}{(\alpha +\beta)^2 (\alpha +\beta +1)}$
+$\mathbb{E}[X]=\frac{\alpha}{\alpha + \beta}$ and $Var(X)=\frac{\alpha \beta}{(\alpha +\beta)^2 (\alpha +\beta +1)}$
 \end{theorem}
 \begin{proof}
 \begin{align*}
-\mathbb{E}(X)&=\int_\mathbb{R} xdF\\
+\mathbb{E}[X]&=\int_\mathbb{R} xdF\\
 &=\int_0^1 \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} x^\alpha (1-x)^{\beta -1}dx\\
 &=\frac{\alpha}{\alpha+\beta} \int_0^1 \frac{\Gamma(\alpha + \beta+1)}{\Gamma(\alpha+1)\Gamma(\beta)} x^\alpha (1-x)^{\beta -1}dx\\
 &=\frac{\alpha}{\alpha + \beta}
 \end{align*}
-By similar logic, we can find $\mathbb{E}(X)=\frac{\alpha (\alpha+1)}{(\alpha+\beta)(\alpha+\beta+1)}$.
+By similar logic, we can find $\mathbb{E}[X]=\frac{\alpha (\alpha+1)}{(\alpha+\beta)(\alpha+\beta+1)}$.
 Thus, the variance is $Var(X)=\frac{\alpha \beta}{(\alpha +\beta)^2 (\alpha +\beta +1)}$.
 \end{proof}
 
@@ -640,13 +640,13 @@ Notice that this means $Z$ and $Y$ are independent, and $Y$ has a Dirichlet dist
 
 \begin{theorem}
 Let $X\sim Dir(\{\alpha_i \})$ , let $\alpha_0 =\sum_i \alpha_i$, and let $\tilde{\alpha_i} = \frac{\alpha_i}{\alpha_0}$.
-Then $\mathbb{E}(X)=\tilde{\alpha}$ and $Cov(X_i, X_j)=\frac{\delta_{ij}\tilde{\alpha_i} - \tilde{\alpha_i}\tilde{\alpha_j}}{\alpha_0 +1}$
+Then $\mathbb{E}[X]=\tilde{\alpha}$ and $Cov(X_i, X_j)=\frac{\delta_{ij}\tilde{\alpha_i} - \tilde{\alpha_i}\tilde{\alpha_j}}{\alpha_0 +1}$
 \end{theorem}
 \begin{proof}
 To see the mean and variance, notice that the component of a Dirichlet distribution can be considered a beta random variable with parameters $\alpha_i$ and $\sum_{k\neq i}\alpha_k$.
 Finally,
 \begin{align*}
-\mathbb{E}(X_i X_j)&=\int_{\Delta^{n-1}}x_i x_j dF\\
+\mathbb{E}[X_i X_j]&=\int_{\Delta^{n-1}}x_i x_j dF\\
 &=\int_{\Delta^{n-1}} \frac{\Gamma(\sum_k \alpha_k)}{\prod_k \Gamma(\alpha_k)} x_i^{\alpha_i} x_j^{\alpha_j} \prod_{k\neq i,j} x_k^{\alpha_k-1}dx\\
 &=\frac{\alpha_i \alpha_j}{(\sum_k \alpha_k +1)(\sum_k \alpha_k)}
 \end{align*}
@@ -669,7 +669,7 @@ If $X\sim \chi^2(r)$, $X\sim Gamma(\frac{r}{2},2)$.
 This is clear from the PDFs of both distributions
 \end{proof}
 \begin{corrolary}
-The MGF is $M(t)=(1-2t)^{-r/2}$, $\mathbb{E}(X)=r$ and $Var(X)=2r$.
+The MGF is $M(t)=(1-2t)^{-r/2}$, $\mathbb{E}[X]=r$ and $Var(X)=2r$.
 \end{corrolary}
 \begin{corrolary}
 If $X_1\sim \chi^2(r_1)$ and $X_2\sim \chi^2(r_2)$ are independent,
@@ -712,7 +712,7 @@ The MGF is $M(t)=e^{\mu t+{t^2\sigma^2/2}}$
 First, let $Z\sim \mathcal{N}(0,1)$.
 Then
 \begin{align*}
-M_Z(t)&=\mathbb{E}(e^{tZ})\\
+M_Z(t)&=\mathbb{E}[e^{tZ}]\\
 &=\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}e^{tz-{z^2/2}}dz\\
 &=\int_{-\infty}^\infty e^{t^2/2}\frac{1}{\sqrt{2\pi}}e^{{-t^2/2}+tz-{z^2/2}}d\\
 &=e^\frac{t^2}{2}\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-(z-t)^2/2}dz\\
@@ -722,7 +722,7 @@ Next, for a general $X\sim \mathcal{N}(\mu, \sigma^2)$, we can say $X=\sigma Z+\
 So by properties of the MGF, $M(t)=e^{\mu t+{t^2\sigma^2/2}}$.
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\mu$ and $Var(X)=\sigma^2$.
+$\mathbb{E}[X]=\mu$ and $Var(X)=\sigma^2$.
 \end{corrolary}
 
 \begin{theorem}
@@ -804,7 +804,7 @@ M(t)&=e^{t^T\mu}M_Z(A^Tt)\\
 \end{align*}
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\mu$ and $Cov(\Sigma)=\Sigma$.
+$\mathbb{E}[X]=\mu$ and $Cov(\Sigma)=\Sigma$.
 \end{corrolary}
 
 \begin{definition}
@@ -858,7 +858,7 @@ The MGF does not exist
 Let $W\sim \mathcal{N}(0,1)$ and $V\sim \chi^2(r)$ be independent random variables.
 Then
 \begin{align*}
-\mathbb{E}(|T^k|)&=\mathbb{E}(|W^k|)\mathbb{E}\left( \middle|\left( \frac{V}{r}\right)^{-k/2}\middle| \right)\\
+\mathbb{E}[|T^k|]&=\mathbb{E}[|W^k|]\mathbb{E}\left( \middle|\left( \frac{V}{r}\right)^{-k/2}\middle| \right)\\
 &=\int_0^\infty \left( \frac{v}{r}\right)^{-k/2} dF\\
 &=\int_0^\infty \frac{1}{\Gamma \left( \frac{r}{2} \right) 2^{(r-1)/2}}v^{(r-k)/2} e^{-v/2}dv\\
 &=\frac{\Gamma \left(\frac{r-k}{2}\right)}{\Gamma \left( \frac{r}{2}\right) 2^{(r-k)/2}}
@@ -867,7 +867,7 @@ The Gamma function is not defined for non-negative integers, so in particular, t
 Thus, the expected value can not be defined for any $k\geq r$, and the MGF can not exist.
 \end{proof}
 \begin{corrolary}
-For $r>1$, $\mathbb{E}(X)=0$ and for $r>2$, $Var(X)=\frac{r}{r-2}$.
+For $r>1$, $\mathbb{E}[X]=0$ and for $r>2$, $Var(X)=\frac{r}{r-2}$.
 \end{corrolary}
 
 \begin{theorem}
@@ -913,7 +913,7 @@ v\\
 X
 \end{equation*}
 Say $W=(\bar{X},Y)$.
-Then $\mathbb{E}(W)=(\mu, 0)$ and
+Then $\mathbb{E}[W]=(\mu, 0)$ and
 \begin{align*}
 Cov(W)&=\left[
 \begin{matrix}
@@ -1041,13 +1041,13 @@ Let $U\sim \chi^2(r_1)$, $V\sim \chi^2 (r_2)$, and $F=\frac{U/r_1}{V/4_2}$.
 Then $F\\sim F(r_1, r_2)$ and $F, U, V>0$.
 So
 \begin{align*}
-\mathbb{E}(F^k) &= \frac{\mathbb{E}(U^k)/r_1}{\mathbb{E}(V^k)/r_2}\\
-&= \frac{\mathbb{E}(U^k)\mathbb{E}V^{-k})r_2}{r_1}
+\mathbb{E}[F^k] &= \frac{\mathbb{E}[U^k]/r_1}{\mathbb{E}[V^k]/r_2}\\
+&= \frac{\mathbb{E}[U^k]\mathbb{E}V^{-k})r_2}{r_1}
 \end{align*}
 The expectation of $V^{-k}$ is not defined for $k>r_2$, so the MGF does not exist.
 \end{proof}
 \begin{corrolary}
-If $r_2 >2$, $\mathbb{E}(X)=\frac{r_2}{r_2 -2}$.
+If $r_2 >2$, $\mathbb{E}[X]=\frac{r_2}{r_2 -2}$.
 Also, if $r_2 >4$, $Var(X)=\frac{2r_2^2 (r_1 + r_2 -2)}{r_1 (r_2 -2)^2 (r_2 -4)}$.
 \end{corrolary}
 
@@ -1088,7 +1088,7 @@ Next, for the MGF, consider $Z\sim Logistic(0,1)$.
 In general, if $X\sim Logistic(\mu, s)$, then $X=\mu +sX$.
 Thus,
 \begin{align*}
-M_Z(t)&=\mathbb{E}(e^{tZ})\\
+M_Z(t)&=\mathbb{E}[e^{tZ}]\\
 &=\int_\mathbb{R} e^{tz} dF\\
 &= \int_\mathbb{R} e^{tz-z} \left( 1+ e^{-z}\right)^{-2} dz
 \end{align*}
@@ -1105,7 +1105,7 @@ Here, we have used the definition of the Beta function to evaluate the integral.
 Finally, to get a general MGF, we use properties of the MGF to find $M(t)=e^{t\mu}M_Z(st)$.
 \end{proof}
 \begin{corrolary}
-$\mathbb{E}(X)=\mu$ and $Var(X)=\frac{\pi^2 s^2}{3}$
+$\mathbb{E}[X]=\mu$ and $Var(X)=\frac{\pi^2 s^2}{3}$
 \end{corrolary}
 
 \begin{definition}
@@ -1122,13 +1122,13 @@ The PDF is the linear combination of the PDFs of $X_k$, but this does not give t
 
 \begin{theorem}
 Let $X_k \sim F_k$ be a finite collection of random variables and $p_k$ be a finite probability distribution.
-Also, let $\mathbb{E}(X_k)=\mu_k$ and $Var(X_k)=\sigma_k^2$ for all $k$.
+Also, let $\mathbb{E}[X_k]=\mu_k$ and $Var(X_k)=\sigma_k^2$ for all $k$.
 Let $X$ be a random variable with mixture model PDF $f(x)=\sum_k p_k f_k(x)$.
-Then $\mathbb{E}(X)=\sum_k p_k \mu_k =\mu$ and $Var(X)=\sum_k \left[ p_k \sigma_k^2 + p_k (\mu_k -\mu)^2 \right]$.
+Then $\mathbb{E}[X]=\sum_k p_k \mu_k =\mu$ and $Var(X)=\sum_k \left[ p_k \sigma_k^2 + p_k (\mu_k -\mu)^2 \right]$.
 \end{theorem}
 \begin{proof}
 \begin{align*}
-\mathbb{E}(X)&=\int_\mathbb{R} xdF\\
+\mathbb{E}[X]&=\int_\mathbb{R} xdF\\
 &= \int_\mathbb{R} \sum_k p_k x f_k(x) dx\\
 &= \sum_k p_k \int_\mathbb{R} x f_k(x)dx\\
 &= \sum_k p_k \mu_k

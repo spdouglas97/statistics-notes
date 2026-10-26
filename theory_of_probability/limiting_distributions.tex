@@ -240,15 +240,15 @@ X_n {D \atop \rightarrow} X
 \end{equation}
 \item For all bounded, continuous functions $g: \mathbb{R} \rightarrow \mathbb{R}$,
 \begin{equation}
-\lim_{n\rightarrow \infty} \mathbb{E}(g(X_n)) = \mathbb{E}(g(X))
+\lim_{n\rightarrow \infty} \mathbb{E}[g(X_n)] = \mathbb{E}[g(X)]
 \end{equation}
 \item For all bounded, $1$-Lipschitz functions $g: \mathbb{R} \rightarrow \mathbb{R}$,
 \begin{equation}
-\lim_{n\rightarrow \infty} \mathbb{E}(g(X_n)) = \mathbb{E}(g(X))
+\lim_{n\rightarrow \infty} \mathbb{E}[g(X_n)] = \mathbb{E}[g(X)]
 \end{equation}
 \item For any continuous, non-negatvie function $g: \mathbb{R} \rightarrow \mathbb{R}$,
 \begin{equation}
-\liminf_n \mathbb{E}(g(X_n)) \geq \mathbb{E}(g(X))
+\liminf_n \mathbb{E}[g(X_n)] \geq \mathbb{E}[g(X)]
 \end{equation}
 \item For any open $U\subseteq \mathbb{R}$,
 \begin{equation}
@@ -270,25 +270,25 @@ THen, by Skorkhod's representation theorem, there are random variables $Y_n {a.s
 THus, by the continuous mapping theorem for almost sure convergence, $g(Y_n) {a.s. \atop \rightarrow} g(Y)$.
 Thus, by the bounded convergence hteorem,
 \begin{align*}
-\lim_{n\rightarrow \infty} \mathbb{E}(g(Y_n)) 
+\lim_{n\rightarrow \infty} \mathbb{E}[g(Y_n)] 
 &= \int_\mathbb{R} g f_n dx\\
 &\rightarrow \int_\mathbb{R} g f dx\\
-&= \mathbb{E}(g(Y))
+&= \mathbb{E}[g(Y)]
 \end{align*}
-Because hte distributions are the same, $\mathbb{E}(g(X))=\mathbb{E}(g(Y))$ and $\mathbb{E}(g(X_n)) =\mathbb{E}(g(Y_n))$.
+Because hte distributions are the same, $\mathbb{E}[g(X)]=\mathbb{E}[g(Y)]$ and $\mathbb{E}[g(X_n)] =\mathbb{E}[g(Y_n)]$.
 THerefore, we have result (2). \\
-Now suppose that for all continuous and bounded functions $g$, $\mathbb{E}(g(X_n)) \rightarrow \mathbb{E}(g(X))$.
+Now suppose that for all continuous and bounded functions $g$, $\mathbb{E}[g(X_n)] \rightarrow \mathbb{E}[g(X)]$.
 Notice that $1$-Lipschitz functions are continuous, so (3) follows trivially. \\
-Now suppose that all bounded, $1$-Lipschitz functions $g$, $\mathbb{E}(g(X_n)) \rightarrow \mathbb{E}(g(X))$.
+Now suppose that all bounded, $1$-Lipschitz functions $g$, $\mathbb{E}[g(X_n)] \rightarrow \mathbb{E}[g(X)]$.
 Let $U\subseteq \mathbb{R}$ be open.
 Then there is a sequence of $1$-Lipschitz bounded functions $g_n$ such that $g_m \nearrow g$ and $g_m (x) < g(x)$ if and only if $x \in U$.
 THen
 \begin{align*}
 \liminf_n \Pr\left( X_n \in U\right) 
-&= \liminf_n \mathbb{E}(g(X_n)) \\
-&\geq \liminf_n \mathbb{E}(g_m(X_n))\\
-&=\mathbb{E}(g_m(X)) \\
-&\rightarrow \mathbb{E}(g(X)) \\
+&= \liminf_n \mathbb{E}[g(X_n)] \\
+&\geq \liminf_n \mathbb{E}[g_m(X_n)]\\
+&=\mathbb{E}[g_m(X)] \\
+&\rightarrow \mathbb{E}[g(X)] \\
 &= \Pr\left( X \in U\right)
 \end{align*}
 Here we have used property (3) to calculate the $\liminf$.
@@ -346,15 +346,15 @@ F_n \left( x \right)
 \end{align*}
 Thus, $X_n {D \atop \rightarrow} X$\\
 Let $g$ be a non-negative continuous function.
-Suppose that for any bounded continuous function, $\mathbb{E}(h(X_n)) \rightarrow \mathbb{E}hg(X))$.
+Suppose that for any bounded continuous function, $\mathbb{E}[h(X_n)] \rightarrow \mathbb{E}hg(X))$.
 For any $M>0$, let $g_M(x)=\min\{g(x), M\}$.
-Then $\mathbb{E}(g_M(X_n))\rightarrow \mathbb{E}(g_M(X))$.
+Then $\mathbb{E}[g_M(X_n)]\rightarrow \mathbb{E}[g_M(X)]$.
 THen
 \begin{align*}
-\liminf_n \mathbb{E}(g(X_n))
-&\geq \lim_{n\rightarrow \infty} \mathbb{E}(g_M(X_n)) \\
-&= \mathbb{E}(g_M(X)) \\
-&\rightarrow \mathbb{E}(g(X))
+\liminf_n \mathbb{E}[g(X_n)]
+&\geq \lim_{n\rightarrow \infty} \mathbb{E}[g_M(X_n)] \\
+&= \mathbb{E}[g_M(X)] \\
+&\rightarrow \mathbb{E}[g(X)]
 \end{align*}
 where we have used the Monotone Convergence Thoerem. Thus, we have (4).\\
 Finally, suppose (4).
@@ -506,17 +506,17 @@ Then we also have $Y_n {D \atop \rightarrow} c$.
 We now show that $(X_n, Y_n) {D \atop \rightarrow} (X, c)$.
 By the Portmanteau theorem, it suffices to show that for every bounded continuous function $g:\mathbb{R}^2\rightarrow \mathbb{R}$,
 \begin{equation*}
-\mathbb{E}(g(X_n, Y_n))\rightarrow \mathbb{E}(g(X,c)).
+\mathbb{E}[g(X_n, Y_n)]\rightarrow \mathbb{E}[g(X,c)].
 \end{equation*}
 So let $g:\mathbb{R}^2\rightarrow \mathbb{R}$ be bounded and continuous, and let $M>0$ be such that $|g(x,y)|\leq M$ for all $(x,y)\in \mathbb{R}^2$.
 Also define $h:\mathbb{R}\rightarrow \mathbb{R}$ by $h(x)=g(x,c)$.
 Then $h$ is bounded and continuous, so because $X_n {D \atop \rightarrow} X$, the Portmanteau theorem gives
 \begin{equation*}
-\mathbb{E}(h(X_n))\rightarrow \mathbb{E}(h(X)).
+\mathbb{E}[h(X_n)]\rightarrow \mathbb{E}[h(X)].
 \end{equation*}
 It remains to show that
 \begin{equation*}
-\mathbb{E}(g(X_n, Y_n))-\mathbb{E}(h(X_n))\rightarrow 0.
+\mathbb{E}[g(X_n, Y_n)]-\mathbb{E}[h(X_n)]\rightarrow 0.
 \end{equation*}
 Let $\epsilon, \eta>0$.
 Because $X_n {D \atop \rightarrow} X$, there is some compact interval $[-K,K]$ such that
@@ -534,7 +534,7 @@ For large $n$, since $Y_n {P \atop \rightarrow} c$,
 \end{equation*}
 Then
 \begin{align*}
-\left|\mathbb{E}(g(X_n, Y_n))-\mathbb{E}(h(X_n))\right|
+\left|\mathbb{E}[g(X_n, Y_n)]-\mathbb{E}[h(X_n)]\right|
 &\leq \mathbb{E}\left(\left|g(X_n, Y_n)-g(X_n,c)\right|\right) \\
 &\leq \frac{\epsilon}{2} + 2M\Pr(|X_n|>K) + 2M\Pr(|Y_n-c|\geq \delta) \\
 &< \frac{\epsilon}{2} + 2M\left(\frac{\eta}{8M}\right) + 2M\left(\frac{\eta}{8M}\right)\\
@@ -542,10 +542,10 @@ Then
 \end{align*}
 Therefore,
 \begin{align*}
-\mathbb{E}(g(X_n, Y_n))
-&= \mathbb{E}(h(X_n)) + o(1)\\
-&\rightarrow \mathbb{E}(h(X))\\
-&= \mathbb{E}(g(X,c)).
+\mathbb{E}[g(X_n, Y_n)]
+&= \mathbb{E}[h(X_n)] + o(1)\\
+&\rightarrow \mathbb{E}[h(X)]\\
+&= \mathbb{E}[g(X,c)].
 \end{align*}
 So $(X_n, Y_n) {D \atop \rightarrow} (X,c)$.
 Also notice that addition, multiplication, and division are all continuous functions.

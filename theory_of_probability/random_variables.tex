@@ -96,7 +96,7 @@ Let $X: (S, \Omega, p) \rightarrow \mathbb{R}$ be a random variable and $B \in \
 Let $ \mbox{\Large$\chi$}_B$ be the indicator function of $B$.
 Then
 \begin{equation}
-Pr(X\in B)=\int_\mathbb{R}  \mbox{\Large$\chi$}_B dF
+\Pr(X\in B)=\int_\mathbb{R}  \mbox{\Large$\chi$}_B dF
 \end{equation}
 \end{lemma}
 \begin{proof}
@@ -106,7 +106,7 @@ Then by change of variables, $\int_B 1 dF = \int_E 1 dp = p(E) = p(X^{-1}(B))$.
 \end{proof}
 \begin{corrolary}
 \begin{equation}
-Pr(a \leq X \leq b) = F(b) - F(a)
+\Pr(a \leq X \leq b) = F(b) - F(a)
 \end{equation}
 \end{corrolary}
 \begin{corrolary}
@@ -139,7 +139,7 @@ Because we are choosing from a fair distribution, the probability function is $p
 We define the random variable $R: \mathbb{D}^2 \rightarrow \mathbb{R}$ as $R(x,y)=\sqrt{x^2 + y^2}$.
 So the CDF is $F(r)=r^2$.
 Indeed, $=\{(x,y)\in \mathbb{D}^2 | x^2 + y^2 \leq r^2 \}$ has measure $\pi r^2$, so $F(r)=r^2$.
-Thus, the PDF is $f(r)=2r$ and $Pr(r\geq \frac{1}{3}) = \int_\frac{1}{3}^1 1dF=\int_\frac{1}{3}^1 2r dr = r^2 |_\frac{1}{3}^1 = \frac{8}{9}$.
+Thus, the PDF is $f(r)=2r$ and $\Pr(r\geq \frac{1}{3}) = \int_\frac{1}{3}^1 1dF=\int_\frac{1}{3}^1 2r dr = r^2 |_\frac{1}{3}^1 = \frac{8}{9}$.
 
 \begin{theorem}
 \begin{equation}
@@ -170,7 +170,7 @@ Then $Y=g(X)$ is a random variable with PDF $f\circ g^{-1}$, support $g(S_x)$, a
 \begin{proof}
 First, because $X$ is discrete and $g$ is one-to-one, $g\circ X$ must be measureable.
 So, $Y=g\circ X$ is indeed a random variable.
-Next, consider that $Pr(Y=y)=Pr(X=g^{-1}(y))=f(g^{-1}(y))$.
+Next, consider that $\Pr(Y=y)=\Pr(X=g^{-1}(y))=f(g^{-1}(y))$.
 So $f\circ g^{-1}$ is the PDF. \\
 Next, $S_y=\{y\in \mathbb{R} | f(g^{-1}(y))\neq 0\}$.
 First, suppose $y \in S_y$. Then $f(g^{-1}(y))\neq 0$.
@@ -186,9 +186,9 @@ Therefore, $S_y=g(S_x)$. \\
 Finally, we can look at the CDF.
 Because $g$ is one-to-one, it is either increasing or decreasing.
 Suppose it is increasing.
-Notice $Pr(Y\leq y)=\sum_{u\leq y}f(g^{-1}(u))=\sum_{x\leq g^{-1}(y)}f(x)=Pr(X\leq g^{-1}(y))$.
+Notice $\Pr(Y\leq y)=\sum_{u\leq y}f(g^{-1}(u))=\sum_{x\leq g^{-1}(y)}f(x)=\Pr(X\leq g^{-1}(y))$.
 Thus, the CDF is $f\circ g^{-1}$.
-On the other hand, if we suppose $g$ is decreasing, then $Pr(Y\leq y)=\sum_{u\leq y}f(g^{-1}(u))=\sum_{x\geq g^{-1}(y)}f(x)=Pr(X\geq g^{-1}(y))$.
+On the other hand, if we suppose $g$ is decreasing, then $\Pr(Y\leq y)=\sum_{u\leq y}f(g^{-1}(u))=\sum_{x\geq g^{-1}(y)}f(x)=\Pr(X\geq g^{-1}(y))$.
 Thus, the CDF is $1-f\circ g^{-1}$.
 \end{proof}
 
@@ -200,10 +200,10 @@ Then $Y=g(X)$ is a random variable with PDF $\frac{1}{|g'(g^{-1}(y))|}f(g^{-1}(y
 \begin{proof}
 First, consider that $g$ is differentiable, so it must be measureable.
 So $g\circ X$ is measureable, and thus a random variable. \\
-Next, the CDF is $Pr(Y\leq y)$.
+Next, the CDF is $\Pr(Y\leq y)$.
 Also, $g$ is either increasing or decreasing.
-In the first case, $Pr(Y\leq y)=Pr(X\leq g^{-1}(y))=F(g^{-1}(y))$.
-In the second case, $Pr(Y\leq y)=Pr(X\geq g^{-1}(y))=1-F(g^{-1}(y))$. \\
+In the first case, $\Pr(Y\leq y)=\Pr(X\leq g^{-1}(y))=F(g^{-1}(y))$.
+In the second case, $\Pr(Y\leq y)=\Pr(X\geq g^{-1}(y))=1-F(g^{-1}(y))$. \\
 Next, we can use the inverse function theorem to show that $(g^{-1})' (y)=\frac{1}{g'(g^{-1}(y))}$.
 So the change of variables formula gives the PDF $\frac{1}{|g'(g^{-1}(y))|}f(g^{-1}(y))$.\\
 Finally, the support is $S_y=\{y\in \mathbb{R} | \frac{1}{|g'(g^{-1}(y))|}f(g^{-1}(y)) \neq 0 \}$.
