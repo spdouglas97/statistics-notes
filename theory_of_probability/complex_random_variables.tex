@@ -330,4 +330,26 @@ So $\mathbb{E}(Z^2)=0$.
 Therefore, $Z$ must be proper.
 \end{proof}
 
+\begin{definition}
+Say the covariance matrix of a complex random vector $Z$ is
+\begin{equation}
+Cov(Z) = \mathbb{E}((Z - \mathbb{E}(Z))(Z - \mathbb{E}(Z))^H)
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Say the pseudo-covariance matrix of a complex random vector is
+\begin{equation}
+pCov(Z) = \mathbb{E}((Z - \mathbb{E}(Z))(Z - \mathbb{E}(Z))^T)
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+The diagonal elements of $Cov(Z)$ are $Var(Z_i)$ and the off diagonal ellements are $Cov(Z_i, Z_j)$.
+The diagonal elements of $pCov(Z)$ are $pVar(Z_i)$ and the off diagonal elements are $pCov(Z_i, Z_j)$.
+\end{lemma}
+\begin{proof}
+This follows from the definition of teh covariance and pseudo-covariance matrices.
+\end{proof}
+
 \end{document}
