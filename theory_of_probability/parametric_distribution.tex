@@ -58,7 +58,7 @@ A Bernoulli trial is a random experiment with two outcomes: success, which happe
 
 \begin{definition}
 Let $p\in (0,1)$.
-Say a random variable has a Bernoulli distribution whenever it has pdf support $k\in \{0,1\}$ and the PDF on the support is
+Say a random variable has a Bernoulli distribution whenever it has support $k\in \{0,1\}$ and the PMF on the support is
 \begin{equation}
 f(k)=p^k(1-p)^{1-k}
 \end{equation}
@@ -333,7 +333,8 @@ The MGF is $M(t)=\left(\sum_k p_k e^{t_k}\right)^n$.
 Let $X_i=e_k$ with probability $p_k$ where $e_k$ is a standard basis vector of $\mathbb{R}^K$.
 Clearly,
 \begin{align*}
-M_X(t)&=\mathbb{E}[X_i]\\
+M_X(t)
+&=\mathbb{E}[e^{t X_i}]\\
 &=\sum_k p_k e^{t_k}
 \end{align*}
 By the previous lemma, a multinomial random vector is the sum of $n$ such iid random vectors.
@@ -809,7 +810,7 @@ $\mathbb{E}[X]=\mu$ and $Cov(\Sigma)=\Sigma$.
 
 \begin{definition}
 Let $r\in \mathbb{R}^+$.
-Say a random variaable has a t distribution with $r$ degrees of freedom, $X\sim T(r)$, whenever it has support $\mathbb{R}$ and the PDF on that support is
+Say a random variable has a t distribution with $r$ degrees of freedom, $X\sim T(r)$, whenever it has support $\mathbb{R}$ and the PDF on that support is
 \begin{equation}
 f(x)=\frac{\Gamma \left( \frac{r+1}{2}\right)}{\sqrt{\pi r}\Gamma\left(\frac{r}{2} \right)}\left( 1+\frac{x^2}{r}\right)^{-(r+1)/2}
 \end{equation}
@@ -858,7 +859,7 @@ The MGF does not exist
 Let $W\sim \mathcal{N}(0,1)$ and $V\sim \chi^2(r)$ be independent random variables.
 Then
 \begin{align*}
-\mathbb{E}[|T^k|]&=\mathbb{E}[|W^k|]\mathbb{E}\left( \middle|\left( \frac{V}{r}\right)^{-k/2}\middle| \right)\\
+\mathbb{E}[|T^k|]&=\mathbb{E}[|W^k|]\mathbb{E}\left[ \middle|\left( \frac{V}{r}\right)^{-k/2}\middle| \right]\\
 &=\int_0^\infty \left( \frac{v}{r}\right)^{-k/2} dF\\
 &=\int_0^\infty \frac{1}{\Gamma \left( \frac{r}{2} \right) 2^{(r-1)/2}}v^{(r-k)/2} e^{-v/2}dv\\
 &=\frac{\Gamma \left(\frac{r-k}{2}\right)}{\Gamma \left( \frac{r}{2}\right) 2^{(r-k)/2}}
@@ -1042,7 +1043,7 @@ Then $F\\sim F(r_1, r_2)$ and $F, U, V>0$.
 So
 \begin{align*}
 \mathbb{E}[F^k] &= \frac{\mathbb{E}[U^k]/r_1}{\mathbb{E}[V^k]/r_2}\\
-&= \frac{\mathbb{E}[U^k]\mathbb{E}V^{-k})r_2}{r_1}
+&= \frac{\mathbb{E}[U^k]\mathbb{E}[V^{-k}]r_2}{r_1}
 \end{align*}
 The expectation of $V^{-k}$ is not defined for $k>r_2$, so the MGF does not exist.
 \end{proof}

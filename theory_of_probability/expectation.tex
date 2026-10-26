@@ -245,7 +245,7 @@ M_X(t)=\sum_{n=0}^\infty \frac{\mathbb{E}[X^n]t^n}{n!}
 \begin{proof}
 This is an application of Taylor's Theorem, so we need to show $M_X^{(n)}(t)=\mathbb{E}[X^ne^{tX}]$.
 We will do so via induction.
-Notice that when $n=0$, this is the definition of hte mgf.
+Notice that when $n=0$, this is the definition of the mgf.
 So the base case is trivial. \\
 Now, suppose $M_X^{(k)}(t) = \mathbb{E}[X^ke^{tX}]$ for some $k\in \mathbb{N}$.
 Then
@@ -261,15 +261,15 @@ Therefore, by Taylor's theorem, we have the result.
 
 \begin{theorem}
 Let $X$ and $Y$ be two random variables with MGFs $M_X$ and $M_Y$.
-$M_X = M_Y$ if and only if $X$ and $Y$ have the same distibution.
+$M_X = M_Y$ if and only if $X$ and $Y$ have the same distribution.
 \end{theorem}
 \begin{proof}
-First, suppose $X$ and $Y$ have the same distibution.
+First, suppose $X$ and $Y$ have the same distribution.
 Then clearly $\mathbb{E}[e^{Xt}]=\mathbb{E}[e^{Yt}]$.
 So $M_X=M_Y$.\\
 Conversely, suppose $X$ and $Y$ do not have the same distribution.
 So $f_X \neq f_Y$ on a set of non-zero measure.
-Akso, $M_X(t)=\int_\mathbb{R} e^{tx}f_x(x)dx$ and $M_Y(t)=\int_\mathbb{R} e^{tx}f_Y(x)dx$.
+Also, $M_X(t)=\int_\mathbb{R} e^{tx}f_x(x)dx$ and $M_Y(t)=\int_\mathbb{R} e^{tx}f_Y(x)dx$.
 Then $M_X(t)-M_Y(t)=\int_\mathbb{R} e^{tx}(f_X(x)-f_Y(x))dx$.
 Thus, by the zero integral lemma, this integral is non-zero.
 Therefore, the MGFs must be distinct.
@@ -321,19 +321,19 @@ First, let $U$ be any random variable with support $(a,b)$.
 Then $(U-\frac{a+b}{2})^2 \leq (\frac{b-a}{2})^2$.
 Because variance does not change with a constant shift,
 \begin{align*}
-Var(U) &= \mathbb{E}\left(\left(U-\frac{a+b}{2}\right)^2\right) - \mathbb{E}\left(U-\frac{a+b}{2}\right)^2 \\
-&\leq \mathbb{E}\left(\left(U-\frac{a+b}{2}\right)^2\right)\\
+Var(U) &= \mathbb{E}\left[\left(U-\frac{a+b}{2}\right)^2\right] - \mathbb{E}\left[U-\frac{a+b}{2}\right]^2 \\
+&\leq \mathbb{E}\left[\left(U-\frac{a+b}{2}\right)^2\right]\\
 &\leq \left(\frac{b-a}{2}\right)^2
 \end{align*}
 Next, let $X$ be a random variable with PDF $f$ and MGF $M_X$.
 Let $V$ be a random variable with PDF $g(x)=\frac{e^{sx}}{M_X(s)} f(x)$
 Clearly, $V$ has support $(a,b)$.
-Next, let $\varphi(s)=\ln M_X(s)=\ln\mathbb{E}_X(e^{sX})$.
-Then $\varphi'(s)=\frac{\mathbb{E}_X(Xe^{sX})}{\mathbb{E}_X(e^{sX})}$, and
+Next, let $\varphi(s)=\ln M_X(s)=\ln\mathbb{E}_X[e^{sX}]$.
+Then $\varphi'(s)=\frac{\mathbb{E}_X[Xe^{sX}]}{\mathbb{E}_X[e^{sX}]}$, and
 \begin{align*}
-\varphi''(s) &= \frac{\mathbb{E}_X(X^2e^{sX})}{\mathbb{E}_X(e^{sX})} - \left( \frac{\mathbb{E}_X(Xe^{sX})}{\mathbb{E}_X(e^{sX})}\right)^2\\
+\varphi''(s) &= \frac{\mathbb{E}_X[X^2e^{sX}]}{\mathbb{E}_X[e^{sX}]} - \left( \frac{\mathbb{E}_X[Xe^{sX}]}{\mathbb{E}_X[e^{sX}]}\right)^2\\
 &= \int_\mathbb{R} x^2 \frac{e^{sx}}{M_X(s)}f(x)dx - \left( \int_\mathbb{R} x \frac{e^{sx}}{M_X(s)} f(x)dx \right)^2\\
-&=\mathbb{E}_V(V^2)-\mathbb{E}_V(V)^2\\
+&=\mathbb{E}_V[V^2]-\mathbb{E}_V[V]^2\\
 &=Var(V) \\
 &\leq \frac{(b-a)^2}{4}
 \end{align*}
@@ -448,7 +448,7 @@ Let $\phi:\mathbb{R}\rightarrow \mathbb{R}$ be convex.
 \end{theorem}
 \begin{proof}
 Let $\mu=\mathbb{E}[X]$ and supose $\phi$ is twice-differentiable.
-THen by Taylor's theorem, there is some $\xi$ such that
+Then by Taylor's theorem, there is some $\xi$ such that
 \begin{align*}
 \phi(x)&=\phi(\mu)+\phi'(\mu)(x-\mu)+\frac{\phi''(\xi)}{2}(x-\mu)^2\\
 &\geq \phi(\mu)+\phi'(\mu)(x-\mu)
@@ -463,7 +463,7 @@ So
 \begin{theorem}
 \textbf{AM-GM Inequality:}
 Let $\{x_k\}_{k=0}^n$ be a sequence of real numbers.
-THen
+Then
 \begin{equation}
 \sqrt[n]{\prod_k x_k}\leq \frac{1}{n}\sum_k x_k
 \end{equation}
@@ -481,7 +481,7 @@ So by Jensen's inequality,
 &= \frac{-1}{n}\ln \prod_k x_k\\
 &= -\ln \left(\prod_k x_k \right)^\frac{1}{n}
 \end{align*}
-Therefore, we can recover hte AM-GM inequality by taking hte negative exponential of both sides.
+Therefore, we can recover the AM-GM inequality by taking the negative exponential of both sides.
 \end{proof}
 \begin{corrolary}
 \textbf{HM-GM Inequality:}

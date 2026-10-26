@@ -130,7 +130,7 @@ Var(Z)
 
 \begin{definition}
 Let $Z$ be a complex random variable with mean $\mu$.
-Say teh pseudo-variance is
+Say the pseudo-variance is
 \begin{equation}
 pVar(Z) = \mathbb{E}[(Z-\mu)^2]
 \end{equation}
@@ -151,14 +151,14 @@ pVar(Z)
 \end{proof}
 
 \textbf{Note-}
-The variance of a complex random variable will always be a postivie real number but the pseudo-variance can be any complex number.
+The variance of a complex random variable will always be a positive real number, but the pseudo-variance can be any complex number.
 
 \begin{definition}
 Say a measurable function $Z: (S, \Omega, p)\rightarrow \mathbb{C}^n$ is a complex random vector.
 \end{definition}
 
 \begin{definition}
-The covariance of two complex randomm variables is
+The covariance of two complex random variables is
 \begin{equation}
 Cov(Z, W) = \mathbb{E}[\overline{(Z - \mathbb{E}[Z])}(W-\mathbb{E}[W])]
 \end{equation}
@@ -342,11 +342,11 @@ pCov(Z) = \mathbb{E}[(Z - \mathbb{E}[Z])(Z - \mathbb{E}[Z])^T]
 \end{definition}
 
 \begin{lemma}
-The diagonal elements of $Cov(Z)$ are $Var(Z_i)$ and the off diagonal ellements are $Cov(Z_i, Z_j)$.
+The diagonal elements of $Cov(Z)$ are $Var(Z_i)$ and the off-diagonal elements are $Cov(Z_i, Z_j)$.
 The diagonal elements of $pCov(Z)$ are $pVar(Z_i)$ and the off diagonal elements are $pCov(Z_i, Z_j)$.
 \end{lemma}
 \begin{proof}
-This follows from the definition of teh covariance and pseudo-covariance matrices.
+This follows from the definition of the covariance and pseudo-covariance matrices.
 \end{proof}
 
 \begin{definition}
@@ -383,7 +383,7 @@ Notice the joint PDF of $(X,Y)$ is $f(x,y)=\frac{1}{\pi} e^{-(x^2 +y^2)}$.
 Also the transformation $Z=X+iY$ gives a relationship between these random variables.
 Indeed, the PDF can also be written as $f(z)=\frac{1}{\pi} e^{-z^H z}$.
 Also notice that $z^H z=\bar{z}^H \bar{z}$.
-THerefore, teh PDF is $f(z)=\frac{1}{\pi} e^{\frac{-1}{2}(z^H z + \bar{z}^H \bar{z})}$.
+Therefore, the PDF is $f(z)=\frac{1}{\pi} e^{\frac{-1}{2}(z^H z + \bar{z}^H \bar{z})}$.
 Therefore, $Z$ has the desired distribution.
 \end{proof}
 
@@ -445,7 +445,7 @@ Now
 \end{equation*}
 Also,
 \begin{align*}
-\mathbb{E}\left(
+\mathbb{E}\left[
 \begin{bmatrix}
 Z-\mu \\
 \bar{Z} - \bar{\mu}
@@ -454,15 +454,15 @@ Z-\mu \\
 Z-\mu \\
 \bar{Z} - \bar{\mu}
 \end{bmatrix}^H
-\right)
-&= \mathbb{E}\left(T(W-m)(W-m)^H T^H \right) \\
-&= T \mathbb{E}\left((W-m)(W-m)^H\right) T^H \\
+\right]
+&= \mathbb{E}\left[T(W-m)(W-m)^H T^H \right] \\
+&= T \mathbb{E}\left[(W-m)(W-m)^H\right] T^H \\
 &= TKT^H \\
 &= \Sigma
 \end{align*}
 Thus,
 \begin{equation*}
-\mathbb{E}\left(
+\mathbb{E}\left[
 \begin{bmatrix}
 Z-\mu \\
 \bar{Z} - \bar{\mu}
@@ -471,7 +471,7 @@ Z-\mu \\
 Z-\mu \\
 \bar{Z} - \bar{\mu}
 \end{bmatrix}^H
-\right)
+\right]
 =
 \begin{bmatrix}
 \Gamma & C \\

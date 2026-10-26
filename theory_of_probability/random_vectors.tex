@@ -160,8 +160,8 @@ If $X$ and $Y$ are independent random variables with supports $S_X$ and $S_Y$, $
 \end{corrolary}
 
 \begin{theorem}
-Let $(x_1, X_2): (S,\Omega, p)\rightarrow \mathbb{R}^2$ be a random vector and $u: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ be a differentiable, one-to-one function.
-THen $(Y_1, Y_2)=u(X_1, X_2)$ is a random vector with joint PDF
+Let $(X_1, X_2): (S,\Omega, p)\rightarrow \mathbb{R}^2$ be a random vector and $u: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ be a differentiable, one-to-one function.
+Then $(Y_1, Y_2)=u(X_1, X_2)$ is a random vector with joint PDF
 \begin{equation}
 f_Y(y_1, y_2) = |J(u)|f(u^{-1}(y_1, y_2))
 \end{equation}
@@ -224,7 +224,7 @@ Then $X$ has marginal MGF $M_X(t)=M(t,0)$.
 \begin{proof}
 By definition, $M(t,s)=\mathbb{E}[e^{tX+sY}]$.
 By letting $s=0$, this becomes $\mathbb{E}[e^{tX}]$.
-This is constant in the distirbution of $Y|X$, so reframing this as iterated integrals gives the definition of hte marginal MGF.
+This is constant in the distribution of $Y|X$, so reframing this as iterated integrals gives the definition of the marginal MGF.
 \end{proof}
 
 \begin{theorem}
@@ -236,7 +236,7 @@ Let $(X,Y)$ be a random vector with MGF $M(t,s)$.
 \begin{proof}
 \begin{align*}
 \frac{\partial^{n+m}M}{\partial^n t \partial^m s}(t,s)&=\frac{\partial^{n+m}}{\partial^n t \partial^m s}\bigg[ \mathbb{E}[e^{tX+sY}]\bigg]\\
-&=\mathbb{E}\bigg(\frac{\partial^{n+m}}{\partial^n t \partial^m s}\bigg[ e^{tX+sY}\bigg]\bigg)\\
+&=\mathbb{E}\bigg[\frac{\partial^{n+m}}{\partial^n t \partial^m s}\bigg( e^{tX+sY}\bigg)\bigg]\\
 &=\mathbb{E}[X^n Y^m e^{tX+sY}]\\
 \end{align*}
 By evaluating at $(0,0)$, this gives the desired result.
@@ -281,7 +281,7 @@ M(t,s)&=M_X(t)M_Y(s)\\
 &=\left( 1 + \mu_X t + \frac{\mu_X^2 + \sigma_X^2}{2}t^2+...\right)\left(1+\mu_Ys +\frac{\mu_Y^2+\sigma_Y^2}{2}s^2+...+\right)\\
 &=1+t\mu_x +s\mu_Y  + \frac{\mu_X^2 + \sigma_X^2}{2}t^2 + \frac{\mu_Y^2+\sigma_Y^2}{2}s^2+st\mu_X\mu_Y +...
 \end{align*}
-By properties of hte MGF< $\mathbb{E}[XY]= \mu_X
+By properties of the MGF, $\mathbb{E}[XY]= \mu_X
 \mu_Y$.
 Thus,
 \begin{align*}
@@ -312,7 +312,7 @@ Then $\sigma_{i,j}=Cov(X_i, X_j)$.
 \begin{proof}
 \begin{align*}
 \sigma_{i,j}&=\left[ \mathbb{E}[(X-\mu)(X-\mu)^T]\right]_{i,j}\\
-&=left[ \mathbb{E}\left(\left[(X-\mu)(X-\mu)^T\right]_{i,j}\right)\\
+&=\mathbb{E}\left[\left[(X-\mu)(X-\mu)^T\right]_{i,j}\right]\\
 &=\mathbb{E}[(X_i -\mu_i)(X_j-\mu_j)]\\
 &=Cov(X_i, X_j)
 \end{align*}
@@ -374,8 +374,8 @@ By examining the Chernoff Bound (Thm \ref{chernoff})
 &\leq e^{-n\epsilon}\left(e^\frac{t^2\xi^2}{2} \right)^n\\
 &=\inf_{t>0}e^{-nt\epsilon+\frac{nt^2\xi^2}{2}}
 \end{align*}
-Here, we have used the fact that the variables are iid and that they are subgaussian to get hte resulting inequalities.
-Next, to find the infimum, notice the expression is iinmized at the minimum of the exponent.
+Here, we have used the fact that the variables are iid and that they are subgaussian to get the resulting inequalities.
+Next, to find the infimum, notice the expression is minimized at the minimum of the exponent.
 This occurs at $t=\frac{\epsilon}{\xi^2}$.
 This gives the bound
 \begin{equation*}

@@ -266,7 +266,7 @@ X_n {D \atop \rightarrow} X
 \end{theorem}
 \begin{proof}
 FIrst, suppose $X_n {D \atop \rightarrow} X$ and let $g$ be a bounded continuous function.
-THen, by Skorkhod's representation theorem, there are random variables $Y_n {a.s. \atop \rightarrow} Y$ that have the same distributions.
+Then, by Skorkhod's representation theorem, there are random variables $Y_n {a.s. \atop \rightarrow} Y$ that have the same distributions.
 THus, by the continuous mapping theorem for almost sure convergence, $g(Y_n) {a.s. \atop \rightarrow} g(Y)$.
 Thus, by the bounded convergence hteorem,
 \begin{align*}
@@ -275,14 +275,14 @@ Thus, by the bounded convergence hteorem,
 &\rightarrow \int_\mathbb{R} g f dx\\
 &= \mathbb{E}[g(Y)]
 \end{align*}
-Because hte distributions are the same, $\mathbb{E}[g(X)]=\mathbb{E}[g(Y)]$ and $\mathbb{E}[g(X_n)] =\mathbb{E}[g(Y_n)]$.
-THerefore, we have result (2). \\
+Because the distributions are the same, $\mathbb{E}[g(X)]=\mathbb{E}[g(Y)]$ and $\mathbb{E}[g(X_n)] =\mathbb{E}[g(Y_n)]$.
+Therefore, we have result (2). \\
 Now suppose that for all continuous and bounded functions $g$, $\mathbb{E}[g(X_n)] \rightarrow \mathbb{E}[g(X)]$.
 Notice that $1$-Lipschitz functions are continuous, so (3) follows trivially. \\
 Now suppose that all bounded, $1$-Lipschitz functions $g$, $\mathbb{E}[g(X_n)] \rightarrow \mathbb{E}[g(X)]$.
 Let $U\subseteq \mathbb{R}$ be open.
 Then there is a sequence of $1$-Lipschitz bounded functions $g_n$ such that $g_m \nearrow g$ and $g_m (x) < g(x)$ if and only if $x \in U$.
-THen
+Then
 \begin{align*}
 \liminf_n \Pr\left( X_n \in U\right) 
 &= \liminf_n \mathbb{E}[g(X_n)] \\
@@ -292,7 +292,7 @@ THen
 &= \Pr\left( X \in U\right)
 \end{align*}
 Here we have used property (3) to calculate the $\liminf$.
-Additionally, we have leveraged hte monotonicity of $g_m$ and used hte monotone convergence theoreem to get the limit over $m$.
+Additionally, we have leveraged the monotonicity of $g_m$ and used the monotone convergence theorem to get the limit over $m$.
 Thus, we have result (5). \\
 Suppose $\liminf_n \Pr\left( X_n \in U\right) \geq \Pr \left( X \in U \right)$ for all open sets $U$.
 Let $C\subseteq \mathbb{R}$.
@@ -346,10 +346,10 @@ F_n \left( x \right)
 \end{align*}
 Thus, $X_n {D \atop \rightarrow} X$\\
 Let $g$ be a non-negative continuous function.
-Suppose that for any bounded continuous function, $\mathbb{E}[h(X_n)] \rightarrow \mathbb{E}hg(X))$.
+Suppose that for any bounded continuous function, $\mathbb{E}[h(X_n)] \rightarrow \mathbb{E}[h(X)]$.
 For any $M>0$, let $g_M(x)=\min\{g(x), M\}$.
 Then $\mathbb{E}[g_M(X_n)]\rightarrow \mathbb{E}[g_M(X)]$.
-THen
+Then
 \begin{align*}
 \liminf_n \mathbb{E}[g(X_n)]
 &\geq \lim_{n\rightarrow \infty} \mathbb{E}[g_M(X_n)] \\
@@ -535,7 +535,7 @@ For large $n$, since $Y_n {P \atop \rightarrow} c$,
 Then
 \begin{align*}
 \left|\mathbb{E}[g(X_n, Y_n)]-\mathbb{E}[h(X_n)]\right|
-&\leq \mathbb{E}\left(\left|g(X_n, Y_n)-g(X_n,c)\right|\right) \\
+&\leq \mathbb{E}\left[\left|g(X_n, Y_n)-g(X_n,c)\right|\right] \\
 &\leq \frac{\epsilon}{2} + 2M\Pr(|X_n|>K) + 2M\Pr(|Y_n-c|\geq \delta) \\
 &< \frac{\epsilon}{2} + 2M\left(\frac{\eta}{8M}\right) + 2M\left(\frac{\eta}{8M}\right)\\
 &= \frac{\epsilon+\eta}{2}.
@@ -576,7 +576,7 @@ $$\frac{X_n}{Y_n} = X_n Z_n {P \atop \rightarrow} Xb=\frac{X}{c}$$
 $T(r){P\atop \rightarrow} \mathcal{N}(0,1)$.\\
 Let $T_n \sim T(n)$, $X\sim \mathcal{N}(0,1)$, and $U_n \sim \chi^2(n)$.
 Then $T_n=\frac{X}{\sqrt{U_n/n}}$.
-Notice that $\mathbb{E}\left(\frac{U_n}{n}\right)=1$ and $Var\left( \frac{U_n}{n}\right)=\frac{2}{n}$.
+Notice that $\mathbb{E}\left[\frac{U_n}{n}\right]=1$ and $Var\left( \frac{U_n}{n}\right)=\frac{2}{n}$.
 By Chebychev's theorem, 
 \begin{align*}
 \Pr\left(\middle| \frac{U_n}{n} -1\middle| > \epsilon\right) &\leq \frac{2}{n\epsilon^2} \\
@@ -591,8 +591,8 @@ Therefore, by Slutsky's theorem, we get the result.
 \includegraphics[scale=0.5]{theory_of_probability/images/t_distribution_comparison.png}\\
 \raggedright
 
-Notice that this example is the reverse of hte binomial-poisson example: the tails decrease and the peak increases as $n$ increases.
-Also unlike that case, all distributions share the same support, the diffference between the distributions is only where the density is distributed throughout the support.
+Notice that this example is the reverse of the binomial-poisson example: the tails decrease and the peak increases as $n$ increases.
+Also unlike that case, all distributions share the same support; the difference between the distributions is only where the density is distributed throughout the support.
 
 \begin{lemma}
 If $X_n {a.s.\atop \rightarrow}X$, $X_n {P \atop \rightarrow} X$.
