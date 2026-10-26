@@ -58,12 +58,10 @@ Let $Z$ be a complex random variable.
 Then $\mathcal{R}(Z)$ and $\mathcal{I}(Z)$ are random varaibles.
 \end{lemma}
 \begin{proof}
-Notice $\mathbb{R}\subseteq \mathcal{B}(\mathbb{C})$.
-So for any $B \in \mathcal{B}(\mathbb{C})$, $B\cap \mathbb{R}\in \mathcal{B}(\mathbb{C})$.
-So $(\mathcal{R}\circ Z)^{-1} (B) = Z^{-1}(B\cap \mathbb{R}) \in \Omega$.
-Thus, $\mathcal{R} \circ Z: (S, \Omega , p) \rightarrow \mathbb{R}$ is a measurable function.
-So it is  a ranom vairable.
-Simiilar logic applies to $\mathcal{I}\circ Z$.
+By definition, $Z$ is a measurable function.
+Similarly, $\mathcal{R}, \mathcal{I}: \mathbb{C}\rightarrow \mathbb{R}$ are projection functions, and thus are measurable.
+FInally, the composition of measurable functions is measurable.
+Therefore, the components of $Z$ are measurable.
 \end{proof}
 
 \begin{definition}
@@ -116,7 +114,7 @@ Var(Z) = \mathbb{E}(\overline{(Z-\mu)}(Z-\mu))
 
 \begin{lemma}
 \begin{equation}
-Var(Z) = \mathbb{E}(|Z|^2) - (\mathbb{E}(|Z|))^2
+Var(Z) = \mathbb{E}(|Z|^2) - |\mathbb{E}(Z)|^2
 \end{equation}
 \end{lemma}
 \begin{proof}
@@ -212,8 +210,7 @@ Var(Z + W) = Var(Z) + Var(W) + Cov(Z,W) + Cov(W,Z)
 \end{theorem}
 \begin{proof}
 \begin{align*}
-Var(Z+W)
-&= \overline{(W + Z - \mathbb{E}(W + Z))}(W + Z - \mathbb{E}(W + Z)) \\
+\overline{(W + Z - \mathbb{E}(W + Z))}(W + Z - \mathbb{E}(W + Z)) \\
 &=\overline{(Z - \mathbb{E}(Z) + W - \mathbb{E}(W))}(Z - \mathbb{E}(Z) + W - \mathbb{E}(W)) \\
 &= (\overline{(Z - \mathbb{E}(Z))}(Z - \mathbb{E}(Z)) + \overline{Z - \mathbb{E}(Z))}(W - \mathbb{E}(W)) \\
 &\quad \quad \quad \quad + \overline{(W - \mathbb{E}(W))}(Z - \mathbb{E}(Z)) \\
@@ -242,7 +239,7 @@ Thus,
 \begin{align*}
 Cov(W, aZ_1 + bZ_2)
 &=\mathbb{E}(\bar{W}(aZ_1 + bZ+_2)) - \mathbb{E}(\bar{W})\mathbb{E}(aZ_1 + bZ_2) \\
-&= a\mathbb{E}(\bar{W}Z_1) + b\mathbb{E}(\bar{W}Z_2) -a\mathbb{E}(\bar{W})\mathbb{E}(Z_1) - b\mathbb{E}(\bar{W})\mathbb{E}(Z_2)
+&= a\mathbb{E}(\bar{W}Z_1) + b\mathbb{E}(\bar{W}Z_2) -a\mathbb{E}(\bar{W})\mathbb{E}(Z_1) - b\mathbb{E}(\bar{W})\mathbb{E}(Z_2)\\
 &=aCov(W,Z_1) + b\, Cov(W, Z_2)
 \end{align*}
 \end{proof}
@@ -255,7 +252,7 @@ Cov(aZ_1 + bZ_2, W) = \bar{a}Cov(Z_1, W) + \bar{b}\, Cov(Z_2, W)
 \begin{definition}
 The pseudocovariance of two complex random variables is
 \begin{equation}
-pCov(Z,W)=\mathbb{E}(Z-\mathbb{E}(Z))(W-\mathbb{E}(W)))
+pCov(Z,W)=\mathbb{E}((Z-\mathbb{E}(Z))(W-\mathbb{E}(W)))
 \end{equation}
 \end{definition}
 
@@ -350,6 +347,146 @@ The diagonal elements of $pCov(Z)$ are $pVar(Z_i)$ and the off diagonal elements
 \end{lemma}
 \begin{proof}
 This follows from the definition of teh covariance and pseudo-covariance matrices.
+\end{proof}
+
+\begin{definition}
+Let $\mu \in \mathbb{C}^p$, $\Gamma \in \mathbb{C}^{p \times p}$ be positive definite, and $C \in \mathbb{C}^{p \times p}$ be symmetric.
+Let $P=\bar{\Gamma} - C^H \Gamma C$.
+Say $Z$ is a complex Gaussian random vector, $Z \sim \mathcal{CN}_p(\mu, \Gamma, C)$, whenever it has support $\mathbb{C}^p$ and the PDF on the support is
+\begin{equation}
+f(z) = \frac{1}{\pi^p \sqrt{|\Gamma||P|}}\exp \left\{ \frac{-1}{2} 
+\begin{bmatrix}
+z - \mu \\
+\bar{z} - \bar{\mu}
+\end{bmatrix}^H
+\begin{bmatrix}
+\Gamma & C \\
+\bar{C} & \bar{\Gamma}
+\end{bmatrix}^{-H}
+\begin{bmatrix}
+z - \mu \\
+\bar{z} - \bar{\mu}
+\end{bmatrix}
+\right\}
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Say $Z \sim \mathcal{CN}_p(0, \mathbb{I}_p, 0)$ is the standard complex Gaussian distribution.
+\end{definition}
+
+\begin{lemma}
+If $X,Y {iid \atop \sim} \mathcal{N}(0, \frac{1}{2})$, then $X+iY\sim \mathcal{CN}(0, 1, 0)$.
+\end{lemma}
+\begin{proof}
+Notice the joint PDF of $(X,Y)$ is $f(x,y)=\frac{1}{\pi} e^{-(x^2 +y^2)}$.
+Also the transformation $Z=X+iY$ gives a relationship between these random variables.
+Indeed, the PDF can also be written as $f(z)=\frac{1}{\pi} e^{-z^H z}$.
+Also notice that $z^H z=\bar{z}^H \bar{z}$.
+THerefore, teh PDF is $f(z)=\frac{1}{\pi} e^{\frac{-1}{2}(z^H z + \bar{z}^H \bar{z})}$.
+Therefore, $Z$ has the desired distribution.
+\end{proof}
+
+\begin{theorem}
+If $Z\sim \mathcal{CN}_p (\mu, \Gamma, C)$, then $\mathbb{E}(Z)=\mu$, $Cov(Z)=\Gamma$, and $pCov(Z)=C$.
+\end{theorem}
+\begin{proof}
+Let
+\begin{equation*}
+\Sigma =
+\begin{bmatrix}
+\Gamma & C \\
+\bar{C} & \bar{\Gamma}
+\end{bmatrix}
+\end{equation*}
+Write $Z=X+iY$ and $\mu=\mu_R+i\mu_I$, where $X,Y,\mu_R,\mu_I\in \mathbb{R}^p$.
+Also let
+\begin{equation*}
+W=
+\begin{bmatrix}
+X\\
+Y
+\end{bmatrix},
+\quad
+m=
+\begin{bmatrix}
+\mu_R\\
+\mu_I
+\end{bmatrix}
+\end{equation*}
+and
+\begin{equation*}
+T=
+\begin{bmatrix}
+\mathbb{I}_p & i\mathbb{I}_p \\
+\mathbb{I}_p & -i\mathbb{I}_p
+\end{bmatrix}
+\end{equation*}
+Then
+\begin{equation*}
+\begin{bmatrix}
+Z-\mu \\
+\bar{Z} - \bar{\mu}
+\end{bmatrix}
+= T(W-m)
+\end{equation*}
+So the PDF of $W$ is
+\begin{equation*}
+f_W(w) = k \exp \left\{ \frac{-1}{2}(w-m)^T T^H \Sigma^{-1} T (w-m) \right\}
+\end{equation*}
+for some normalizing constant $k$.
+Thus, $W$ is a real multivariate normal random vector with mean $m$ and covariance matrix
+\begin{equation*}
+K = (T^H \Sigma^{-1} T)^{-1}
+\end{equation*}
+Now
+\begin{equation*}
+\mathbb{E}(Z) = \mathbb{E}(X+iY) = \mathbb{E}(X) + i\mathbb{E}(Y) = \mu_R + i\mu_I = \mu
+\end{equation*}
+Also,
+\begin{align*}
+\mathbb{E}\left(
+\begin{bmatrix}
+Z-\mu \\
+\bar{Z} - \bar{\mu}
+\end{bmatrix}
+\begin{bmatrix}
+Z-\mu \\
+\bar{Z} - \bar{\mu}
+\end{bmatrix}^H
+\right)
+&= \mathbb{E}\left(T(W-m)(W-m)^H T^H \right) \\
+&= T \mathbb{E}\left((W-m)(W-m)^H\right) T^H \\
+&= TKT^H \\
+&= \Sigma
+\end{align*}
+Thus,
+\begin{equation*}
+\mathbb{E}\left(
+\begin{bmatrix}
+Z-\mu \\
+\bar{Z} - \bar{\mu}
+\end{bmatrix}
+\begin{bmatrix}
+Z-\mu \\
+\bar{Z} - \bar{\mu}
+\end{bmatrix}^H
+\right)
+=
+\begin{bmatrix}
+\Gamma & C \\
+\bar{C} & \bar{\Gamma}
+\end{bmatrix}
+\end{equation*}
+Comparing block entries gives
+\begin{equation*}
+\mathbb{E}((Z-\mu)(Z-\mu)^H)=\Gamma
+\end{equation*}
+and
+\begin{equation*}
+\mathbb{E}((Z-\mu)(Z-\mu)^T)=C
+\end{equation*}
+Therefore, $Cov(Z)=\Gamma$ and $pCov(Z)=C$.
 \end{proof}
 
 \end{document}
