@@ -76,7 +76,7 @@ Thus, the expected value exists and $\mathbb{E}[X]=\frac{1}{\lambda}$.
 Thus, the expected value exists and is $\lambda$.
 
 \begin{theorem}
-Let $X$ and $Y$ be random variables and $g: \mathbb{R} \rightarrow \mathbb{R}$.
+Let $X$ and $Y$ be random variables and $g: \mathbb{R} \rightarrow \mathbb{R}$ such that $Y=g(X)$.
 If $\mathbb{E}[Y]$ exists then $\mathbb{E}[Y]=\mathbb{E}[g(X)]$.
 \end{theorem}
 \begin{proof}
@@ -338,7 +338,7 @@ Then $\varphi'(s)=\frac{\mathbb{E}_X[Xe^{sX}]}{\mathbb{E}_X[e^{sX}]}$, and
 &\leq \frac{(b-a)^2}{4}
 \end{align*}
 Thus, $\varphi(s)=\frac{(b-a)^2t^2}{8}$.
-So $X$ is a $\left(\frac{b-a}{2}\right)^2$-subgaussian random variable.
+So $X$ is a $\frac{b-a}{2}$-subgaussian random variable.
 \end{proof}
 
 \begin{theorem}
@@ -443,7 +443,7 @@ If $\phi$ is twice differentiable, then $\phi''$ is non-negative.
 \textbf{Jensen's Inequality:}
 Let $\phi:\mathbb{R}\rightarrow \mathbb{R}$ be convex.
 \begin{equation}
-\mathbb{E}[\phi(X)]\leq \phi(\mathbb{E}[X])
+\mathbb{E}[\phi(X)]\geq \phi(\mathbb{E}[X])
 \end{equation}
 \end{theorem}
 \begin{proof}

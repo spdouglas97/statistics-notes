@@ -163,7 +163,7 @@ If $X$ and $Y$ are independent random variables with supports $S_X$ and $S_Y$, $
 Let $(X_1, X_2): (S,\Omega, p)\rightarrow \mathbb{R}^2$ be a random vector and $u: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ be a differentiable, one-to-one function.
 Then $(Y_1, Y_2)=u(X_1, X_2)$ is a random vector with joint PDF
 \begin{equation}
-f_Y(y_1, y_2) = |J(u)|f(u^{-1}(y_1, y_2))
+f_Y(y_1, y_2) = |J(u^{-1})|f(u^{-1}(y_1, y_2))
 \end{equation}
 \end{theorem}
 \begin{proof}
@@ -396,7 +396,7 @@ If $\{X_k\}$ is a sequence of iid random varaibles with support $(a,b)$, then
 Let $X$ be a random vector with mean $\mu$ and covariance matrix $\Sigma$.
 Say the Mahalanobis distance between two realizations $x$ and $y$ is
 \begin{equation}
-d(x,y)=(x-y)^T\Sigma^{-1}(x-y)
+d(x,y)=\sqrt{(x-y)^T\Sigma^{-1}(x-y)}
 \end{equation}
 \end{definition}
 

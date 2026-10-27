@@ -150,13 +150,13 @@ THe probability of rolling either a prime or an even is $\frac{4}{5}<\frac{1}{2}
 \textbf{Note-}
 Often, we have an inequality that holds with a certain probability, and we may need to chain these inequalities together.
 The way we do this is with the union bound, in a roundabout way.
-Consider the expressions $A$, $B$, and $C$, with $\Pr(A<B)\leq1-\frac{\delta}{2}$ and $\Pr(B<C)\leq1-\frac{\delta}{2}$.
+Consider the expressions $A$, $B$, and $C$, with $\Pr(A<B)\geq1-\frac{\delta}{2}$ and $\Pr(B<C)\geq1-\frac{\delta}{2}$.
 Then we can bound the probability of $A<C$ with
 \begin{align*}
-\Pr(A<C)&\leq \Pr(A<B\text{ and }B<C)\\
+\Pr(A<C)&\geq \Pr(A<B\text{ and }B<C)\\
 &=1-\Pr(A\geq B\text{ or }B\geq C)\\
-&\leq 1-(\Pr(A\geq B)+\Pr(B\geq C))\\
-&\leq 1-\left(\frac{\delta}{2}+\frac{\delta}{2}\right)\\
+&\geq 1-(\Pr(A\geq B)+\Pr(B\geq C))\\
+&\geq 1-\left(\frac{\delta}{2}+\frac{\delta}{2}\right)\\
 &=1-\delta
 \end{align*}
 
@@ -229,7 +229,7 @@ If $\sum_{n\geq 1} p(E_n) \leq \infty$ then $\sum_{n\geq m} p(E_n) \rightarrow 0
 Thus, $p(E)=0$.
 \end{proof}
 \begin{corrolary}
-If $\sum_{n=1}^\infty p(E_n) = \infty$ then $p(E) = 1$.
+If $\sum_{n=1}^\infty p(E_n) = \infty$ and all $E_n$ are independent, then $p(E) = 1$.
 \end{corrolary}
 
 \textbf{Note-} 
@@ -390,7 +390,7 @@ So no fair probability distribution can exist on $\mathbb{N}$.
 Let $E_1, E_2$ and $E_3$ be events.
 Say $E_1,$ and $E_2$ are conditionally independent on $E_3$ whenever
 \begin{equation}
-p(E_1, E_2 | E_3) = p(E_1 | E_3)
+p(E_1, E_2 | E_3) = p(E_1 | E_3)p(E_2 | E_3)
 \end{equation}
 \end{definition}
 
