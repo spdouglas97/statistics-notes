@@ -84,7 +84,7 @@ Therefore, the sequence does not converge.
 \begin{theorem}
 \textbf{Continuous Mapping Theorem for Almost Sure Convergence:}
 Let $X_n {a.s. \atop \rightarrow} X$ and $g: \mathbb{R} \rightarrow \mathbb{R}$.
-Then $g(X_n) {a.s. \atop \rightarrow} X$.
+Then $g(X_n) {a.s. \atop \rightarrow} g(X)$.
 \end{theorem}
 \begin{proof}
 By definition of continuity, if $X_n(s) \rightarrow X(s)$, then $g(X_n(s)) \rightarrow g(X(s))$.
@@ -573,16 +573,17 @@ $$\frac{X_n}{Y_n} = X_n Z_n {P \atop \rightarrow} Xb=\frac{X}{c}$$
 \end{proof}
 
 \textbf{Ex-}
-$T(r){P\atop \rightarrow} \mathcal{N}(0,1)$.\\
-Let $T_n \sim T(n)$, $X\sim \mathcal{N}(0,1)$, and $U_n \sim \chi^2(n)$.
-Then $T_n=\frac{X}{\sqrt{U_n/n}}$.
+Consider $X_n {iid \atop \sim} \mathcal{N}(\mu, \sigma^2)$ and let $T_n = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$.
+Then $T_n {P \atop \rightarrow} \mathcal{N}(0,1)$. \\
+Consider that $V_n = \frac{\bar{X} - \mu}{\sigma} \sim \mathcal{N}(0,1)$ by Student's theorem (Thm \ref{students_theorem}) and let $U_n = \frac{S^2}{\sigma^2}$.
+Then $T_n=\frac{V_n}{\sqrt{U_n/n}}$.
 Notice that $\mathbb{E}\left[\frac{U_n}{n}\right]=1$ and $Var\left( \frac{U_n}{n}\right)=\frac{2}{n}$.
 By Chebychev's theorem, 
 \begin{align*}
 \Pr\left(\middle| \frac{U_n}{n} -1\middle| > \epsilon\right) &\leq \frac{2}{n\epsilon^2} \\
 &\rightarrow 0
 \end{align*}
-So $\frac{U_n}{n} {P\atop \rightarrow} 1$ and clearly $X {P \atop \rightarrow} X$.
+So $\frac{U_n}{n} {P\atop \rightarrow} 1$ and clearly $V_n {P \atop \rightarrow} \mathcal{N}(0,1)$.
 Therefore, by Slutsky's theorem, we get the result.
 
 \lstinputlisting[firstline=12, lastline=31]{theory_of_probability/scripts/plot_t_distributions.py}
@@ -600,7 +601,7 @@ If $X_n {a.s.\atop \rightarrow}X$, $X_n {P \atop \rightarrow} X$.
 \begin{proof}
 Suppose $X_n {a.s. \atop \rightarrow} X$ and let $(S, \Omega, p)$ be the probability space that forms the shared domain of all $X_n$ and $X$.
 Consider the event
-$$E=\left\{ s\in S\middle| \lim_{n\rightarrow \infty} X_n(s) = X(s)\right\}$$
+$$E=\left\{ s\in S\middle| \lim_{n\rightarrow \infty} X_n(s) \neq X(s)\right\}$$
 By definition of almost sure covergence, $p(E)=0$.
 Next, for $n \in \mathbb{N}$, consider the event
 $$E_n =\left\{ s\in S\middle| \,\middle| X_n(s) - X(s)\middle|>\epsilon\right\}$$
