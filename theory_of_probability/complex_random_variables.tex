@@ -211,8 +211,10 @@ Var(Z + W) = Var(Z) + Var(W) + Cov(Z,W) + Cov(W,Z)
 \begin{proof}
 \begin{align*}
 \overline{(W + Z - \mathbb{E}[W + Z])}(W + Z - \mathbb{E}[W + Z]) \\
-&=\overline{(Z - \mathbb{E}[Z] + W - \mathbb{E}[W])}(Z - \mathbb{E}[Z] + W - \mathbb{E}[W]) \\
-&= (\overline{(Z - \mathbb{E}[Z])}(Z - \mathbb{E}[Z]) + \overline{Z - \mathbb{E}[Z])}(W - \mathbb{E}[W]) \\
+&=\overline{(Z - \mathbb{E}[Z] + W - \mathbb{E}[W])} \\
+&\quad \quad \quad \quad (Z - \mathbb{E}[Z] + W - \mathbb{E}[W]) \\
+&= (\overline{(Z - \mathbb{E}[Z])}(Z - \mathbb{E}[Z]) \\
+&\quad \quad \quad \quad + \overline{(Z - \mathbb{E}[Z])}(W - \mathbb{E}[W]) \\
 &\quad \quad \quad \quad + \overline{(W - \mathbb{E}[W])}(Z - \mathbb{E}[Z]) \\
 &\quad \quad \quad \quad + \overline{(W - \mathbb{E}[W])}(W - \mathbb{E}[W])
 \end{align*}
