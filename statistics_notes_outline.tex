@@ -18,10 +18,11 @@
 \usepackage{url}
 \usepackage{amssymb}
 \newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corrolary}[theorem]{Cor}
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corrolary}{Cor}[chapter]
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{DEF}
+\newtheorem{definition}{DEF}[chapter]
+\newtheorem{example}{Ex}[chapter]
 \setlength{\parindent}{0pt}
 \definecolor{codebg}{RGB}{248,248,248}
 \definecolor{codekeyword}{RGB}{0,76,153}
@@ -72,7 +73,7 @@
 \chapter{Random Vectors}
 \input{theory_of_probability/random_vectors.tex}
 
-\chapter{Parametric Distribution}
+\chapter{Parametric Distributions}
 \input{theory_of_probability/parametric_distribution.tex}
 
 \chapter{Characteristic Functions and Uncertainty}
@@ -150,7 +151,7 @@
 \chapter{Statistical Learning Theory}
 \input{machine_learning/statistical_learning_theory.tex}
 
-\chapter{Topological data Analysis}
+\chapter{Topological Data Analysis}
 \input{machine_learning/topological_data_analysis.tex}
 
 \chapter{Bayesian Statistics}

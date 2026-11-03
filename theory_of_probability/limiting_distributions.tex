@@ -17,6 +17,7 @@
 \usepackage{amssymb}
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{definition}\newtheorem{example}{Ex}
 \theoremstyle{lemma}\newtheorem{lemma}{Lemma}
 \theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
 \setlength{\parindent}{0pt}
@@ -84,7 +85,7 @@ Therefore, the sequence does not converge.
 \begin{theorem}
 \textbf{Continuous Mapping Theorem for Almost Sure Convergence:}
 Let $X_n {a.s. \atop \rightarrow} X$ and $g: \mathbb{R} \rightarrow \mathbb{R}$.
-Then $g(X_n) {a.s. \atop \rightarrow} X$.
+Then $g(X_n) {a.s. \atop \rightarrow} g(X)$.
 \end{theorem}
 \begin{proof}
 By definition of continuity, if $X_n(s) \rightarrow X(s)$, then $g(X_n(s)) \rightarrow g(X(s))$.
@@ -102,19 +103,19 @@ Let $\{X_n\}_{n=1}^\infty$ be a sequence of random variables each with CDF $F$ a
 Say $X_n$ converges to $X$ in distribution, $X_n {D \atop \rightarrow} X$ whenever $F_n \rightarrow F$ pointwise at all points where $F(x)$ is continuous.
 \end{definition}
 
-\textbf{Note-}
 For convergence almost surely, we must ensure all random variables have the same domain.
 However, for convergence in distribution, this requirement does not need to be met.
 Two random variables, defined on different probability spaces, may have the same CDF and thus fit the definition of convergence in distribution.
-This is an important difference between the types of convergece.\\
+This is an important difference between the types of convergence.\\
 
-\textbf{Ex-}
+\begin{example}
 Consider $X_n \sim Unif(0,\frac{1}{n})$ and $X=0$.
 Then $X_n {D\atop \rightarrow} X$, but $F_n(0) \nrightarrow F(0)$.
 This is why we care only about pointwise convergence where the CDFs are continuous.
+\end{example}
 
 \begin{lemma}
-Let $\{X_n \}_{n=1}^\infty$ be a sequence of discrete random varaibles each with PDF $f_n$ and let $X$ be a discrete random variable with PDF $f$, with all random variables having a common support $S\subseteq \mathbb{Z}$.
+Let $\{X_n \}_{n=1}^\infty$ be a sequence of discrete random variables each with PDF $f_n$ and let $X$ be a discrete random variable with PDF $f$, with all random variables having a common support $S\subseteq \mathbb{Z}$.
 Then $X_n {D \atop \rightarrow} X$ if and only if $f_n \rightarrow f$ pointwise.
 \end{lemma}
 \begin{proof}
@@ -132,7 +133,7 @@ Thus, $F_n(x)\rightarrow F(x)$.
 Therefore, $X_n {D \atop \rightarrow} X$.
 \end{proof}
 
-\textbf{Ex-}
+\begin{example}
 $Binom(n, \frac{\lambda}{n})\rightarrow Poisson(\lambda)$. \\
 Let $k\in \mathbb{Z}$.
 For $n\geq k$,
@@ -142,7 +143,7 @@ f_n(k)&=\binom{n}{k} \left( \frac{\lambda}{n}\right)^k \left( 1-\frac{\lambda}{n
 &= \frac{1}{k!} \frac{n(n-1)(n-2)...(n-k+1)}{n(n)(n)...(n)} \lambda^k \left( 1-\frac{\lambda}{n}\right)^n\left( 1-\frac{\lambda}{n}\right)^{-k}
 \end{align*}
 We can look at how these different terms evolve as $n\rightarrow \infty$.
-First, $\frac{`1}{k!}$ and $\lambda^k$ are constant, so it will not change.
+First, $\frac{1}{k!}$ and $\lambda^k$ are constant, so it will not change.
 Second, $\frac{n(n-1)(n-2)...(n-k+1)}{n(n)(n)...(n)} \rightarrow 1$.
 Third, $\left( 1-\frac{\lambda}{n}\right)^{-k}\rightarrow 1$.
 Finally, we can let $u=\frac{-n}{\lambda}$, which gives $\left( 1-\frac{\lambda}{n}\right)^n =\left(1 + \frac{1}{u}\right)^{-u\lambda} \rightarrow e^{-\lambda}$.
@@ -157,6 +158,7 @@ Thus, $f_n(k)\rightarrow \frac{\lambda^k e^{-\lambda}}{k!}$.
 Notice that as $n$ increases, the peak probability decreases and the tail probabilities increase.
 With $n=100$, the shape of the binomial is very close to that of the Poisson.
 Also recall that the Poisson is a discrete distribution, but here we have graphed an envelope for clarity.
+\end{example}
 
 \begin{theorem}
 \textbf{Continuous Mapping Theorem for Convergence in Distribution:}
@@ -173,7 +175,7 @@ Thus, $X_n {D \atop \rightarrow} X$.
 \begin{theorem}
 \textbf{Skorokhod’s Representation Theorem:}
 Let $\{X_n\}$ be a sequence of random variables and $X$ be a random variable such that $X_n \rightarrow X$.
-Then there is a sequence of random variabels $\{Y_n\}$ and a random variable $Y$ such that
+Then there is a sequence of random variables $\{Y_n\}$ and a random variable $Y$ such that
 \begin{enumerate}
 \item For all $n$, $X_n$ and $Y_n$ have the same distribution.
 \item $X$ and $Y$ have the same distribution.
@@ -240,15 +242,15 @@ X_n {D \atop \rightarrow} X
 \end{equation}
 \item For all bounded, continuous functions $g: \mathbb{R} \rightarrow \mathbb{R}$,
 \begin{equation}
-\lim_{n\rightarrow \infty} \mathbb{E}(g(X_n)) = \mathbb{E}(g(X))
+\lim_{n\rightarrow \infty} \mathbb{E}[g(X_n)] = \mathbb{E}[g(X)]
 \end{equation}
 \item For all bounded, $1$-Lipschitz functions $g: \mathbb{R} \rightarrow \mathbb{R}$,
 \begin{equation}
-\lim_{n\rightarrow \infty} \mathbb{E}(g(X_n)) = \mathbb{E}(g(X))
+\lim_{n\rightarrow \infty} \mathbb{E}[g(X_n)] = \mathbb{E}[g(X)]
 \end{equation}
 \item For any continuous, non-negatvie function $g: \mathbb{R} \rightarrow \mathbb{R}$,
 \begin{equation}
-\liminf_n \mathbb{E}(g(X_n)) \geq \mathbb{E}(g(X))
+\liminf_n \mathbb{E}[g(X_n)] \geq \mathbb{E}[g(X)]
 \end{equation}
 \item For any open $U\subseteq \mathbb{R}$,
 \begin{equation}
@@ -266,33 +268,33 @@ X_n {D \atop \rightarrow} X
 \end{theorem}
 \begin{proof}
 FIrst, suppose $X_n {D \atop \rightarrow} X$ and let $g$ be a bounded continuous function.
-THen, by Skorkhod's representation theorem, there are random variables $Y_n {a.s. \atop \rightarrow} Y$ that have the same distributions.
+Then, by Skorkhod's representation theorem, there are random variables $Y_n {a.s. \atop \rightarrow} Y$ that have the same distributions.
 THus, by the continuous mapping theorem for almost sure convergence, $g(Y_n) {a.s. \atop \rightarrow} g(Y)$.
 Thus, by the bounded convergence hteorem,
 \begin{align*}
-\lim_{n\rightarrow \infty} \mathbb{E}(g(Y_n)) 
+\lim_{n\rightarrow \infty} \mathbb{E}[g(Y_n)] 
 &= \int_\mathbb{R} g f_n dx\\
 &\rightarrow \int_\mathbb{R} g f dx\\
-&= \mathbb{E}(g(Y))
+&= \mathbb{E}[g(Y)]
 \end{align*}
-Because hte distributions are the same, $\mathbb{E}(g(X))=\mathbb{E}(g(Y))$ and $\mathbb{E}(g(X_n)) =\mathbb{E}(g(Y_n))$.
-THerefore, we have result (2). \\
-Now suppose that for all continuous and bounded functions $g$, $\mathbb{E}(g(X_n)) \rightarrow \mathbb{E}(g(X))$.
+Because the distributions are the same, $\mathbb{E}[g(X)]=\mathbb{E}[g(Y)]$ and $\mathbb{E}[g(X_n)] =\mathbb{E}[g(Y_n)]$.
+Therefore, we have result (2). \\
+Now suppose that for all continuous and bounded functions $g$, $\mathbb{E}[g(X_n)] \rightarrow \mathbb{E}[g(X)]$.
 Notice that $1$-Lipschitz functions are continuous, so (3) follows trivially. \\
-Now suppose that all bounded, $1$-Lipschitz functions $g$, $\mathbb{E}(g(X_n)) \rightarrow \mathbb{E}(g(X))$.
+Now suppose that all bounded, $1$-Lipschitz functions $g$, $\mathbb{E}[g(X_n)] \rightarrow \mathbb{E}[g(X)]$.
 Let $U\subseteq \mathbb{R}$ be open.
 Then there is a sequence of $1$-Lipschitz bounded functions $g_n$ such that $g_m \nearrow g$ and $g_m (x) < g(x)$ if and only if $x \in U$.
-THen
+Then
 \begin{align*}
 \liminf_n \Pr\left( X_n \in U\right) 
-&= \liminf_n \mathbb{E}(g(X_n)) \\
-&\geq \liminf_n \mathbb{E}(g_m(X_n))\\
-&=\mathbb{E}(g_m(X)) \\
-&\rightarrow \mathbb{E}(g(X)) \\
+&= \liminf_n \mathbb{E}[g(X_n)] \\
+&\geq \liminf_n \mathbb{E}[g_m(X_n)]\\
+&=\mathbb{E}[g_m(X)] \\
+&\rightarrow \mathbb{E}[g(X)] \\
 &= \Pr\left( X \in U\right)
 \end{align*}
 Here we have used property (3) to calculate the $\liminf$.
-Additionally, we have leveraged hte monotonicity of $g_m$ and used hte monotone convergence theoreem to get the limit over $m$.
+Additionally, we have leveraged the monotonicity of $g_m$ and used the monotone convergence theorem to get the limit over $m$.
 Thus, we have result (5). \\
 Suppose $\liminf_n \Pr\left( X_n \in U\right) \geq \Pr \left( X \in U \right)$ for all open sets $U$.
 Let $C\subseteq \mathbb{R}$.
@@ -346,15 +348,15 @@ F_n \left( x \right)
 \end{align*}
 Thus, $X_n {D \atop \rightarrow} X$\\
 Let $g$ be a non-negative continuous function.
-Suppose that for any bounded continuous function, $\mathbb{E}(h(X_n)) \rightarrow \mathbb{E}hg(X))$.
+Suppose that for any bounded continuous function, $\mathbb{E}[h(X_n)] \rightarrow \mathbb{E}[h(X)]$.
 For any $M>0$, let $g_M(x)=\min\{g(x), M\}$.
-Then $\mathbb{E}(g_M(X_n))\rightarrow \mathbb{E}(g_M(X))$.
-THen
+Then $\mathbb{E}[g_M(X_n)]\rightarrow \mathbb{E}[g_M(X)]$.
+Then
 \begin{align*}
-\liminf_n \mathbb{E}(g(X_n))
-&\geq \lim_{n\rightarrow \infty} \mathbb{E}(g_M(X_n)) \\
-&= \mathbb{E}(g_M(X)) \\
-&\rightarrow \mathbb{E}(g(X))
+\liminf_n \mathbb{E}[g(X_n)]
+&\geq \lim_{n\rightarrow \infty} \mathbb{E}[g_M(X_n)] \\
+&= \mathbb{E}[g_M(X)] \\
+&\rightarrow \mathbb{E}[g(X)]
 \end{align*}
 where we have used the Monotone Convergence Thoerem. Thus, we have (4).\\
 Finally, suppose (4).
@@ -506,17 +508,17 @@ Then we also have $Y_n {D \atop \rightarrow} c$.
 We now show that $(X_n, Y_n) {D \atop \rightarrow} (X, c)$.
 By the Portmanteau theorem, it suffices to show that for every bounded continuous function $g:\mathbb{R}^2\rightarrow \mathbb{R}$,
 \begin{equation*}
-\mathbb{E}(g(X_n, Y_n))\rightarrow \mathbb{E}(g(X,c)).
+\mathbb{E}[g(X_n, Y_n)]\rightarrow \mathbb{E}[g(X,c)].
 \end{equation*}
 So let $g:\mathbb{R}^2\rightarrow \mathbb{R}$ be bounded and continuous, and let $M>0$ be such that $|g(x,y)|\leq M$ for all $(x,y)\in \mathbb{R}^2$.
 Also define $h:\mathbb{R}\rightarrow \mathbb{R}$ by $h(x)=g(x,c)$.
 Then $h$ is bounded and continuous, so because $X_n {D \atop \rightarrow} X$, the Portmanteau theorem gives
 \begin{equation*}
-\mathbb{E}(h(X_n))\rightarrow \mathbb{E}(h(X)).
+\mathbb{E}[h(X_n)]\rightarrow \mathbb{E}[h(X)].
 \end{equation*}
 It remains to show that
 \begin{equation*}
-\mathbb{E}(g(X_n, Y_n))-\mathbb{E}(h(X_n))\rightarrow 0.
+\mathbb{E}[g(X_n, Y_n)]-\mathbb{E}[h(X_n)]\rightarrow 0.
 \end{equation*}
 Let $\epsilon, \eta>0$.
 Because $X_n {D \atop \rightarrow} X$, there is some compact interval $[-K,K]$ such that
@@ -534,18 +536,18 @@ For large $n$, since $Y_n {P \atop \rightarrow} c$,
 \end{equation*}
 Then
 \begin{align*}
-\left|\mathbb{E}(g(X_n, Y_n))-\mathbb{E}(h(X_n))\right|
-&\leq \mathbb{E}\left(\left|g(X_n, Y_n)-g(X_n,c)\right|\right) \\
+\left|\mathbb{E}[g(X_n, Y_n)]-\mathbb{E}[h(X_n)]\right|
+&\leq \mathbb{E}\left[\left|g(X_n, Y_n)-g(X_n,c)\right|\right] \\
 &\leq \frac{\epsilon}{2} + 2M\Pr(|X_n|>K) + 2M\Pr(|Y_n-c|\geq \delta) \\
 &< \frac{\epsilon}{2} + 2M\left(\frac{\eta}{8M}\right) + 2M\left(\frac{\eta}{8M}\right)\\
 &= \frac{\epsilon+\eta}{2}.
 \end{align*}
 Therefore,
 \begin{align*}
-\mathbb{E}(g(X_n, Y_n))
-&= \mathbb{E}(h(X_n)) + o(1)\\
-&\rightarrow \mathbb{E}(h(X))\\
-&= \mathbb{E}(g(X,c)).
+\mathbb{E}[g(X_n, Y_n)]
+&= \mathbb{E}[h(X_n)] + o(1)\\
+&\rightarrow \mathbb{E}[h(X)]\\
+&= \mathbb{E}[g(X,c)].
 \end{align*}
 So $(X_n, Y_n) {D \atop \rightarrow} (X,c)$.
 Also notice that addition, multiplication, and division are all continuous functions.
@@ -572,17 +574,18 @@ Then  $Z_n {P \atop \rightarrow} b$, so
 $$\frac{X_n}{Y_n} = X_n Z_n {P \atop \rightarrow} Xb=\frac{X}{c}$$
 \end{proof}
 
-\textbf{Ex-}
-$T(r){P\atop \rightarrow} \mathcal{N}(0,1)$.\\
-Let $T_n \sim T(n)$, $X\sim \mathcal{N}(0,1)$, and $U_n \sim \chi^2(n)$.
-Then $T_n=\frac{X}{\sqrt{U_n/n}}$.
-Notice that $\mathbb{E}\left(\frac{U_n}{n}\right)=1$ and $Var\left( \frac{U_n}{n}\right)=\frac{2}{n}$.
+\begin{example}
+Consider $X_n {iid \atop \sim} \mathcal{N}(\mu, \sigma^2)$ and let $T_n = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$.
+Then $T_n {P \atop \rightarrow} \mathcal{N}(0,1)$. \\
+Consider that $V_n = \frac{\bar{X} - \mu}{\sigma} \sim \mathcal{N}(0,1)$ by Student's theorem (Thm \ref{students_theorem}) and let $U_n = \frac{S^2}{\sigma^2}$.
+Then $T_n=\frac{V_n}{\sqrt{U_n/n}}$.
+Notice that $\mathbb{E}\left[\frac{U_n}{n}\right]=1$ and $Var\left( \frac{U_n}{n}\right)=\frac{2}{n}$.
 By Chebychev's theorem, 
 \begin{align*}
 \Pr\left(\middle| \frac{U_n}{n} -1\middle| > \epsilon\right) &\leq \frac{2}{n\epsilon^2} \\
 &\rightarrow 0
 \end{align*}
-So $\frac{U_n}{n} {P\atop \rightarrow} 1$ and clearly $X {P \atop \rightarrow} X$.
+So $\frac{U_n}{n} {P\atop \rightarrow} 1$ and clearly $V_n {P \atop \rightarrow} \mathcal{N}(0,1)$.
 Therefore, by Slutsky's theorem, we get the result.
 
 \lstinputlisting[firstline=12, lastline=31]{theory_of_probability/scripts/plot_t_distributions.py}
@@ -591,8 +594,9 @@ Therefore, by Slutsky's theorem, we get the result.
 \includegraphics[scale=0.5]{theory_of_probability/images/t_distribution_comparison.png}\\
 \raggedright
 
-Notice that this example is the reverse of hte binomial-poisson example: the tails decrease and the peak increases as $n$ increases.
-Also unlike that case, all distributions share the same support, the diffference between the distributions is only where the density is distributed throughout the support.
+Notice that this example is the reverse of the binomial-poisson example: the tails decrease and the peak increases as $n$ increases.
+Also unlike that case, all distributions share the same support; the difference between the distributions is only where the density is distributed throughout the support.
+\end{example}
 
 \begin{lemma}
 If $X_n {a.s.\atop \rightarrow}X$, $X_n {P \atop \rightarrow} X$.
@@ -600,7 +604,7 @@ If $X_n {a.s.\atop \rightarrow}X$, $X_n {P \atop \rightarrow} X$.
 \begin{proof}
 Suppose $X_n {a.s. \atop \rightarrow} X$ and let $(S, \Omega, p)$ be the probability space that forms the shared domain of all $X_n$ and $X$.
 Consider the event
-$$E=\left\{ s\in S\middle| \lim_{n\rightarrow \infty} X_n(s) = X(s)\right\}$$
+$$E=\left\{ s\in S\middle| \lim_{n\rightarrow \infty} X_n(s) \neq X(s)\right\}$$
 By definition of almost sure covergence, $p(E)=0$.
 Next, for $n \in \mathbb{N}$, consider the event
 $$E_n =\left\{ s\in S\middle| \,\middle| X_n(s) - X(s)\middle|>\epsilon\right\}$$
