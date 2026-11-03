@@ -21,7 +21,7 @@ X: (S, \Omega, p) \rightarrow \mathbb{R}^n
 \end{equation}
 \end{definition}
 
-\textbf{Note-} We will primarily be focusing on $n=2$, but a random vector can have any dimension.
+We will primarily be focusing on $n=2$, but a random vector can have any dimension.
 
 \begin{definition}
 Say the joint CDF is the function $F: \mathbb{R}^n \rightarrow \mathbb{R}$ such that
@@ -56,22 +56,22 @@ The change of variables gives us
 \end{proof}
 
 \begin{definition}
-Let $(x,Y)$ be a random vector. Say the marginal CDF of $X$, $F_X: \mathbb{R} \rightarrow \mathbb{R}$ is
+Let $(X,Y)$ be a random vector. Say the marginal CDF of $X$, $F_X: \mathbb{R} \rightarrow \mathbb{R}$ is
 \begin{equation}
 F_X (x) = \Pr(X \leq x)
 \end{equation}
 \end{definition}
 
 \begin{definition}
-Let $(X<Y)$ be a random vector and $F_X$ be the marginal PDF of $X$.
+Let $(X,Y)$ be a random vector and $F_X$ be the marginal PDF of $X$.
 Say the marginal CDF of $X$ is
 \begin{equation}
-f_x(x) = \frac{\partial F_X}{\partial x}
+f_X(x) = \frac{\partial F_X}{\partial x}
 \end{equation}
 \end{definition}
 
 \begin{definition}
-Let $(X<Y)$ be a random vector and $Y$ has marginal PDF $f_Y$.
+Let $(X,Y)$ be a random vector and $Y$ has marginal PDF $f_Y$.
 Say the conditional PDF of $X|Y$ is
 \begin{equation}
 f_{X|Y}(x|y) = \frac{f(x,y)}{f_Y(y)}
@@ -97,8 +97,24 @@ So
 \end{align*}
 \end{proof}
 \begin{corrolary}
-For well-behaved (Thms \ref{tonelli}, \ref{fubini}) measureable functions $g$, $$\int_{\mathbb{R}^2} gdF=\int_\mathbb{R} \int_\mathbb{R} g dF_{X|Y}dF_Y =\int_\mathbb{R} \int_\mathbb{R} g dF_{Y|X}dF_X$$
+For well-behaved (Thms \ref{tonelli}, \ref{fubini}) measurable functions $g$, $$\int_{\mathbb{R}^2} gdF=\int_\mathbb{R} \int_\mathbb{R} g dF_{X|Y}dF_Y =\int_\mathbb{R} \int_\mathbb{R} g dF_{Y|X}dF_X$$
 \end{corrolary}
+
+\begin{example}
+Recall in example \ref{circle_example} we selected a point from $\mathbb{D}^2$ and compute its distance from the center.
+For the purposes of hte example we embedded the pint in $\mathbb{R}^2$ and selected a random vector $(X, Y)$.
+Thus, we have joint PDF $f(x,y)=\frac{1}{\pi}$.
+To find the CDF we can compute
+\begin{align*}
+F(x,y)
+&= \Pr (X\leq x, Y\leq y) \\
+&= \int_{-1}^x \int_{-\sqrt{1-u^2}}^y \frac{1}{\pi}dvdu\\
+&= \int_{-1}^x \frac{y+\sqrt{1-u^2}}{\pi} du\\
+&= \int_{-\frac{\pi}{2}}^{\arcsin(x)} \frac{y+\cos (\theta)}{\pi} \cos(\theta) d\theta\\
+&=\frac{y\sin(\theta)}{\pi} + \frac{\theta}{2\pi} + \frac{\sin (2\theta)}{4\pi} |_{-\frac{\pi}{2}}^{\arcsin(x)} \\
+&=\frac{xy}{\pi} + \frac{\arcsin(x)}{2\pi} + \frac{x\sqrt{1-x^2}}{2\pi} -\frac{y}{\pi} +\frac{1}{4}
+\end{align*}
+\end{example}
 
 \begin{definition}
 Let $(X,Y):(S,\Omega, p)\rightarrow \mathbb{R}^2$ be a random vector. Say $X$ and $Y$ are independent if for all $A,B\in \mathcal{B}$,
@@ -133,10 +149,10 @@ f(x,y)&=\frac{\partial}{\partial^2 x\partial y}\bigg[F(x,y)\bigg]\\
 &=\frac{d}{dx}\bigg[ F_X(x)\bigg] \frac{d}{dy}\bigg[ F_Y(y)\bigg]\\
 &=f_X(x)f_Y(y)
 \end{align*}
-Thirdly, suppose $f(x,y)=f_x(x)f_Y(y)$.
+Thirdly, suppose $f(x,y)=f_X(x)f_Y(y)$.
 Then
 \begin{align*}
-ff{X|Y}(x|y)&=\frac{f(x,y)}{f_Y(y)}\\
+f_{X|Y}(x|y)&=\frac{f(x,y)}{f_Y(y)}\\
 &=\frac{f_X(x)f_Y(y)}{f_Y(y)}\\
 &=f_X(x)
 \end{align*}
@@ -158,6 +174,11 @@ Therefore, the statements are all equivalent.
 \begin{corrolary}
 If $X$ and $Y$ are independent random variables with supports $S_X$ and $S_Y$, $(X,Y)$ has support $S_X \times S_Y$.
 \end{corrolary}
+
+\begin{example}
+Returning to selecting a point randomly from $\mathbb{D}^2$, notice $X$ and $Y$ are not independent.
+This can easily be seen by the fact that the support of $X$ and $Y$ are both $[0,1]$, but $\mathbb{D}^2\neq [0,1]^2$.
+\end{example}
 
 \begin{theorem}
 Let $(X_1, X_2): (S,\Omega, p)\rightarrow \mathbb{R}^2$ be a random vector and $u: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ be a differentiable, one-to-one function.
@@ -212,6 +233,7 @@ M_{(X,Y)}(s,t)&=\mathbb{E}[e^{tX+sY}]\\
 \end{align*}
 \end{proof}
 \begin{corrolary}
+If $X$ and $Y$ are independent,
 \begin{equation}
 M_{X+Y}(t)=M_X(t)M_Y(t)
 \end{equation}
@@ -230,7 +252,7 @@ This is constant in the distribution of $Y|X$, so reframing this as iterated int
 \begin{theorem}
 Let $(X,Y)$ be a random vector with MGF $M(t,s)$.
 \begin{equation}
-\frac{\partial^{n+m}M}{\partial^n t \partial^m s}(0,0)
+\frac{\partial^{n+m}M}{\partial^n t \partial^m s}(0,0) = \mathbb{E}\left[ X^n Y^m \right]
 \end{equation}
 \end{theorem}
 \begin{proof}
@@ -291,11 +313,12 @@ Cov(X,Y)&=\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]\\
 \end{align*}
 \end{proof}
 
-\textbf{Note-} If two variables are independent, they are uncorrelated, but the converse is not always true.
-Let $X\sim \mathcal{N}(0,1)$ and $Y=X^2$.
-Clearly, $X$ and $Y$ are not independent.
-However, the covariance is $Cov(X,Y)=\mathbb{E}[XY]= \mathbb{E}[X^3]=0$.
-So clearly there are uncorrelated varaibles that are not independent.
+\begin{example}
+Consider the point $(X,Y)$ selected randomly from $\mathbb{D}^2$.
+Assuming it is centered at the origin, the mean of both components is 0.
+Also, the function $xyf$ is odd, so $\mathbb{E}[XY]=0$.
+Thus, the components are uncorrelated, despite not being independent.
+\end{example}
 
 \begin{definition}
 Let $X$ be a random vector with mean $\mu$.
@@ -350,15 +373,15 @@ Let $X_1$ and $X_2$ have CDFs $F_{X_1}$ and $F_{X_2}$.
 Then $(X_1,X_2)$ has joint CDF $F_X(s_1, x_2)=F_{X_1}(x_1)F_{X_2}(x_2)$.
 Thus, the marginal CDFs are $F_{Y_1}=F_{X_1}\circ g^{-1}_{X_1}$ and $F_{Y_2}=F_{X_2}\circ g^{-1}_{X_2}$.
 Similarly, the joint CDF is $F_Y(y_1, y_2)=F_X(g^{-1}_1(y_1),g_2^{-1}(y_2))=F_{X_1}(g^{-1}_1(y_1))F_{X_2}(g_2^{-1}(y_2))$.
-Thus, the varaibles are independent.
+Thus, the variables are independent.
 \end{proof}
 
 \begin{definition}
-Say a sequence $\{X_k\}_{k=1}^n$ of random variabless is independent and identically distributed (iid) whenever the variables are all independent and have the same CDF.
+Say a sequence $\{X_k\}_{k=1}^n$ of random variables is independent and identically distributed (iid) whenever the variables are all independent and have the same CDF.
 \end{definition}
 
 \begin{theorem}
-\textbf{Hoeffdin'gs Inequality:}\label{HoefdingInequality}
+\textbf{Hoeffding's Inequality:}\label{HoefdingInequality}
 Let $\{X_k\}$ be iid $\xi$-subgaussian random variables.
 \begin{equation}
 \Pr\left(\middle|\frac{1}{n}\sum_{k=1}^n X_k - \mathbb{E}[X]\middle|> \epsilon\right)\leq 2e^\frac{-n\epsilon^2}{2\xi^2}
@@ -386,7 +409,7 @@ Finally, to get an overall bound, notice that $\{| \frac{1}{n} \sum_k X_k - \mat
 Thus, by the union bound (Cor \ref{union}), we have the result.
 \end{proof}
 \begin{corrolary}
-If $\{X_k\}$ is a sequence of iid random varaibles with support $(a,b)$, then
+If $\{X_k\}$ is a sequence of iid random variables with support $(a,b)$, then
 \begin{equation}
 \Pr\left(\middle|\frac{1}{n}\sum_{k=1}^n X_k - \mathbb{E}[X]\middle|> \epsilon\right)\leq 2e^\frac{-2 n\epsilon^2}{(b-a)^2}
 \end{equation}

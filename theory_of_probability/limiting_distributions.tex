@@ -17,6 +17,7 @@
 \usepackage{amssymb}
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{definition}\newtheorem{example}{Ex}
 \theoremstyle{lemma}\newtheorem{lemma}{Lemma}
 \theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
 \setlength{\parindent}{0pt}
@@ -102,19 +103,19 @@ Let $\{X_n\}_{n=1}^\infty$ be a sequence of random variables each with CDF $F$ a
 Say $X_n$ converges to $X$ in distribution, $X_n {D \atop \rightarrow} X$ whenever $F_n \rightarrow F$ pointwise at all points where $F(x)$ is continuous.
 \end{definition}
 
-\textbf{Note-}
 For convergence almost surely, we must ensure all random variables have the same domain.
 However, for convergence in distribution, this requirement does not need to be met.
 Two random variables, defined on different probability spaces, may have the same CDF and thus fit the definition of convergence in distribution.
-This is an important difference between the types of convergece.\\
+This is an important difference between the types of convergence.\\
 
-\textbf{Ex-}
+\begin{example}
 Consider $X_n \sim Unif(0,\frac{1}{n})$ and $X=0$.
 Then $X_n {D\atop \rightarrow} X$, but $F_n(0) \nrightarrow F(0)$.
 This is why we care only about pointwise convergence where the CDFs are continuous.
+\end{example}
 
 \begin{lemma}
-Let $\{X_n \}_{n=1}^\infty$ be a sequence of discrete random varaibles each with PDF $f_n$ and let $X$ be a discrete random variable with PDF $f$, with all random variables having a common support $S\subseteq \mathbb{Z}$.
+Let $\{X_n \}_{n=1}^\infty$ be a sequence of discrete random variables each with PDF $f_n$ and let $X$ be a discrete random variable with PDF $f$, with all random variables having a common support $S\subseteq \mathbb{Z}$.
 Then $X_n {D \atop \rightarrow} X$ if and only if $f_n \rightarrow f$ pointwise.
 \end{lemma}
 \begin{proof}
@@ -132,7 +133,7 @@ Thus, $F_n(x)\rightarrow F(x)$.
 Therefore, $X_n {D \atop \rightarrow} X$.
 \end{proof}
 
-\textbf{Ex-}
+\begin{example}
 $Binom(n, \frac{\lambda}{n})\rightarrow Poisson(\lambda)$. \\
 Let $k\in \mathbb{Z}$.
 For $n\geq k$,
@@ -142,7 +143,7 @@ f_n(k)&=\binom{n}{k} \left( \frac{\lambda}{n}\right)^k \left( 1-\frac{\lambda}{n
 &= \frac{1}{k!} \frac{n(n-1)(n-2)...(n-k+1)}{n(n)(n)...(n)} \lambda^k \left( 1-\frac{\lambda}{n}\right)^n\left( 1-\frac{\lambda}{n}\right)^{-k}
 \end{align*}
 We can look at how these different terms evolve as $n\rightarrow \infty$.
-First, $\frac{`1}{k!}$ and $\lambda^k$ are constant, so it will not change.
+First, $\frac{1}{k!}$ and $\lambda^k$ are constant, so it will not change.
 Second, $\frac{n(n-1)(n-2)...(n-k+1)}{n(n)(n)...(n)} \rightarrow 1$.
 Third, $\left( 1-\frac{\lambda}{n}\right)^{-k}\rightarrow 1$.
 Finally, we can let $u=\frac{-n}{\lambda}$, which gives $\left( 1-\frac{\lambda}{n}\right)^n =\left(1 + \frac{1}{u}\right)^{-u\lambda} \rightarrow e^{-\lambda}$.
@@ -157,6 +158,7 @@ Thus, $f_n(k)\rightarrow \frac{\lambda^k e^{-\lambda}}{k!}$.
 Notice that as $n$ increases, the peak probability decreases and the tail probabilities increase.
 With $n=100$, the shape of the binomial is very close to that of the Poisson.
 Also recall that the Poisson is a discrete distribution, but here we have graphed an envelope for clarity.
+\end{example}
 
 \begin{theorem}
 \textbf{Continuous Mapping Theorem for Convergence in Distribution:}
@@ -173,7 +175,7 @@ Thus, $X_n {D \atop \rightarrow} X$.
 \begin{theorem}
 \textbf{Skorokhod’s Representation Theorem:}
 Let $\{X_n\}$ be a sequence of random variables and $X$ be a random variable such that $X_n \rightarrow X$.
-Then there is a sequence of random variabels $\{Y_n\}$ and a random variable $Y$ such that
+Then there is a sequence of random variables $\{Y_n\}$ and a random variable $Y$ such that
 \begin{enumerate}
 \item For all $n$, $X_n$ and $Y_n$ have the same distribution.
 \item $X$ and $Y$ have the same distribution.
@@ -572,7 +574,7 @@ Then  $Z_n {P \atop \rightarrow} b$, so
 $$\frac{X_n}{Y_n} = X_n Z_n {P \atop \rightarrow} Xb=\frac{X}{c}$$
 \end{proof}
 
-\textbf{Ex-}
+\begin{example}
 Consider $X_n {iid \atop \sim} \mathcal{N}(\mu, \sigma^2)$ and let $T_n = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$.
 Then $T_n {P \atop \rightarrow} \mathcal{N}(0,1)$. \\
 Consider that $V_n = \frac{\bar{X} - \mu}{\sigma} \sim \mathcal{N}(0,1)$ by Student's theorem (Thm \ref{students_theorem}) and let $U_n = \frac{S^2}{\sigma^2}$.
@@ -594,6 +596,7 @@ Therefore, by Slutsky's theorem, we get the result.
 
 Notice that this example is the reverse of the binomial-poisson example: the tails decrease and the peak increases as $n$ increases.
 Also unlike that case, all distributions share the same support; the difference between the distributions is only where the density is distributed throughout the support.
+\end{example}
 
 \begin{lemma}
 If $X_n {a.s.\atop \rightarrow}X$, $X_n {P \atop \rightarrow} X$.

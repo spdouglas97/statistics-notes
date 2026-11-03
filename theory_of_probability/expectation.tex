@@ -8,6 +8,7 @@
 \usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{definition}\newtheorem{example}{Ex}
 \theoremstyle{lemma}\newtheorem{lemma}{Lemma}
 \theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
 \setlength{\parindent}{0pt}
@@ -28,7 +29,7 @@ Given a random variable $X$ with cdf $F$ and a function $g: \mathbb{R} \rightarr
 \end{equation}
 \end{definition}
 
-\textbf{Note-} The expected value does not always exist, it only exists when the (Lebesgue) integral that defines it exists.
+The expected value does not always exist, it only exists when the (Lebesgue) integral that defines it exists.
 For example, let $X$ be a random variable with a Cauchy distribution.
 Then it has pdf $f(x)=\frac{1}{1+x^2}$.
 This means the expected value is $\int_{-\infty}^\infty \frac{x}{1+x^2} dx$.
@@ -54,7 +55,8 @@ To build intuition, consider that $x \leq |x|$, so $\int x dF \leq \int |x| dF <
 Say the mean of a random variable $X$ is $\mu = \mathbb{E}[X]$.
 \end{definition}
 
-\textbf{Ex-} Find the mean of a random variable with pdf $f(x) = \lambda e^{-\lambda x}$ on $(0,\infty)$.
+\begin{example}
+Find the mean of a random variable with pdf $f(x) = \lambda e^{-\lambda x}$ on $(0,\infty)$.
 Consider 
 \begin{align*}
 \int_\mathbb{R} |x| dF &= \int_0^\infty x\lambda e^{-\lambda x} dx \\
@@ -64,8 +66,10 @@ Consider
 &< \infty
 \end{align*}
 Thus, the expected value exists and $\mathbb{E}[X]=\frac{1}{\lambda}$.
+\end{example}
 
-\textbf{Ex-} Find the mean of a random variable with pdf $f(k)=\frac{\lambda^k e^{-\lambda}}{k!}$ on $\mathbb{N}$.
+\begin{example}
+Find the mean of a random variable with pdf $f(k)=\frac{\lambda^k e^{-\lambda}}{k!}$ on $\mathbb{N}$.
 \begin{align*}
 \int_\mathbb{R} |k| dF &= \sum_{k=0}^\infty \frac{k\lambda^k e^{-\lambda}}{k!} \\
 &= \sum_{k=1}^\infty \frac{\lambda^k e^{-\lambda}}{(k-1)!}\\
@@ -74,6 +78,7 @@ Thus, the expected value exists and $\mathbb{E}[X]=\frac{1}{\lambda}$.
 &<\infty
 \end{align*}
 Thus, the expected value exists and is $\lambda$.
+\end{example}
 
 \begin{theorem}
 Let $X$ and $Y$ be random variables and $g: \mathbb{R} \rightarrow \mathbb{R}$ such that $Y=g(X)$.
@@ -99,7 +104,7 @@ Var(X)=\mathbb{E}[(X-\mu)^2]
 \end{definition}
 
 \begin{theorem}
-\textbf{Parallell Axis Theorem:}
+\textbf{Parallel Axis Theorem:}
 Let $X$ be a random variable with mean $\mu$ and $c\in \mathbb{R}$.
 \begin{equation}
 \mathbb{E}[(X-c)^2] = Var(X) + (\mu - c)^2
@@ -141,17 +146,19 @@ Say the standard deviation of a random variable is
 \end{equation}
 \end{definition}
 
-\textbf{Ex-} Find the variance of a random variable with odf $f(x)=\lambda e^{-\lambda x}$.
+\begin{example}
+Find the variance of a random variable with pdf $f(x)=\lambda e^{-\lambda x}$.
 First, remember that $\mathbb{E}[X] = \frac{1}{\lambda}$.
 Also,
 \begin{align*}
-\mathbb{E}[X^2] &= \int_\mathbb{R} (x-\mu)^2 dF\\
+\mathbb{E}[X^2] &= \int_\mathbb{R} x^2 dF\\
 &= \int_0^\infty x^2 \lambda e^{-\lambda x}dx\\
 &= x^2 e^{-\lambda x} + \frac{2x}{\lambda} e^{-\lambda x} + \frac{2}{\lambda^2} |_0^\infty \\
 &= 0 - \frac{-2}{\lambda^2}\\
 &= \frac{2}{\lambda^2}
 \end{align*}
 Thus, $Var(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2 = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2}$.
+\end{example}
 
 \begin{definition}
 Say the skewness of a random variable $X$ with mean $\mu$ and standard deviation $\sigma$ is
@@ -174,7 +181,9 @@ We only need consider the numerator of the definition.
 \end{align*}
 \end{proof}
 
-\textbf{Ex-} If $X \sim \mathcal{N}(\mu ,\sigma^2 )$, then $skew(X)=0$.
+\begin{example}
+If $X \sim \mathcal{N}(\mu ,\sigma^2 )$ (Def \ref{gaussian}), then $skew(X)=0$.
+\end{example}
 
 \begin{definition}
 Say the kurtosis of a random variable $X$ with mean $\mu$ and standard deviation $\sigma$ is
@@ -198,7 +207,9 @@ We only need to consider the numerator.
 \end{align*}
 \end{proof}
 
-\textbf{Ex-} If $X\sim \mathcal{N}(\mu ,\sigma^2)$ then $kurt(X)=3$.
+\begin{example}
+If $X\sim \mathcal{N}(\mu ,\sigma^2)$ (Def \ref{gaussian}), then $kurt(X)=3$.
+\end{example}
 
 \begin{definition}
 Say the excess kurtosis is
@@ -275,7 +286,8 @@ Thus, by the zero integral lemma, this integral is non-zero.
 Therefore, the MGFs must be distinct.
 \end{proof}
 
-\textbf{Ex-} Find the MGF of a random variable with PDF $\lambda e^{-\lambda x}$.
+\begin{example}
+Find the MGF of a random variable with PDF $\lambda e^{-\lambda x}$.
 \begin{align*}
 M_X(t)&=\mathbb{E}[e^{tX}]\\
 &=\int_0^\infty e^{tx} \lambda e^{-\lambda x} dx\\
@@ -287,6 +299,7 @@ M_X(t)&=\mathbb{E}[e^{tX}]\\
 Notice the evaluation of the integral relies on $e^{(t-\lambda)x} \rightarrow 0$ as $x \rightarrow \infty$.
 This is true if and only if $t-\lambda < 0$, or $t < \lambda$.
 Thus, the MGF is $\frac{\lambda}{\lambda-t}$ with domain $t<\lambda$.
+\end{example}
 
 \begin{theorem}
 Let $X$ be a random variable with MGF $M(t)$ for $|t|<T$.
@@ -490,7 +503,8 @@ Therefore, we can recover the AM-GM inequality by taking the negative exponentia
 \end{equation}
 \end{corrolary}
 
-\textbf{Ex-} Find $\min_{x>0}\{x+\frac{1}{x}\}$.
+\begin{example}
+Find $\min_{x>0}\{x+\frac{1}{x}\}$.
 Consider that by the AM-GM inequality,
 \begin{align*}
 \frac{x+\frac{1}{x}}{2} &\geq \sqrt{(x)\left(\frac{1}{x}\right)}\\
@@ -498,5 +512,6 @@ Consider that by the AM-GM inequality,
 &=1
 \end{align*}
 Thus, the minimum is 2.
+\end{example}
 
 \end{document}

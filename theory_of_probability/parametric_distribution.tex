@@ -9,6 +9,7 @@
 \usepackage{stackengine}
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{definition}\newtheorem{example}{Ex}
 \theoremstyle{lemma}\newtheorem{lemma}{Lemma}
 \theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
 \setlength{\parindent}{0pt}
@@ -87,9 +88,10 @@ M(t)&=\mathbb{E}[e^{tX}]\\
 $\mathbb{E}[X]=p$ and $Var(X)=p(1-p)$.
 \end{corrolary}
 
-\textbf{Ex-}
+\begin{example}
 A coin has a $50\%$ chance of being heads and will either be heads or tails.
 Thus, flipping a coin is a Bernoulli trial, and whether it comes up heads follows a Bernoulli distribution.
+\end{example}
 
 \begin{definition}
 Let $p\in(0,1)$ and $n\in\mathbb{Z}^+$.
@@ -117,7 +119,7 @@ For the final step, we have used the binomial theorem.
 $\mathbb{E}[X]=np$ and $Var(X)=np(1-p)$.
 \end{corrolary}
 
-\textbf{Note-} The binomial distribution does not have a closed-form representation of the CDF, so we have not defined one here.
+The binomial distribution does not have a closed-form representation of the CDF, so we have not defined one here.
 The CDF can be defined as a simple summation, but that sum does not have a simple evaluation in general.
 
 \begin{theorem}
@@ -139,13 +141,13 @@ This is the MGF of the binomial distribution.
 Thus, the sum follows the binomial distribution.
 \end{proof}
 
-\textbf{Note-}
 The binomial distribution can be described as the probability that $n$ independent Bernoulli trials result in $k$ successes.
 This situation often arises in applications of the probability distribution.\\
 
-\textbf{Ex-}
+\begin{example}
 If a fair coin is flipped 10 times, the results are independent.
 Thus, the number of heads resulting from 10 coin flips follows a binomial distribution.
+\end{example}
 
 \begin{definition}
 Let $p\in (0,1)$.
@@ -180,7 +182,6 @@ M(t)&=\mathbb{E}[e^{tX}]\\
 $\mathbb{E}[X]=\frac{1}{p}$ and $Var(X)=\frac{1-p}{p^2}$
 \end{corrolary}
 
-\textbf{Note-}
 The geometric distribution can be interpreted as the probability that the first success in a series of independent Bernoulli trials occurs on trial $k$.
 
 \begin{definition}
@@ -234,13 +235,13 @@ Var(X)&=\mathbb{E}[X^2]-\mathbb{E}[X]^2\\
 \end{align*}
 \end{proof}
 
-\textbf{Note-}
 The hypergeometric distribution represents selecting $n$ samples and getting $k$ successes from a population of size $N$ with $K$ successes, sampling without replacement.
 This means each individual draw is a Bernoulli trial, but the draws are not independent, unlike the binomial distribution.\\
 
-\textbf{Ex-}
+\begin{example}
 A bag contains 30 white marbles and 20 black marbles, and 10 marbles are drawn at random.
 The number of white marbles in the sample follows a hypergeometric distribution.
+\end{example}
 
 \begin{definition}
 Let $p\in(0,1)$ and $k\in\mathbb{Z}^+$.
@@ -372,7 +373,6 @@ Cov(X_i, X_j)&=\mathbb{E}[N_i N_j] - \mathbb{E}[N_i]\mathbb{E}[N_j]\\
 Finally, notice the Kronecker delta function gives a concise way to write the covariance even when $i=j$.
 \end{proof}
 
-\textbf{Note-}
 If we generalize the Bernoulli trial to have $K$ outputs, the result of the trial can be represented by the random variable $X_i$ and its distribution over $e_k$.
 Thus, the Multinomial distribution is the equivalent of a binomial distribution for this random experiment.
 
@@ -404,13 +404,13 @@ M(t)&=\mathbb{E}[e^{tX}]\\
 $\mathbb{E}[X]=\lambda$ and $Var(X)=\lambda$
 \end{corrolary}
 
-\textbf{Note-}
 A common interpretation of the Poisson distribution is the number of times an event occurs when it can occur at any point within the interval.
 In that sense, the Poisson distribution is a continuous version of the binomial distribution.\\
 
-\textbf{Ex-}
+\begin{example}
 Over a 5 minute period, an average of 4.3 people will enter a particular Starbucks.
 The number of people who walk into the Starbucks can be modeled as a Poisson distribution with $\lambda=4.3$.
+\end{example}
 
 \begin{definition}
 Let $\lambda \in \mathbb{R}^+$.
@@ -679,7 +679,7 @@ X_1 + X_2 \sim \chi^2 (r_1 + r_2)
 \end{equation}
 \end{corrolary}
 
-\begin{definition}
+\begin{definition}\label{gaussian}
 Let $\mu, \sigma^2 \in \mathbb{R}$ such that $\sigma^2>0$.
 Say a random variable has a normal (Gaussian) distribution, $X\sim \mathcal{N}(\mu,\sigma^2)$ when it has support $\mathbb{R}$ and the PDF on its support is
 \begin{equation}
@@ -1117,7 +1117,6 @@ f(x)=\sum_{k=1}^n p_k f_k (x)
 \end{equation}
 \end{definition}
 
-\textbf{Note-}
 A random variable with a mixture model does not have a distribution that is the linear combination of the random variables $X_k \sim F_k$.
 The PDF is the linear combination of the PDFs of $X_k$, but this does not give the same distribution.
 
@@ -1155,7 +1154,7 @@ Finally, for the third summation we are using the properties of a PDF to evaluat
 A hierarchical model is a parametric distribution whose parameters are random variables.
 \end{definition}
 
-\textbf{Ex-}
+\begin{example}
 Let $X|Y\sim Poisson(Y)$ and let $Y\sim Gamma(\alpha, \frac{1}{\lambda})$.
 Then, $f_{X|Y}(k|y)=\frac{y^k e^{-y}}{k!}$ and $f_Y(y)=\frac{\lambda^\alpha}{\Gamma (\alpha )} y^{\alpha -1}e^{-y\lambda}$.
 So
@@ -1168,8 +1167,8 @@ f_X(x)
 &= \frac{\Gamma(k+\alpha)}{\Gamma(\alpha) k!} \left( \frac{\lambda}{\lambda +1}\right)^k \left( \frac{1}{\lambda +1}\right)^\alpha
 \end{align*}
 Thus, $X\sim NBinom(\frac{1}{1+\lambda}, \alpha)$.\\
+\end{example}
 
-\textbf{Note-}
 In the particular case of a Poisson-Gamma model, we can explicitly find the distribution of the random variable.
 However, we typically use hierarchical models in situations where we can not compute the distribution of the variable in question.
 Hierarchical models are also highly related to Bayesian statistics (Ch \ref{Bayesian}).

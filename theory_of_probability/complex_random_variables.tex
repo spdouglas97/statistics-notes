@@ -55,17 +55,17 @@ A complex random variable is a measurable function $Z: (S, \Omega, p) \rightarro
 
 \begin{lemma}
 Let $Z$ be a complex random variable.
-Then $\mathcal{R}(Z)$ and $\mathcal{I}(Z)$ are random varaibles.
+Then $\mathcal{R}(Z)$ and $\mathcal{I}(Z)$ are random variables.
 \end{lemma}
 \begin{proof}
 By definition, $Z$ is a measurable function.
 Similarly, $\mathcal{R}, \mathcal{I}: \mathbb{C}\rightarrow \mathbb{R}$ are projection functions, and thus are measurable.
-FInally, the composition of measurable functions is measurable.
+Finally, the composition of measurable functions is measurable.
 Therefore, the components of $Z$ are measurable.
 \end{proof}
 
 \begin{definition}
-Let $Z=XX+iY$ be a complex random variable.
+Let $Z=X+iY$ be a complex random variable.
 Say the complex CDF of $Z$ is
 \begin{equation}
 F(x+iy)=\Pr(X\leq x, Y \leq y)
@@ -150,7 +150,6 @@ pVar(Z)
 \end{align*}
 \end{proof}
 
-\textbf{Note-}
 The variance of a complex random variable will always be a positive real number, but the pseudo-variance can be any complex number.
 
 \begin{definition}
@@ -235,12 +234,12 @@ Thus,
 \end{equation*}
 Similarly,
 \begin{equation*}
-\mathbb{E}[\bar{W}(aZ_1 + bZ+_2)] = a\mathbb{E}[\bar{W}Z_1] + b\mathbb{E}[\bar{W}Z_2]
+\mathbb{E}[\bar{W}(aZ_1 + bZ_2)] = a\mathbb{E}[\bar{W}Z_1] + b\mathbb{E}[\bar{W}Z_2]
 \end{equation*}
 Thus,
 \begin{align*}
 Cov(W, aZ_1 + bZ_2)
-&=\mathbb{E}[\bar{W}(aZ_1 + bZ+_2)] - \mathbb{E}[\bar{W}]\mathbb{E}[aZ_1 + bZ_2] \\
+&=\mathbb{E}[\bar{W}(aZ_1 + bZ_2)] - \mathbb{E}[\bar{W}]\mathbb{E}[aZ_1 + bZ_2] \\
 &= a\mathbb{E}[\bar{W}Z_1] + b\mathbb{E}[\bar{W}Z_2] -a\mathbb{E}[\bar{W}]\mathbb{E}[Z_1] - b\mathbb{E}[\bar{W}]\mathbb{E}[Z_2]\\
 &=aCov(W,Z_1) + b\, Cov(W, Z_2)
 \end{align*}
@@ -296,8 +295,7 @@ pCov(W, aZ_1 + bZ_2) = apCov(W,Z_1) + b\, pCov(W,Z_2)
 Say a complex random variable $Z$ is proper whenever $\mathbb{E}[Z]=0$, $\mathbb{E}[Z^2]=0$, and $Var(Z)<\infty$.
 \end{definition}
 
-\textbf{Note-}
-Proper random variables are a generalization ofrandom variables with finite variance.
+Proper random variables are a generalization of random variables with finite variance.
 The requirement that $\mathbb{E}[Z^2]=0$ preserves some important features that will not generalize to the complex plane with only 0 mean and finite variance.
 
 \begin{lemma}
@@ -312,7 +310,7 @@ Thus, $Cov(X,Y)=0$.
 \end{proof}
 
 \begin{definition}
-Say a complex random variabel $Z$ is circularly symetric whenever $e^{i\theta}Z$ has the same distribution for all $\theta$.
+Say a complex random variable $Z$ is circularly symmetric whenever $e^{i\theta}Z$ has the same distribution for all $\theta$.
 \end{definition}
 
 \begin{theorem}
