@@ -122,7 +122,7 @@ $\mathbb{E}[X]=np$ and $Var(X)=np(1-p)$.
 The binomial distribution does not have a closed-form representation of the CDF, so we have not defined one here.
 The CDF can be defined as a simple summation, but that sum does not have a simple evaluation in general.
 
-\begin{theorem}
+\begin{theorem}\label{sum_bernoulli}
 Let $p\in (0,1)$, $n\in \mathbb{Z}^+$, and $X_k  { {iid} \atop \sim} Bernoulli(p)$ for $1\leq k\leq n$.
 Then
 \begin{equation}
@@ -1120,7 +1120,7 @@ f(x)=\sum_{k=1}^n p_k f_k (x)
 A random variable with a mixture model does not have a distribution that is the linear combination of the random variables $X_k \sim F_k$.
 The PDF is the linear combination of the PDFs of $X_k$, but this does not give the same distribution.
 
-\begin{theorem}
+\begin{theorem}\label{mixed_model_properties}
 Let $X_k \sim F_k$ be a finite collection of random variables and $p_k$ be a finite probability distribution.
 Also, let $\mathbb{E}[X_k]=\mu_k$ and $Var(X_k)=\sigma_k^2$ for all $k$.
 Let $X$ be a random variable with mixture model PDF $f(x)=\sum_k p_k f_k(x)$.
