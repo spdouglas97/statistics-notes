@@ -51,8 +51,8 @@
 \begin{document}
 
 In Part I we discussed the theory of probability, which allows us to characterize the outcome of a random experiment.
-The examples we have used so far are simple experiments such as rollling dice and selecting points from a disk.
-However, statistics is genrally applied to scientific problems and predicting realowrld outcomes.
+The examples we have used so far are simple experiments such as rolling dice and selecting points from a disk.
+However, statistics is generally applied to scientific problems and predicting real-world outcomes.
 As such, we need an understanding of what makes good experimental design and how to connect real-world processes to the outcomes of random experiments.
 
 \begin{definition}
@@ -65,7 +65,7 @@ A population is a set from which a sample space is produced.
 
 \begin{example}
 Consider drawing 2 points from $\mathbb{D}^2$ and computing the distance between them.
-In this case, teh population is $P=\mathbb{D}^2$ and the sample space is $S=P^2$.
+In this case, the population is $P=\mathbb{D}^2$ and the sample space is $S=P^2$.
 \end{example}
 
 \begin{definition}
@@ -74,7 +74,7 @@ We say that $n$ is the sample size.
 \end{definition}
 
 \begin{definition}
-Say a simple random sample (SRS) is a sampling technique that generates a probability space $(S, \Omega, p)$ such ath:
+Say a simple random sample (SRS) is a sampling technique that generates a probability space $(S, \Omega, p)$ such that:
 \begin{enumerate}
 \item $S$ is the set of all subsets of $P$ of size $n$.
 \item $\Omega = \mathcal{P}(S)$
@@ -83,32 +83,21 @@ Say a simple random sample (SRS) is a sampling technique that generates a probab
 \end{definition}
 
 \begin{example}
-Suppose you have 50 people in a classand you wish to survey a sample 10 of htem to see how they rate the class.
-You list everyone in alphabetical order and use MT19937 (Ex \ref{MT19937}) to randomly slect 10 numbers from 1 to 50 without replacement via rejection sampling, then poll hte chosen students.
+Suppose you have 50 people in a class and you wish to survey a sample 10 of them to see how they rate the class.
+You list everyone in alphabetical order and use MT19937 (Ex \ref{MT19937}) to randomly select 10 numbers from 1 to 50 without replacement via rejection sampling, then poll the chosen students.
 This is an SRS.
 \end{example}
 
 \begin{theorem}
 Let $P$ be a population, $f: P\rightarrow \mathbb{R}$, and $(S, \Omega, p)$ be the result of an SRS.
-Let $X$ be a random vector such that if $s=(s_1, s_2, ..., s_n)$,  $X(s)=(f(s_1, s_2, ..., s_n)$.
-Then the components of $X$ are asymptotically equivalent to iid random variables.
+Let $X$ be a random vector such that if $s=\{s_1, s_2, ..., s_n\}$,  $X_1=f(s_1)$, $X_2 = f(s_2), ..., X_n = f(s_)$.
+As the population increases, $X_1, X_2, ..., X_n$ appraoch Iid random variables.
 \end{theorem}
 \begin{proof}
-First, consider the probability space $(P, \mathcal{P}(P), q)$ where $q$ is fair.
-Then taking $n$ samples and let $F_k = f(s_k)$ for $1\leq k \leq n$.
-Then all $F_k$ are iid random variables.
-Additionally, by construction, $F_k$ and $X_k$ have the same distribution. 
-Suppose $|P|=\infty$.
-Then $\Pr (X_i = X_j | i\neq j)=0$.
-Thus, the joint distribution of $X$ and $F$ are the same. \\
-Now suppose $|P|=N$.
-In this case, the joint distributions of $X$ and $F$ are different because $\Pr (X_i = X_j | i\neq j)\neq 0$ and $\Pr (F_i = F_j | i\neq j)=0$.
-Instead, we must show asymptotic convergence as $N \rightarrow \infty$.
-Let $U\subseteq \mathbb{R}$ and $\chi_U$ be the indicator function.
-Then $\sum_k \chi_U (F_k) \sim Binom(n, \frac{K}{N})$.
-Let $|f^{-1}(U)|=K$.
-Then $\sum_k \chi_U (X_k) \sim HypGeo(N, n, K)$.
-SO $\sum_k \chi_U (F_k) - \sum_k \chi_U (X_k) {D \atop \rightarrow} 0$.
+First, let $P$ be a population of size $N$ and $A$ be some category such that there are $K_N$ elements of $P$ in $A$.
+Furthermore, suppose $K_N / N \rightarrow p$ as $N \rightarrow \infty$.
+Let $X \sim Binom(n,p)$ and $F\sim Hypgeo(N, K, n)$.
+THen $X$ and $F$ approach the same distribution as $N\rightarrow \infty$.
 Indeed,
 \begin{align*}
 f_F(k) - F_X(k)
@@ -128,12 +117,19 @@ f_F(k) - F_X(k)
 &=0
 \end{align*}
 For this first step in convergence we have used Stirling's approximation to replace the factorials.
-For the second one, we have leveraged that as $N,K\rightarrow \infty$, $(N-n), (K-k)\rightarrow N,K$.
-Thus, we see the convergence in distributions.
-Therefore, we have the sample approach iid random variables.
+For the second one, we have leveraged that as $N,K\rightarrow \infty$, $(N-n), (K-k)\rightarrow N,K$. 
+Now suppose the category $A$ represents elements of $P$ that are chosen to be in the sample.
+This implies that sampling with replacement and sampling without replacement become equivalent as the population size grows.\\
+Now notice that by definition, an SRS does not have an order, but we have assigned an order to the variables $X_1, X_2, ..., X_n$.
+This means the index can not affect the distributino.
+As such, they clearly have the same distribution, so we just need to show they aproach independence.
+Recall that the binomial distribution is the sum of independent Bernoulli variables (Thm \ref{sum_bernoulli}) and the functions of independent variables are independent (Thm \ref{independent_functions}).
+Thus, if we sample with replacement, the resulting variables are iid.
+Also, we have seen that sampling with replacement converges to sampling without replacement.
+Thus, the variables asymptotically approach iid.
 \end{proof}
 
-An SRS is commonly described as a technique in which we sample $n$ items from teh population such that any subset of size $k$ is equally likely to be in the the sample.
+An SRS is commonly described as a technique in which we sample $n$ items from the population such that any subset of size $k$ is equally likely to be in the sample.
 
 \begin{definition}
 Let $P$ be a population and $F=\{A_i\}$ be a partition of $P$.
@@ -153,16 +149,16 @@ Then the average number of elements in the SRS with level $i$ is $np_i$.
 \end{lemma}
 \begin{proof}
 First, let $s\in S$ be the sample and let $x\in s$.
-Then $\chi_{A_i}(x)$ is a random variable with a Bernouli distribution and probability $p_i$.
-If $P$ is infinite, then we have the sum of independent Bernouli variables, which has mean $np_i$.
+Then $\chi_{A_i}(x)$ is a random variable with a Bernoulli distribution and probability $p_i$.
+If $P$ is infinite, then we have the sum of independent Bernoulli variables, which has mean $np_i$.
 On the other hand, if $P$ is finite, the result is hypergeometric, which also has mean $np_i$.
 So the result holds in either case.
 \end{proof}
 
 \begin{definition}
 Let $P$ be a population with factor $F=\{A_i\}$ and let $p_i$ be the proportion of objects in level $i$.
-Let $S_i, \Omega_i, q_i)$ be the result of an SRS in $A_i$.
-Say the product space $(\bigtimes_i S_i, \mathcal{M}(\bigtimes_i \Omega_i ), p)$ is a stratified random sample.
+Let $(S_i, \Omega_i, q_i)$ be the result of an SRS in $A_i$.
+Say the product space $(\bigtimes_i S_i, \otimes_i \Omega_i , p)$ is a stratified random sample.
 \end{definition}
 
 \begin{example}
@@ -177,7 +173,7 @@ Stratified random samples preserve expected value but reduce variance.
 \begin{proof}
 Let $P$ be a population and $F$ a factor.
 Let $(S, \Omega, p)$ be an SRS, and $X$ be a random variable.
-Because $A_i \subseteq P$, $S_i \subseteq S$ adn $\Omega_i \subseteq \Omega$.
+Because $A_i \subseteq P$, $S_i \subseteq S$ and $\Omega_i \subseteq \Omega$.
 Thus, if $E \in \Omega_i$, $p_i(E)=\frac{p(E)}{p(A_i)}$.
 Therefore, we can define a random variable $X_i$ which is the restriction of $X$ on $(S_i, \Omega_i, p_i)$.
 Let $f_i$ be the PDF of $X_i$.
@@ -189,7 +185,8 @@ Next, consider that each level's SRS is independent, so we can compute the varia
 \begin{align*}
 Var(Y)
 &= Var(\sum_i p_i X_i) \\
-&= \sum_i p_i Var(X_i) \\
+&= \sum_i p_i^2 Var(X_i) \\
+&< \sum_i p_i Var(X_i) \\
 &= \sum_i p_i \sigma_i^2
 \end{align*}
 By properties of mixed models, $Var(X)=\sum_i p_i \sigma_i^2 + p_i (\mu_i - \mu)^2$.
@@ -201,12 +198,12 @@ Thus, a stratified random sample preserves expected value while reducing varianc
 Let $P$ be a population with SRS $(S, \Omega, p)$.
 Let $(T, \Phi, q)$ be the result of a different sampling technique.
 Let $X: (S, \Omega, p) \rightarrow \mathbb{R}$ and $\tilde{X}: (T, \Phi, q) \rightarrow \mathbb{R}$ be two random variables that represent the same underlying phenomenon.
-Say there is sampling bias in the sampling technique if $\mathbb[X] \neq \mathbb{E}[\tilde{X}]$.
+Say there is sampling bias in the sampling technique if $\mathbb{E}[X] \neq \mathbb{E}[\tilde{X}]$.
 \end{definition}
 
 Sampling bias is the idea that the results of a statistical analysis are not representative of the population due to the way the data was collected.
-The SRS is the gold standard of sampling techniques because it does not favor any particular subset of hte population.
-However there are some drawbacks that can be mitigated with other sampling techniques, such as the reduction of variance with a stratified random sample.
+The SRS is the gold standard of sampling techniques because it does not favor any particular subset of the population.
+However, there are some drawbacks that can be mitigated with other sampling techniques, such as the reduction of variance with a stratified random sample.
 Thus, we need to compare other techniques to the SRS to ensure they do not favor any particular outcomes.
 
 \begin{definition}
@@ -215,12 +212,12 @@ A convenience sample is a sampling technique where elements of a population are 
 
 \begin{example}
 A reporter could use a convenience sample to conduct street interviews and ask people's opinions on gun control.
-If the reporter is at a gun show then the results would not be representative of hte overall population.
+If the reporter is at a gun show then the results would not be representative of the overall population.
 Thus, the sample is biased.
 \end{example}
 
 \begin{definition}
-Voluntary response bias is a sampling bias is a bias introduced when the sampling technique is whoever wants to volunteer.
+Voluntary response bias is a bias introduced when the sampling technique is whoever wants to volunteer.
 \end{definition}
 
 \begin{definition}
@@ -229,7 +226,7 @@ Non-response bias is a type of sampling bias in which some of the selected membe
 
 \begin{example}
 A news station runs a story on a woman who got arrested after putting soda in a water cup at a fast food restaurant.
-If the news station asks viewers to call in with their thoughts, the results they get fro mtheir viewers will have voluntary response bias.
+If the news station asks viewers to call in with their thoughts, the results they get from their viewers will have voluntary response bias.
 On the other hand, if the station takes an SRS of 50 people and only gets responses from 37 they suffer from non-response bias.
 \end{example}
 
@@ -258,17 +255,17 @@ On the other hand, stratified random sampling controls levels of a known factor 
 This level of randomness can account for hidden factors that would get captured by an entire cluster.
 
 \begin{definition}
-A systemic sample is a sampling technique in which every $k^{th}$ element of a population is sampled.
+A systematic sample is a sampling technique in which every $k^{th}$ element of a population is sampled.
 \end{definition}
 
 \begin{example}
 An apartment complex does a survey on noise and they poll every $10^{th}$ apartment.
 If the noise is concentrated on one side of the apartment building, you need to sample from both sides for an accurate view, but even numbered apartments are typically on one side of the hallway.
-Thus, systemic samplling has a bias.
+Thus, systematic sampling has a bias.
 \end{example}
 
 \begin{definition}
-Multistage sampling is a sampling technique in which a population is partitioned into separate groups, some groups are sampled, and then some individuals are sample fro the chosen groups.
+Multistage sampling is a sampling technique in which a population is partitioned into separate groups, some groups are sampled, and then some individuals are sampled from the chosen groups.
 \end{definition}
 
 \begin{definition}
@@ -280,7 +277,7 @@ Recall we have discussed rejection sampling in example \ref{circle_rejection_sam
 
 \begin{example}
 In order to predict election outcomes, we want to survey likely voters.
-One way to do this is to select people in the area and determine whether they are likely to vote, then reject htose that are not and sample more.
+One way to do this is to select people in the area and determine whether they are likely to vote, then reject those that are not and sample more.
 This is an application of rejection sampling.
 \end{example}
 
@@ -296,10 +293,10 @@ A census is when an entire population is polled.
 A survey is when a sample of individuals is polled.
 \end{definition}
 
-In general, it is ideal to take a census to get all hte info about a population.
-However, this is often impossible due to either logisitcal reasons or physical impossibility.
+In general, it is ideal to take a census to get all the info about a population.
+However, this is often impossible due to either logistical reasons or physical impossibility.
 For example, it would be too expensive to ask every American how they would vote in an upcoming election.
-Thus, we will usually take a survey that is representative of the population and generalize to draw conclusions about hte entire population.
+Thus, we will usually take a survey that is representative of the population and generalize to draw conclusions about the entire population.
 
 \begin{definition}
 An experiment is a study in which a treatment is imposed.
@@ -322,12 +319,12 @@ Then the crash results are compared for the two groups to determine whether seat
 This is an observational study as the researchers are not determining who does and does not wear a seatbelt.
 \end{example}
 
-Generally, experiments are better at for determining results.
+Generally, experiments are better for determining results.
 However, experiments may not always be possible or ethical to perform, so observational studies are also helpful.
 For example, it would be unethical to crash people in cars intentionally, so we can either look at historical data or use dummies to get data.
 
 \begin{definition}
-A subject is a person or object on which an expirement is performed.
+A subject is a person or object on which an experiment is performed.
 \end{definition}
 
 \begin{definition}
@@ -339,31 +336,31 @@ The placebo effect is when any treatment, even a dummy treatment, has an effect.
 \end{definition}
 
 \begin{example}
-Stomach ulcers cause heat in the stomach, so an initial tratment idea was to put cold air in a patient's stomach.
+Stomach ulcers cause heat in the stomach, so an initial treatment idea was to put cold air in a patient's stomach.
 Initial studies found that this treatment could reduce ulcers by up to 80\%.
-However, an expirement was performed to compare cold air against a placebo and the 80\% reduction was the same.
+However, an experiment was performed to compare cold air against a placebo and the 80\% reduction was the same.
 Now, placebos are a common treatment for stomach ulcers.
 \end{example}
 
 \begin{definition}
-Control is when researchers tke steps to account for the effects of an outside variable on the results of an experiment.
+Control is when researchers take steps to account for the effects of an outside variable on the results of an experiment.
 \end{definition}
 
 \begin{definition}
-A control group is an expiremental group that receives a placeb oin order to increase control.
+A control group is an experimental group that receives a placebo in order to increase control.
 \end{definition}
 
 \begin{example}
-An expirement is performed to see the effects of a new fertilizer on crop yield.
+An experiment is performed to see the effects of a new fertilizer on crop yield.
 A 60 acre plot of land is divided into one acre portions, some of which are sunny and some of which are shady, and a stratified random sample is taken to split the portions into 3 partitions.
 One group receives the new fertilizer, one group receives an existing fertilizer, and one group receives no fertilizer.
-THe stratified random sample is an example of control to account for differences in sunlight on crop yield.
-THe group that receives no fertilizer is a control group for the experiment because they receive no treatment.
-We are interested in seeing if hte new fertilizer outperforms the old one, but the old one is a treatment, so that group is not considered a control group.
+The stratified random sample is an example of control to account for differences in sunlight on crop yield.
+The group that receives no fertilizer is a control group for the experiment because they receive no treatment.
+We are interested in seeing if the new fertilizer outperforms the old one, but the old one is a treatment, so that group is not considered a control group.
 \end{example}
 
 \begin{definition}
-Replication is the prectice of using more samples per treatment in order to better represent the population.
+Replication is the practice of using more samples per treatment in order to better represent the population.
 \end{definition}
 
 \begin{example}
@@ -371,7 +368,7 @@ In the fertilizer experiment, it is better to have 20 one acre patches per treat
 \end{example}
 
 \begin{definition}
-Randomization is when treatments are assigned to subjects in a randomized (i.e. probabalistic) manner.
+Randomization is when treatments are assigned to subjects in a randomized (i.e. probabilistic) manner.
 \end{definition}
 
 \begin{example}
@@ -379,7 +376,7 @@ Assigning the fertilizer treatments to the plots via a stratified random sample 
 \end{example}
 
 \begin{definition}
-A well designed experiment is one that includes randomization, replication, and control 
+A well designed experiment is one that includes randomization, replication, and control.
 \end{definition}
 
 \begin{definition}
@@ -387,15 +384,16 @@ A completely randomized design (CRD) is a randomization technique in which a ran
 \end{definition}
 
 \begin{theorem}
-A CRD is equivalent to an SRS
+A CRD is equivalent to an SRS.
 \end{theorem}
 \begin{proof}
 Let there be $n$ subjects and let $\alpha$ be a permutation of $\{1, 2, ..., n\}$.
 Suppose we have $k<n$ subjects in experimental group 1.
-THen by definition of CRD, the subjects in group 1 are $\{\alpha (1), \alpha(2), ..., \alpha (k)\}$.
-For a permuttaion $\beta$, the exerimental groups induced by $\alpha$ and $\beta$ are the same if for all $1\leq i \leq k$ there is some $1 \leq j \leq k$ such that $\alpha (i) = \beta(j)$.
-In other words, teh groups are the same if $\beta (1), \beta (2), ..., \beta (k)\}$ is a permutation of $\{\alpha (1), \alpha(2), ..., \alpha (k)\{$.
-There are $k! (n-k)!$ such permutations and $n!$ permutations total, so there are $\binom{n}{k}$ possible experimental groups, each of which is equally likely.
+Then by definition of CRD, the subjects in group 1 are $\{\alpha (1), \alpha(2), ..., \alpha (k)\}$.
+For a permutation $\beta$, the experimental groups induced by $\alpha$ and $\beta$ are the same if for all $1\leq i \leq k$ there is some $1 \leq j \leq k$ such that $\alpha (i) = \beta(j)$.
+In other words, the groups are the same if $\{\beta (1), \beta (2), ..., \beta (k)\}$ is a permutation of $\{\alpha (1), \alpha(2), ..., \alpha (k)\}$.
+Similarly, we must account for permutations of the subjects not in the sample.
+Thus, there are $k! (n-k)!$ such permutations and $n!$ permutations total, so there are $\binom{n}{k}$ possible experimental groups, each of which is equally likely.
 Now consider taking an SRS of $k$ items from a population of size $n$.
 By construction, we have a fair distribution on all $k$ sized subsets of the population.
 Thus, the two are equivalent.
@@ -406,17 +404,17 @@ A block design is a randomization strategy in which the subjects are partitioned
 \end{definition}
 
 \begin{theorem}
-A block design is equivalent to a stratified random sample
+A block design is equivalent to a stratified random sample.
 \end{theorem}
 \begin{proof}
 Partition the subjects into subsets and call this a factor $F$ with levels $A_i$.
-For a block design, we take a CRD in each level $A_i$, which is equivalen to taking an SRS within each $A_i$.
+For a block design, we take a CRD in each level $A_i$, which is equivalent to taking an SRS within each $A_i$.
 Thus, it is clear that this is equivalent to a stratified random sample.
 \end{proof}
 
 \begin{example}
 A trial for a new drug has 40 participants, 15 men and 25 women.
-A sample of 7 men and 12 women are selected to receive the drug while hte other 8 men and 13 women receive a placebo.
+A sample of 7 men and 12 women are selected to receive the drug while the other 8 men and 13 women receive a placebo.
 \end{example}
 
 \begin{definition}
@@ -424,15 +422,15 @@ Causation is a situation in which a random variable $X$ determines the value of 
 \end{definition}
 
 \begin{center}
-\includegraphics[scale=0.5]{images/causation.png}
+\includegraphics[scale=0.5]{descriptive_statistics/images/causation.png}
 \end{center}
 
 \begin{definition}
-Common response is a situationi in which an unmeasured random variable $Z$ determines the value of both $X$ and $Y$.
+Common response is a situation in which an unmeasured random variable $Z$ determines the value of both $X$ and $Y$.
 \end{definition}
 
 \begin{center}
-\includegraphics[scale=0.5]{images/common_response.png}
+\includegraphics[scale=0.5]{descriptive_statistics/images/common_response.png}
 \end{center}
 
 \begin{definition}
@@ -441,10 +439,10 @@ In this case, we say $Z$ is a confounding variable.
 \end{definition}
 
 \begin{center}
-\includegraphics[scale=0.5]{images/confounding_response.png}
+\includegraphics[scale=0.5]{descriptive_statistics/images/confounding_response.png}
 \end{center}
 
-It is often said that correlcation does not imply causation.
+It is often said that correlation does not imply causation.
 In all three types of relationships described there is (or at least can be) correlation between $X$ and $Y$, but only one of them is a causation relationship.
 
 \begin{example}
@@ -455,7 +453,7 @@ The relationship between temperature and ice cream sales would be an example of 
 \end{example}
 
 \begin{example}
-The relationship between smoking nad cancer is a confounding response.
+The relationship between smoking and cancer is a confounding response.
 Smoking does cause cancer, but genetics is a confounding variable that drives cancer.
 \end{example}
 
