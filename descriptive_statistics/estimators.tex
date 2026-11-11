@@ -1,7 +1,156 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{stackengine}
+\usepackage[mathscr]{eucal}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{url}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{definition}\newtheorem{example}{Ex}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codekeyword}{RGB}{0,76,153}
+\definecolor{codecomment}{RGB}{0,128,96}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codenumber}{RGB}{102,102,102}
+\lstdefinestyle{pythoncode}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codekeyword}\bfseries,
+    commentstyle=\color{codecomment}\itshape,
+    stringstyle=\color{codestring},
+    numberstyle=\scriptsize\color{codenumber},
+    numbers=left,
+    numbersep=10pt,
+    stepnumber=1,
+    showstringspaces=false,
+    breaklines=true,
+    keepspaces=true,
+    columns=fullflexible,
+    tabsize=4,
+    frame=single,
+    framerule=0pt,
+    rulecolor=\color{codebg},
+    backgroundcolor=\color{codebg}
+}
+\lstset{style=pythoncode}
+
 \begin{document}
 
-This is where the chapter goes
+Recal we said a parametric distribution is a distribution indexed by finitely many indices.
+Each of those indexes is a parameter, and we would like to estimate those parameters.
+In many situations, we have prior information based on domain knowledge that a random variable beongs to some class of distributionss, and we need to find which paricular distribution it has.
+For example, we may know that we have repeated independent Bernoull trials, so we have a binomial distribution with an unknown probability of success.
+In the previous chapter we discussed how to gather data from a population, but now we need to process that data to determine the specific distribution parameters for a random variable of interest.
+
+\begin{definition}
+A parameter is a number that defines a probability distribution.
+\end{definition}
+
+\begin{definition}
+A statistic is a function of a sample.
+\end{definition}
+
+\begin{example}
+$n$, the sample size, is a statistic.
+\end{example}
+
+\begin{definition}
+An estimator is a statistic that is used to approximate the value of a parameter.
+An estimate is the value of hte estimator.
+\end{definition}
+
+An estimator is a specific type of random variable, and an estimate is the realization of that random variable.
+
+\begin{definition}
+Given a sample $\{x_k\}_{k=1}^n$, say the sample mean is
+\begin{equation}
+\bar{x} = \frac{1}{n} \sum_{k=1}^n x_k
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Given a sample $\{x_k\}_{k=1}^n$, say the sample variance is
+\begin{equation}
+s^2 = \frac{1}{n-1} \sum_{k=1}^n \left(x_k -\bar{x} \right)^2
+\end{equation}
+\end{definition}
+
+Notice that $\bar{x}$ is an estimator of $\mathbb{E}[X]$ and $s^2$ is an estimator of $Var(X)$.
+
+\begin{definition}
+Let $s$ be a sample of size $n$, $B\in \mathcal{B}$, and $k=|s\cap B|$.
+Say the sample proportion is
+\begin{equation}
+\hat{p}=\frac{k}{n}
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Say the probability distribution of a statistic is its sampling distribution.
+\end{definition}
+
+\begin{definition}
+Let $\theta$ be a parameter and $\omega$ be an estimator for $\theta$.
+Say the bias of $\omega$ is
+\begin{equation}
+Bias(\omega) = \mathbb{E}[\omega] - \theta
+\end{equation}
+If $Bias(\omega)=0$ say the estimator is unbiased.
+\end{definition}
+
+\begin{definition}
+Let $\theta$ be a parameter and $\omega$ an estimator.
+Say the estimator is consistent whenever
+\begin{equation}
+\omega {P \atop	\rightarrow} \theta
+\end{equation}
+\end{definition}
+
+\begin{theorem}\label{weak_lln}
+\textbf{Weak Law of Large Numbers:}
+Let $(S, \Omega, q)$ be a probability space, $E$ an event, and $\{s_i\}$ be a sequence of independent samples.
+Then the sample proportion $\hat{p}$ is a consistent and unbiased estimator of $q(E)$.
+\end{theorem}
+\begin{proof}
+Let $p=q(E)$ and $k=\sum_i \chi_{E}(s_i)$.
+Then $k\sim Binom(n,p)$.
+Thus,
+\begin{align*}
+\mathbb{E}[\hat{p}]
+&= \mathbb{E}\left[ \frac{k}{n}\right] \\
+&= \frac{1}{n}\mathbb{E}[k] \\
+&= \left( \frac{1}{n} \right) \left( np\right) \\
+&= p
+\end{align*}
+Thus, $\hat{p}$ is unbiased. \\
+Next, notice
+\begin{align*}
+Var(\hat{p})
+&= Var\left( \frac{k}{n}\right) \\
+&= \frac{1}{n^2} Var(k) \\
+&= \left( \frac{1}{n^2}\right) \left( np(1-p)\right) \\
+&= \frac{p(1-p)}{n}
+\end{align*}
+Next, let $\epsilon>0$.
+Then by Chebycev's theorem,
+\begin{equation*}
+\Pr \left( \middle| \hat{p} - p \middle| > \epsilon \right) \leq \frac{p(1-p)}{n\epsilon}
+\end{equation*}
+Thus, as $n \rightarrow \infty$, $\hat{p} {P\atop \rightarrow} p$.
+\end{proof}
 
 \end{document}
