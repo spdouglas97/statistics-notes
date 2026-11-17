@@ -283,8 +283,8 @@ Then $\frac{1}{n-1}\sum_k (x_k -\bar{x})(y_k -\bar{y})$ is a consistent and unbi
 \end{theorem}
 \begin{proof}
 Let $\mathbb{E}[X]=\mu_X$ and $\mathbb{E}[Y]=\mu_Y$.
-Because the sample is an SRS, $(x_i, y_i)$ and $(X-j, y_j)$ are independent when $i\neq j$.
-So $Cov(x_I, y_j) = \delta_{ij}Cov(X,Y)$ where $\delta$ is the Kronecker delta function.
+Because the sample is an SRS, $(x_i, y_i)$ and $(X_j, y_j)$ are independent when $i\neq j$.
+So $Cov(x_i, y_j) = \delta_{ij}Cov(X,Y)$ where $\delta$ is the Kronecker delta function.
 Then
 \begin{align*}
 \mathbb{E}\left[ \sum_{k=1}^n (x_k -\bar{x})(y_k-\bar{y})\right]
@@ -329,6 +329,109 @@ Say $\omega$ is asymptotically unbiased whenever
 \begin{example}
 $s$ and $r$ are biased estimators for $\sigma$ and $\rho$, but they are asymptotically unbiased.
 We will show this in the future, as it requires the development of some more machinery.
+\end{example}
+
+\begin{theorem}\label{strong_lln}
+\textbf{Strong Law of Large Numbers:}
+Let $(S, \Omega, p)$ be a probability space and $E$ an event.
+Let $\{s_i\}$ be a series of independent samples.
+Then $\hat{p} {a.s. \atop \rightarrow} p(E)$.
+\end{theorem}
+\begin{proof}
+Let $[=p(E)$.
+Then by the weak law of large numbers, $\hat{p}$ is a consistent and unbiased estimator of $p$.
+So, byu Chebychev's theorem,
+\begin{equation*}
+\Pr\left( \middle| \hat{p} - p \middle| > n^{-1/4} \right) < p(1-p)n^{-3/2}
+\end{equation*}
+Next, for $n\in \mathbb{N}$, let
+\begin{equation*}
+E_n = \{ s\in S | \, |\hat{p} - p |>n^{-1/4} \}
+\end{equation*}
+Then $p(E_n) < p(1-p)n^{-3/2}$.
+So $\sum_n p(E_n)<\infty$.
+Next, let $\epsilon> 0$ and let $s\in S$ such that $\lim_{n\rightarrow \infty} \hat{p}(s) = p$.
+Then for all $n\geq \epsilon^{-4}$, $s\in E_n$.
+Thus, $s\in \cup_{n\geq \epsilon^{-4}} E_n$.
+So $s\in \limsup_n E_n$.
+However, by the Borel-Canteli theorem (Thm \ref{borel_canteli}), $p(\limsup_n E_n)=0$.
+Thus, we have convergence a.s.
+\end{proof}
+
+\begin{theorem}
+Statistics fro independent SRSs are independent.
+\end{theorem}
+\begin{proof}
+Statistics are a function of hte sample.
+Thus, this is a consequence of theorem \ref{independent_functions}.
+\end{proof}
+
+\begin{example}
+A study is performed at a factory to determine how long it taks for workers to don and doff their uniforms.
+In one approach, an SRS of workers is taken and the amount of time to don and doff is measured for each person.
+This gives a sample of points $\{(x_k, y_k)\}$.
+The total time to change, on average, is $\mathbb{E}[X] + \mathbb{E}[Y]$ with a variance of $Var(X) + Var(Y) + Cov(X,Y)$.
+However, this requires researchers to measure before a shift and hours later after that shift.
+Instead, researchers can take a sample of people leaving a shift and measure the time it takes them to doff the uniform and another sample of the new workers going on and measure the time it takes to don the uniform.
+In this case, we have two indpendent samples, $\{x_k\}$ and $\{y_k\}$.
+This means the average total time is $\mathbb{E}[X]+\mathbb{E}[Y]$ with a variance of $Var(X) + Var(Y)$.
+\end{example}
+
+\begin{definition}
+Say the mean squared error (MSE) is
+\begin{equation}
+MSE(\omega) = \mathbb{E}[(\omega - \theta)^2]
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+\textbf{Variance-Bias Tradeoff:}
+\begin{equation}
+MSE(\omega) = \left( Bias(\omega)\right)^2 + Var(\omega)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $\mu_\omega = \mathbb{E}[\omega]$.
+THen
+\begin{align*}
+MSE(\omega)
+&= \mathbb{E}\left[(\omega - \theta)^2\right] \\
+&= \mathbb{E}\left[ (\omega - \mu_\omega + \mu_\omega - \theta )^2 \right] \\
+&= \mathbb{E}\left[ (\omega - \mu_\omega)^2 \right] + \mathbb{E}\left[ 2(\omega - \mu_\omega) (\mu_\omega - \theta) \right] + \mathbb{E}\left[ (\mu_\omega - \theta)^2 \right] \\
+&= \left( Bias(\omega)\right)^2 + 0 + Var(\omega)
+\end{align*}
+\end{proof}
+
+\begin{definition}
+Overfitting is when the MSE is dominated by the variance  and increasing it will increase the MSE.
+\end{definition}
+
+\begin{definition}
+Underfitting is when the MSE is dominated by bias and increasing it will increase MSE.
+\end{definition}
+
+\begin{center}
+\includegraphics[scale=0.5]{images/mse_plot.png}
+\end{center}
+
+MSE is a measure of how far away the estimates are from the true value, so we typically want to find estimators that minimize the MSE.
+However, this is not always feasible, so instead we have several other methods of determining what makes a good estimator.
+One such example is a consistent and unbiased estimator, and others are minimum variance unbiased estimators (\ref{MVUE}) and maximum likelihood estimators (\ref{MLE}).
+However, we should keep in mind that in some ways these alternatives are suboptimal.
+Indeed, while a biased estimator may sound like a bad thing, the variance-bias tradeoff shows that the bias of an estimator can make an improvement on its estimation abilities.
+
+\begin{example}
+Let $X\sim \mathcal{N}_p(\mu, \mathbb{I}_p)$.
+Say the James Stein estimator of $\mu$ is
+\begin{equation}
+\mu_{JS} = \left( 1 - \frac{p-2}{||X||^2}\right) X
+\end{equation}
+This has an MSE less than the sample mean, $X$, for $p\geq 3$.
+This is due to the variance-bias tradeoff; $X$ is unbiased but has high variance, and by adding some bias the MSE is reduced.
+Specifically, the JS estimator perturbs points closer to the origin by a small amount.
+There is a ball containing $\mu$ and the origin, and in that ball the JS estimator is worse than the sample mean.
+Outside the ball, the perturbation brings the JS estimator closer to the true mean, improving performance.
+The key to the JS estimator is that the probability $X$ is in the ball decreases as $p$ increases, so the MSE is better for large dimensions.
 \end{example}
 
 \end{document}
