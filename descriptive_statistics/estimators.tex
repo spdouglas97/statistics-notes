@@ -50,10 +50,10 @@
 
 \begin{document}
 
-Recal we said a parametric distribution is a distribution indexed by finitely many indices.
+Recall we said a parametric distribution is a distribution indexed by finitely many indices.
 Each of those indexes is a parameter, and we would like to estimate those parameters.
-In many situations, we have prior information based on domain knowledge that a random variable beongs to some class of distributionss, and we need to find which paricular distribution it has.
-For example, we may know that we have repeated independent Bernoull trials, so we have a binomial distribution with an unknown probability of success.
+In many situations, we have prior information based on domain knowledge that a random variable belongs to some class of distributions, and we need to find which particular distribution it has.
+For example, we may know that we have repeated independent Bernoulli trials, so we have a binomial distribution with an unknown probability of success.
 In the previous chapter we discussed how to gather data from a population, but now we need to process that data to determine the specific distribution parameters for a random variable of interest.
 
 \begin{definition}
@@ -70,7 +70,7 @@ $n$, the sample size, is a statistic.
 
 \begin{definition}
 An estimator is a statistic that is used to approximate the value of a parameter.
-An estimate is the value of hte estimator.
+An estimate is the value of the estimator.
 \end{definition}
 
 An estimator is a specific type of random variable, and an estimate is the realization of that random variable.
@@ -146,9 +146,9 @@ Var(\hat{p})
 &= \frac{p(1-p)}{n}
 \end{align*}
 Next, let $\epsilon>0$.
-Then by Chebycev's theorem,
+Then by Chebyshev's theorem,
 \begin{equation*}
-\Pr \left( \middle| \hat{p} - p \middle| > \epsilon \right) \leq \frac{p(1-p)}{n\epsilon}
+\Pr \left( \middle| \hat{p} - p \middle| > \epsilon \right) \leq \frac{p(1-p)}{n\epsilon^2}
 \end{equation*}
 Thus, as $n \rightarrow \infty$, $\hat{p} {P\atop \rightarrow} p$.
 \end{proof}
@@ -176,7 +176,7 @@ Var(\bar{X})
 \end{align*}
 Next, we would like to show convergence in distribution.
 It suffices to show that if $Z_k = \frac{X_k - \mu}{\sigma}$, $\bar{Z}\sqrt{n} {D \atop \rightarrow} \mathcal{N}(0,1)$.
-Now let $\varphi_Z(t)$ be the characteristic function of $Z_k$ and $varphi(t)$ be the characteristic function of $\bar{Z}\sqrt{n}$.
+Now let $\varphi_Z(t)$ be the characteristic function of $Z_k$ and $\varphi(t)$ be the characteristic function of $\bar{Z}\sqrt{n}$.
 Then we want to show $\ln \varphi \rightarrow \frac{-1}{2}t^2$.
 Clearly,
 \begin{equation*}
@@ -199,7 +199,7 @@ Thus,
 &= \frac{-t^2}{2}
 \end{align*}
 Here we have used L'H\^{o}pital's rule to evaluate the limit.
-Aditionally, we have used the properties of hte characteristic function, specifically that $\varphi_Z(0)=1$, $\varphi_Z'(0)=i\mu=0$ and $\varphi_Z''(0)=-\sigma^2=-1$.
+Additionally, we have used the properties of the characteristic function, specifically that $\varphi_Z(0)=1$, $\varphi_Z'(0)=i\mu=0$ and $\varphi_Z''(0)=-\sigma^2=-1$.
 Thus, regardless of distribution, the variable $\bar{Z}\sqrt{n}$ converges to a Gaussian distribution.
 \end{proof}
 \begin{corrolary}
@@ -207,7 +207,7 @@ $\bar{X}$ is a consistent and unbiased estimator of $\mu$.
 \end{corrolary}
 \begin{proof}
 The unbiasedness is trivial.
-To show consistency, we can apply Chebychev's theorem.
+To show consistency, we can apply Chebyshev's theorem.
 \end{proof}
 
 \begin{definition}
@@ -225,8 +225,7 @@ The central limit theorem states that $\bar{X}$ is asymptotically normal with as
 
 \begin{theorem}
 Let $X_k {iid \atop \sim} \mathcal{N}(\mu, \sigma^2)$.
-THen $s^2$ is a consistent and unbiased estimator of $\sigma^2$.
-
+Then $s^2$ is a consistent and unbiased estimator of $\sigma^2$.
 \end{theorem}
 \begin{proof}
 By Student's Theorem (Thm \ref{students_theorem}), $\frac{(n-1)s^2}{\sigma^2} \sim \chi^2(n-1)$.
@@ -242,11 +241,11 @@ Now, consider
 \begin{align*}
 Var(s^2)
 &= \frac{(\sigma^2)^2}{(n-1)^2} Var\left(\frac{(n-1) s^2}{\sigma^2}\right) \\
-&= \frac{1(n-1)\sigma^4}{(n-1)^2} \\
+&= \frac{2(n-1)\sigma^4}{(n-1)^2} \\
 &= \frac{2\sigma^4}{n-1}
 \end{align*}
 Let $\epsilon>0$.
-So, by Chebychev's inequality,
+So, by Chebyshev's inequality,
 \begin{align*}
 \Pr\left(\middle| s^2 - \sigma^2 \middle| > \epsilon \right)
 &\leq \frac{2\sigma^4}{\epsilon^2 (n-1)} \\
@@ -258,19 +257,19 @@ Thus, $s^2$ is consistent.
 $s=\sqrt{s^2}$ is a biased estimator of $\sigma$.
 \end{corrolary}
 \begin{proof}
-Note that $\sqrt{u}$ is a strictly convex function.
+Note that $u^2$ is a strictly convex function.
 So, by Jensen's inequality,
 \begin{align*}
 \mathbb{E}[s]
-&= \mathbb{E}[\sqrt{s^2}] \\
-&<\sqrt{\mathbb{E}[s^2]} \\
+&=\sqrt{\left(\mathbb{E}\left[s\right]\right)^2} \\
+&< \sqrt{\mathbb{E}\left[s^2\right]} \\
 &= \sqrt{\sigma^2} \\
 &= \sigma
 \end{align*}
 \end{proof}
 
 \begin{definition}
-Let $\{(x_k, y_k)\}$ be a sample of size $n$ with sample mean $(\bar{x}, \bar{y})$ and component sample variances $s_x$ and $s_y$.
+Let $\{(x_k, y_k)\}$ be a sample of size $n$ with sample mean $(\bar{x}, \bar{y})$ and component sample variances $s_x^2$ and $s_y^2$.
 Say the sample correlation is
 \begin{equation}
 r = \frac{1}{n-1}\sum_{k=1}^n \frac{(x_k - \bar{x})(y_k - \bar{y})}{s_x s_y}
@@ -283,7 +282,7 @@ Then $\frac{1}{n-1}\sum_k (x_k -\bar{x})(y_k -\bar{y})$ is a consistent and unbi
 \end{theorem}
 \begin{proof}
 Let $\mathbb{E}[X]=\mu_X$ and $\mathbb{E}[Y]=\mu_Y$.
-Because the sample is an SRS, $(x_i, y_i)$ and $(X_j, y_j)$ are independent when $i\neq j$.
+Because the sample is an SRS, $(x_i, y_i)$ and $(x_j, y_j)$ are independent when $i\neq j$.
 So $Cov(x_i, y_j) = \delta_{ij}Cov(X,Y)$ where $\delta$ is the Kronecker delta function.
 Then
 \begin{align*}
@@ -293,8 +292,8 @@ Then
 &\quad \quad \quad \quad - \mathbb{E}\left[ \sum_{k=1}^n (x_k -\mu_X)(\bar{y} - \mu_Y)\right] \\
 &\quad \quad \quad \quad - \mathbb{E}\left[ \sum_{k=1}^n (\bar{x} - \mu_X)(y_k - \mu_Y)\right] \\
 &\quad \quad \quad \quad+ \mathbb{E}\left[ \sum_{k=1}^n (\mu_X - \bar{x})(\mu_Y - \bar{y})\right] \\
-&= \sum_{k=1}^n \mathbb{E}\left[ (x_k - \mu_x)(y_k - \mu_Y)\right] \\
-&\quad \quad \quad \quad - \sum_{k=1}^n \mathbb{E}\left[ (x_k -\mu_Xz)(\bar{y} - \mu_Y)\right] \\
+&= \sum_{k=1}^n \mathbb{E}\left[ (x_k - \mu_X)(y_k - \mu_Y)\right] \\
+&\quad \quad \quad \quad - \sum_{k=1}^n \mathbb{E}\left[ (x_k -\mu_X)(\bar{y} - \mu_Y)\right] \\
 &\quad \quad \quad \quad - \sum_{k=1}^n \mathbb{E}\left[ (\bar{x} - \mu_X)(y_k - \mu_Y)\right] \\
 &\quad\quad\quad\quad + \sum_{k=1}^n \mathbb{E}\left[ (\bar{x} - \mu_X )(\bar{y} - \mu_Y)\right] \\
 &= nCov(X,Y) - \frac{1}{n}\sum_k \sum_i Cov(x_i, y_k) \\
@@ -308,7 +307,7 @@ Then
 \end{align*}
 Thus, the sample covariance is unbiased. \\
 Next, notice $\frac{1}{n} \sum_k (x_k - \bar{x})(y_k -\bar{y}) = \frac{1}{n} \sum_k x_k y_k - \bar{x}\bar{y}$.
-The sample mean is a consistent and unbiased estimator of the expeccted value, so $\bar{x} {P \atop \rightarrow} \mu_X$, $\bar{y} {P \atop \rightarrow} \mu_Y$, and $\frac{1}{n} \sum_k x_k y_k {P \atop \rightarrow} \mathbb{E}[XY]$.
+The sample mean is a consistent and unbiased estimator of the expected value, so $\bar{x} {P \atop \rightarrow} \mu_X$, $\bar{y} {P \atop \rightarrow} \mu_Y$, and $\frac{1}{n} \sum_k x_k y_k {P \atop \rightarrow} \mathbb{E}[XY]$.
 Then, by Slutsky's theorem,
 \begin{align*}
 \frac{1}{n-1} \sum_k (x_k -\bar{x})(y_k -\bar{y})
@@ -333,47 +332,53 @@ We will show this in the future, as it requires the development of some more mac
 
 \begin{theorem}\label{strong_lln}
 \textbf{Strong Law of Large Numbers:}
-Let $(S, \Omega, p)$ be a probability space and $E$ an event.
+Let $(S, \Omega, q)$ be a probability space and $E$ an event.
 Let $\{s_i\}$ be a series of independent samples.
-Then $\hat{p} {a.s. \atop \rightarrow} p(E)$.
+Then $\hat{p} {a.s. \atop \rightarrow} q(E)$.
 \end{theorem}
 \begin{proof}
-Let $[=p(E)$.
-Then by the weak law of large numbers, $\hat{p}$ is a consistent and unbiased estimator of $p$.
-So, byu Chebychev's theorem,
+Let $p=q(E)$.
+Let $X_i=\chi_E(s_i)$.
+Then $X_i$ are iid random variables such that
 \begin{equation*}
-\Pr\left( \middle| \hat{p} - p \middle| > n^{-1/4} \right) < p(1-p)n^{-3/2}
+\hat{p}=\frac{1}{n}\sum_{i=1}^n X_i
 \end{equation*}
-Next, for $n\in \mathbb{N}$, let
+Next, let $\epsilon>0$ and let
 \begin{equation*}
-E_n = \{ s\in S | \, |\hat{p} - p |>n^{-1/4} \}
+A_n(\epsilon)=\{|\hat{p} -p|>\epsilon\}
 \end{equation*}
-Then $p(E_n) < p(1-p)n^{-3/2}$.
-So $\sum_n p(E_n)<\infty$.
-Next, let $\epsilon> 0$ and let $s\in S$ such that $\lim_{n\rightarrow \infty} \hat{p}(s) = p$.
-Then for all $n\geq \epsilon^{-4}$, $s\in E_n$.
-Thus, $s\in \cup_{n\geq \epsilon^{-4}} E_n$.
-So $s\in \limsup_n E_n$.
-However, by the Borel-Canteli theorem (Thm \ref{borel_canteli}), $p(\limsup_n E_n)=0$.
-Thus, we have convergence a.s.
+Then, by Hoeffding's inequality, $q(A_n(\epsilon))\leq 2e^{-2n\epsilon^2}$.
+This is a geometric sequence with ratio $e^{-2\epsilon^2}<1$.
+So,
+\begin{align*}
+\sum_{n=1}^{\infty}q(A_n(\epsilon))
+&\leq \sum_{n=1}^{\infty}2e^{-2n\epsilon^2} \\
+&<\infty
+\end{align*}
+This means, by the Borel-Cantelli lemma (Thm \ref{borel_cantelli}), that $q(\limsup_n A_n(\epsilon))=0$.
+Thus, only finitely many $A_n(\epsilon)$ can occur.
+Threfore, there is some $N_\epsilon$ such that for all $n\geq N_\epsilon$, $|\hat{p} - p|<\epsilon$.
+To show convergence, consider $\epsilon = \frac{1}{M}$.
+This gives a sequence of events $A_{N_\frac{1}{m}}(\frac{1}{m})$ which have probability 0.
+THus, the sequence converges almost surely.
 \end{proof}
 
 \begin{theorem}
-Statistics fro independent SRSs are independent.
+Statistics for independent SRSs are independent.
 \end{theorem}
 \begin{proof}
-Statistics are a function of hte sample.
+Statistics are measureable functions of the sample.
 Thus, this is a consequence of theorem \ref{independent_functions}.
 \end{proof}
 
 \begin{example}
-A study is performed at a factory to determine how long it taks for workers to don and doff their uniforms.
+A study is performed at a factory to determine how long it takes for workers to don and doff their uniforms.
 In one approach, an SRS of workers is taken and the amount of time to don and doff is measured for each person.
 This gives a sample of points $\{(x_k, y_k)\}$.
-The total time to change, on average, is $\mathbb{E}[X] + \mathbb{E}[Y]$ with a variance of $Var(X) + Var(Y) + Cov(X,Y)$.
+The total time to change, on average, is $\mathbb{E}[X] + \mathbb{E}[Y]$ with a variance of $Var(X) + Var(Y) + 2Cov(X,Y)$.
 However, this requires researchers to measure before a shift and hours later after that shift.
 Instead, researchers can take a sample of people leaving a shift and measure the time it takes them to doff the uniform and another sample of the new workers going on and measure the time it takes to don the uniform.
-In this case, we have two indpendent samples, $\{x_k\}$ and $\{y_k\}$.
+In this case, we have two independent samples, $\{x_k\}$ and $\{y_k\}$.
 This means the average total time is $\mathbb{E}[X]+\mathbb{E}[Y]$ with a variance of $Var(X) + Var(Y)$.
 \end{example}
 
@@ -392,7 +397,7 @@ MSE(\omega) = \left( Bias(\omega)\right)^2 + Var(\omega)
 \end{theorem}
 \begin{proof}
 Let $\mu_\omega = \mathbb{E}[\omega]$.
-THen
+Then
 \begin{align*}
 MSE(\omega)
 &= \mathbb{E}\left[(\omega - \theta)^2\right] \\
@@ -411,7 +416,7 @@ Underfitting is when the MSE is dominated by bias and increasing it will increas
 \end{definition}
 
 \begin{center}
-\includegraphics[scale=0.5]{images/mse_plot.png}
+\includegraphics[scale=0.5]{descriptive_statistics/images/mse_plot.png}
 \end{center}
 
 MSE is a measure of how far away the estimates are from the true value, so we typically want to find estimators that minimize the MSE.
@@ -424,7 +429,7 @@ Indeed, while a biased estimator may sound like a bad thing, the variance-bias t
 Let $X\sim \mathcal{N}_p(\mu, \mathbb{I}_p)$.
 Say the James Stein estimator of $\mu$ is
 \begin{equation}
-\mu_{JS} = \left( 1 - \frac{p-2}{||X||^2}\right) X
+\mu_{JS} = \left( 1 - \frac{p-2}{\lVert X \rVert^2}\right) X
 \end{equation}
 This has an MSE less than the sample mean, $X$, for $p\geq 3$.
 This is due to the variance-bias tradeoff; $X$ is unbiased but has high variance, and by adding some bias the MSE is reduced.
@@ -435,7 +440,7 @@ The key to the JS estimator is that the probability $X$ is in the ball decreases
 \end{example}
 
 \begin{center}
-\includegraphics[scale=0.5]{images/james_stein_3d.png}
+\includegraphics[scale=0.5]{descriptive_statistics/images/james_stein_3d.png}
 \end{center}
 
 \end{document}
