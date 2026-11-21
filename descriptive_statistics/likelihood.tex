@@ -188,4 +188,44 @@ So $\ell (\theta | \{x_k\})=-n\theta$ for $\theta > x_1, x_2, ..., x_n$.
 Thus, the MLE is $\hat{\theta}=\max_k \{x_k\}$
 \end{example}
 
+\begin{definition}
+Let $X$ be a random variable with parameter $\theta \in \Theta$  and log likelihood $\ell$.
+Say the Fisher information matrix is
+\begin{equation}
+I_X(\theta) = \mathbb{E}\left[ \nabla_\theta \ell(\theta | x) \nabla_\theta^T \ell l(\theta | x) \right]
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+\begin{equation}
+I_X(\theta) = \mathbb{E}\left[ -\nabla_\theta^2 \ell(\theta | x)\right]
+\end{equation}
+\end{theorem}
+\begin{proof}
+We will look at a one dimensional parameter for simplicity.
+THe argument can be applied on an element-by-element basis for a general parameter.
+Notice that $\ell'(\theta | x) = \frac{f'(x|\theta)}{f(x|\theta)}$.
+Thus,
+\begin{equation*}
+\ell''(\theta|x) = \frac{f(x|\theta)f''(x|\theta) - (f'(x|\theta))^2}{(f'(x|\theta))^2}
+\end{equation*}
+Next, notice
+\begin{align*}
+\mathbb{E}\left[ \frac{f''(x|\theta)f(x|\theta)}{(f(x|\theta))^2}\right]
+&= \int_\mathbb{R} \frac{f''(x|\theta)}{f(x|\theta)} dF \\
+&= \int_\mathbb{R} \frac{f'(x|\theta)}{f(x|\theta)} f(x|\theta) dx \\
+&= \int_\mathbb{R} f''(x|\theta) dx \\
+&= \frac{\partial^2}{\partial \theta^2} \left( \int_\mathbb{R} f(x|\theta)dx \right) \\
+&= \frac{\partial^2}{\partial \theta^2}\left( 1 \right) \\
+&= 0
+\end{align*}
+Thus,
+\begin{align*}
+\mathbb{E}\left[ -\ell''(\theta|x)\right]
+&= \mathbb{E}\left[ \frac{f''(x|\theta)f(x|\theta)}{(f(x|\theta))^2}\right] - \mathbb{E}\left[\frac{(f'(\theta|x))^2}{(f(\theta|x))^2} \right]\\
+&= 0 + \mathbb{E}\left[ -(\ell'(\theta|x))^2\right] \\
+&= I_X(\theta)
+\end{align*}
+\end{proof}
+
 \end{document}
