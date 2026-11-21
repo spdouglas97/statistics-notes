@@ -1,9 +1,191 @@
 \documentclass{article}
 
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{stackengine}
+\usepackage[mathscr]{eucal}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{url}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}\newtheorem{definition}{DEF}
+\theoremstyle{definition}\newtheorem{example}{Ex}
+\theoremstyle{lemma}\newtheorem{lemma}{Lemma}
+\theoremstyle{corrolary}\newtheorem{corrolary}{Cor}
+\setlength{\parindent}{0pt}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codekeyword}{RGB}{0,76,153}
+\definecolor{codecomment}{RGB}{0,128,96}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codenumber}{RGB}{102,102,102}
+\lstdefinestyle{pythoncode}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codekeyword}\bfseries,
+    commentstyle=\color{codecomment}\itshape,
+    stringstyle=\color{codestring},
+    numberstyle=\scriptsize\color{codenumber},
+    numbers=left,
+    numbersep=10pt,
+    stepnumber=1,
+    showstringspaces=false,
+    breaklines=true,
+    keepspaces=true,
+    columns=fullflexible,
+    tabsize=4,
+    frame=single,
+    framerule=0pt,
+    rulecolor=\color{codebg},
+    backgroundcolor=\color{codebg}
+}
+\lstset{style=pythoncode}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
 \begin{document}
 
-\textbf{Maximum Likelihood estimator}\label{mle}
+Likelihood is one of the big ways that we understand statistics.
+As we have seen, there are a variety of estimators that can have properties such as unbiasedness and consistency.
+However, we may wish to know where these estimators come from.
+Likelihood is an unifying theory that allows us to to createa  new estimators for different distributions and examine their properties.
 
-\textbf{Mimimum variance unbiased estimator}\label{mvue}
+\begin{definition}
+Let $X$ be a random variable with parameter $\theta$ and pdf $f$.
+Say the likelihood of $\theta$ is
+\begin{equation}
+{\mathrm L}(\theta | x) = f(x | \theta )
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+Let $X_1, X_2, ..., X_n$ be n iid random variables with parameter $\theta$ and likelihood ${\mathrm L}$.
+Then the joint likelihood is
+\begin{equation}
+{\mathrm L}(\theta | x_1, x_2, ..., x_n) = \prod_{k=1}^n {\mathrm L}(\theta | x_k)
+\end{equation}
+\end{lemma}
+\begin{proof}
+First, notice the random variables are iid, so the value of $\theta$ is the same across all $1 \leq k \leq n$.
+Also, all variables have the same PDF, $f$.
+Thus,
+\begin{align*}
+{\mathrm L}(\theta | x_1, x_2, ..., x_n)
+&= f(x_1, x_2, ..., x_n | \theta ) \\
+&= \prod_{k=1}^n f(x_k | \theta ) \\
+&= \prod_{k=1}^n {\mathrm L}(\theta | x_k)
+\end{align*}
+\end{proof}
+
+Notice that likelihood is not a probability distribution.
+Despite the fact that it is equal to the pdf, we use the term likelihood to refer to when the observations are fixed and the parameter is variable.
+INdeed, notice that if $X\sim Exp(\lambda )$, then
+\begin{align*}
+\int_\mathbb{R} {\mathrm L} d\lambda
+&= \int_0^\infty \lambda e^{-\lambda x}d\lambda \\
+&= \frac{-\lambda}{x} e^{-\lambda x} -\frac{1}{x^2} e^{-\lambda x}|_0^\infty \\
+&= \frac{1}{x^2} \\
+&\neq 1
+\end{align*}
+
+\begin{definition}
+Let $X$ be a random variable with a parameter $\theta$ and likelihood ${\mathrm L}$.
+Say the log likelihood is
+\begin{equation}
+\ell (\theta | x) = \ln {\mathrm L}(\theta | x)
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+Let $X_1, X_2, ..., X_n$ be $n$ iid random variables with parameter $\theta$ and log likelihood $\ell$.
+Thenthe joint likelihood is
+\begin{equation}
+\ell (\theta | x_1, x_2, ..., x_n) = \sum_{k=1}^n \ell (\theta | x_k)
+\end{equation}
+\end{lemma}
+\begin{proof}
+From the definition of log likelihood, we have
+\begin{align*}
+\ell(\theta | x_1, x_2, ..., x_n )
+&= \ln {\mathrm L} (\theta | x_1, x_2, ..., x_n) \\
+&= \ln \prod_{k=1}^n {\mathrm L} (\theta | x_n) \\
+&= \sum_{k=1}^n \ln {\mathrm L} (\theta | x_k) \\
+&= \sum_{k=1}^n \ell (\theta | x_k)
+\end{align*}
+\end{proof}
+
+\begin{definition}\label{mle}
+Let $X$ be a random variable with parameter $\theta$ from parameter space $\Theta$.
+Say the maximum likelihood estimator (MLE) is the estimator
+\begin{equation}
+\hat{\theta} = \argmax_{\theta \in \Theta} {\mathrm L} (\theta | x)
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+If $\hat{\theta}$ is the MLE then $\hat{\theta}$ maximizes the log likelihood.
+\end{lemma}
+\begin{proof}
+Notice that $\ln u$ is a one-to-one increasing function, so if $\hat{\theta}$ maximizes ${\mathrm L} (\theta | x)$ it also maximizes $\ell (\theta | x) = \ln {\mathrm L} (\theta | x)$.
+\end{proof}
+
+\begin{example}
+Let $X\sim Poisson(\lambda)$ and $\{x_k\}$ be an SRS of size $n$.
+So the $x_k$ are independent and the likelihood is $\ell(\theta|x)=x\ln \lambda - \lambda - \ln x!$.
+Thus, the joing likelihood is
+\begin{align*}
+\ell (\theta | \{x_k\})
+&= \sum_{k=1}^n\left( x_k\ln \lambda - \lambda - \ln x_k! \right) \\
+&= \sum_{k=1}^n x_k \ln \lambda - n\lambda -\sum_{k=1}^n \ln x_k!
+\end{align*}
+Thus,
+\begin{equation*}
+\frac{\partial \ell}{\partial \lambda} = \frac{\sum_{k=1}^n x_k}{\lambda} - n
+\end{equation*}
+Thus, the MLE is
+\begin{equation*}
+\hat{\lambda} = \frac{n}{\sum_{k=1}^n x_k}
+\end{equation*}
+\end{example}
+
+\begin{example}
+Let $X\sim \mathcal{N}(\mu, \sigma^2)$ and $\{x_k\}$ be an SRS.
+THen the log likelihood is
+\begin{equation}
+\ell (\mu, \sigma^2 | \{x_k\}) = \frac{-n}{2}\ln (2\pi) -\frac{n}{2} \ln (\sigma^2) -\frac{1}{2} \sum_{k=1}^n \frac{(x_k - \mu)^2}{\sigma^2}
+\end{equation}
+So
+\begin{equation}
+\frac{\partial \ell}{\partial \mu} = \sum_{k=1}^n \frac{-(x_k - \mu)}{\sigma^2}
+\end{equation}
+Thus,
+\begin{equation*}
+\hat{\mu} = \frac{1}{n} \sum_{k=1}^n x_k = \bar{x}
+\end{equation*}
+Also,
+\begin{equation*}
+\frac{\partial \ell}{\partial (\sigma^2)} = \frac{-n}{2\sigma^2} + \sum_{k=1}^n \frac{(x_k - \mu)^2}{2(\sigma^2)^2}
+\end{equation*}
+so
+\begin{equation*}
+\hat{\sigma^2} = \frac{1}{n}\sum_{k=1}^n (x_k - \bar{x})^2
+\end{equation*}
+Notice that the MLE of hte mean $\hat{\mu}$ is the sample mean $\bar{x}$ and is unbiased and consistent.
+However, the MLE for the variance $\hat{\sigma^2}$ is not the sample variance $s^2$, and is biased.
+\end{example}
+
+\begin{example}
+Let $X \sim Unif(0, \theta)$ and $\{x_k\}$ be an SRS.
+Notice $f(x|\theta)=\frac{1}{\theta}$ for $0\leq x \leq \theta$.
+So $\ell (\theta | \{x_k\})=-n\theta$ for $\theta > x_1, x_2, ..., x_n$.
+Thus, the MLE is $\hat{\theta}=\max_k \{x_k\}$
+\end{example}
 
 \end{document}
