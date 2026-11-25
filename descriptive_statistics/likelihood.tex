@@ -228,4 +228,48 @@ Thus,
 \end{align*}
 \end{proof}
 
+\begin{theorem}
+Let $X_1, X_2, ..., X_n$ be iid random variables with Fisher information matrix $I_X(\theta)$.
+Then the FIM of $\sum_i X_i$ is
+\begin{equation}
+I(\theta)=n I_X(\theta)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $\ell$ be the log likelihood of $x_i$.
+Then, the joint log likelihood is $\ell(\theta | x_1, x_2, ..., x_n)=n\sum_i \ell(\theta | x_i)$.
+Thus, the Fisher information is
+\begin{align*}
+I(\theta)
+&= \mathbb{E} \left[ -\nabla^2 \ell (\theta | x_1, x_2, ..., x_n) \right] \\
+&= \mathbb{E}\left[ \sum_i -\nabla^2 \ell (\theta | x_i )\right] \\
+&= \sum_i \mathbb{E}\left[ -\nabla^2 \ell ( \theta | x_i) \right] \\
+&= \sum_i I_X(\theta) \\
+&= nI_X(\theta)
+\end{align*}
+\end{proof}
+
+\begin{example}
+Let $T\sim Exp(\lambda)$.
+Then $\ell(\lambda | t) = -\lambda t + \ln \lambda$.
+So $\ell''(\lambda | t) = \frac{-1}{\lambda^2}$.
+Thus, $I_T(\lambda)=\frac{1}{\lambda^2}$.
+\end{example}
+
+\begin{example}
+Let $X\sim \mathcal{N}(\mu, \sigma^2)$.
+Then $\ell(\mu, \sigma^2 | x) = \frac{-1}{2} \ln (2\pi ) - \frac{1}{2}\ln \sigma^2 -\frac{(x-\mu)^2}{2\sigma^2}$.
+So $\nabla \ell = \left( \frac{x-\mu}{\sigma^2} , \frac{(x-\mu)^2}{2(\sigma^2)^2} -\frac{1}{2\sigma^2}\right)$.
+Thus, the Hessian is
+\begin{equation*}
+\nabla^2 \ell =
+\begin{bmatrix}
+\frac{-1}{\sigma^2} & \frac{x-\mu}{\sigma^2} \\
+\frac{x-\mu}{\sigma^2} & \frac{(x-\mu)^2}{(\sigma^2)^3} +\frac{1}{2(\sigma^2)^2}
+\end{bmatrix}
+\end{equation*}
+Clearly, $\mathbb{E}\left[\frac{x-\mu}{\sigma^2}\right]=0$ and $\mathbb{E}\left[ -\left( \frac{-1}{\sigma^2}\right)\right]=\frac{1}{\sigma^2}$.
+
+\end{example}
+
 \end{document}
