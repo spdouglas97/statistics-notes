@@ -299,18 +299,18 @@ First, let $f(x|\theta)$ be the PDF.
 Because $\{x_k\}$ is an SRS, $X_k$ are iid random variables.
 Notice that $\frac{1}{n}\ell(\hat{\theta}|x_1, x_2, ..., x_n)=\frac{1}{n}\sum_k \ell(\hat{\theta}|x_k)$ is the maximum.
 Then, $\frac{1}{n} \nabla \ell (\hat{\theta} | x_1, x_2, ..., x_n) = 0$.
-Also, by the central limit theorem, $\frac{1}{n} \ell(\omega | x_1, x_2, ..., x_n) {P \atop \rightarrow} \mathbb{E}[f(x|\omega)]$.
+Also, by the central limit theorem (Thm \ref{clt}), $\frac{1}{n} \ell(\omega | x_1, x_2, ..., x_n) {D \atop \rightarrow} \mathbb{E}[f(x|\omega)]$.
 Let $\theta^*\in \Theta$ be the true value of $\theta$, that is the value of $\theta$ such that $X\sim F(\theta^*)$.
 Then
 \begin{align*}
 \frac{1}{n} \ell (\omega | x_1, x_2, ..., x_n) - \frac{1}{n} \ell (\theta^* | x_1, x_2, ..., x_n)
-&{P \atop \rightarrow} \mathbb{E}\left[ \ln f(x|\omega) - \ln f(x|\theta^*)\right] \\
+&{D \atop \rightarrow} \mathbb{E}\left[ \ln f(x|\omega) - \ln f(x|\theta^*)\right] \\
 &= \mathbb{E}\left[ \ln \frac{f(x|\omega)}{f(x|\theta^*)}\right] \\
 &\leq \ln \mathbb{E} \left[ \frac{f(x|\omega)}{f(x|\theta^*)}\right] \\
 &= \ln \int_\mathbb{R} f(x|\omega) dx \\
 &= 0
 \end{align*}
-Thus, $\ell(\omega | x_1, x_2, ..., x_n) {P \atop \rightarrow} \ell (\theta^* | x_1, x_2, ..., x_n)$.
+Thus, $\ell(\omega | x_1, x_2, ..., x_n) {D \atop \rightarrow} \ell (\theta^* | x_1, x_2, ..., x_n)$.
 Thus, for any $\omega \in \Theta$, $\frac{-1}{n} \nabla^2 \ell(\omega | x_1, x_2, ..., x_n) {P \atop \rightarrow} I_X(\theta)$. \\
 Next, notice $\mathbb{E}[\nabla \ell(\theta|x)]=0$ and $Var(\nabla\ell (\theta|x)) = I_X(\theta)$.
 Then, by the central limit theorem, $\frac{1}{n} \nabla \ell(\theta | x_1, x_2, ..., x_n) {D\atop \rightarrow} \mathcal{N}(0, I_X(\theta^*))$.
@@ -325,7 +325,7 @@ Thus, by Slutsky's theorem,
 \sqrt{n} (\hat{\theta} - \theta^*) 
 &= \sqrt{n} (-\nabla^2 \ell(\psi | x_1, x_2, ..., x_n))^{-1} \nabla \ell (\theta^* | x_1, x_2, ..., x_n) \\
 &= (\frac{-1}{n} \nabla^2 \ell(\psi | x_1, x_2, ..., x_n))^{-1} (\frac{1}{\sqrt{n}} \nabla \ell (\theta^* | x_1, x_2, ..., x_n)) \\
-&{D \atop \rightarrow} \mathcal{N}(0, 1)
+&{D \atop \rightarrow} \mathcal{N}(0, I_X(\theta^*))
 \end{align*}
 \end{proof}
 
@@ -343,8 +343,9 @@ Var(\omega) \geq (nI_X(\theta))^{-1}
 \end{equation}
 \end{theorem}
 \begin{proof}
-First, let $z(\theta | x) = \frac{\partial \ell}{\\partial \theta}$.
-Then $z(\theta | x_1, x_2, ..., x_n)=\sum_k z(\theta|x_k)$.
+First, let $z(\theta | x) = \frac{\partial \ell}{\partial \theta}$.
+Clearly, $\mathbb{E}[z]=0$.
+Also $z(\theta | x_1, x_2, ..., x_n)=\sum_k z(\theta|x_k)$.
 Notice that 
 \begin{equation*}
 Cov(\omega, z) \leq \sqrt{Var(\omega)Var(z)}
@@ -358,8 +359,44 @@ Next, because $\omega$ is unbiased,
 Thus, taking the derivative gives
 \begin{align*}
 1 
-&= \int_\mathbb{R} \omega z dF
+&= \int_\mathbb{R} \omega z dF \\
+&= \mathbb{E}[\omega z] \\
+&= Cov(\omega, z)
 \end{align*}
+Also otice that $Var(z)=nI(\theta)$.
+Thus,
+\begin{equation*}
+1 \leq \sqrt{nI(\theta)Var(\omega)}
+\end{equation*}
+This gives the bound.
+\end{proof}
+
+\begin{example}
+Let $X\sim \mathcal{N}(\mu, \sigma^2)$.
+Then by the CLT (Thm \ref{clt}) $\bar{x}$ is a consistent and unbiased estimator for $\mu$ with mean $\frac{\sigma^2}{n}$.
+Also, the Cramer-Rao lower bound states that any unbiased estimator for $\mu$ has variance at least $\frac{\sigma^2}{n}$.
+Thus, $\bar{x}$ is the MVUE.
+Similarly, $s^2$ is a consistent and unbiased estimator for $\sigma^2$, with variance $\frac{2\sigma^4}{n-1}$.
+However, the Cramer-Rao lower bound gives that any unbiased estimator $\omega$ for $\sigma^2$ has variance $Var(\omega)\geq \frac{2\sigma^4}{n}$.
+It turns out that $s^2$ is the MVUE but more sophisticated methods are required to show this.
+\end{example}
+
+\begin{theorem}
+\textbf{Laplace's Approximation:}
+Let $X$ be a random variable with parameter $\theta \in \Theta$ and MLE $\hat{\theta}$.
+Then $\frac{{\mathrm L}(\theta | x)}{{\mathrm L}(\hat{\theta} |x)}$ is approximately proportional to the PDF of $\mathcal{N}(\hat{\theta}, I_X(\theta))$.
+\end{theorem}
+\begin{proof}
+Notice that by Taylor's theorem,
+\begin{equation*}
+\ell (\theta | x) = \ell(\hat{\theta} | x) + \frac{1}{2} (\theta - \hat{\theta})^T \nabla^2 \ell (\hat{\theta} | x) (\theta - \hat{\theta})  + O((\theta - \hat{\theta})^3)
+\end{equation*}
+Thus,
+\begin{equation*}
+{\mathrm L}(\theta | x) = {\mathrm L} (\hat{\theta} | x) e^{(\theta - \hat{\theta})^T \nabla^2 \ell (\hat{\theta} | x) (\theta - \hat{\theta}) / 2} e^{O((\theta - \hat{\theta})^3)}
+\end{equation*}
+As $n\rightarrow \infty$, the last term becomes negligible and $\nabla^2 \ell (\hat{\theta} | x) \rightarrow -nI(\theta)$.
+Thus, we have the approximation.
 \end{proof}
 
 \end{document}
