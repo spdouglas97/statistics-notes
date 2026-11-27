@@ -50,6 +50,97 @@
 
 \begin{document}
 
-This is where the chapter goes
+Oftentimes we have linear relationships between random variables.
+We have already discussed some properties of linear relationships between variables in chapter \ref{linear_transformations}.
+Now, we want to understand the estimation of these relationships from sampled data.
+
+\begin{definition}
+An explanatory variable is a random variable whose value is known or can be measured.
+\end{definition}
+
+\begin{definition}
+A response variable is a random variable that changes in response to other random variables.
+\end{definition}
+
+\begin{definition}
+Let $\{X_k\}$ be a sequence of random variables and $Y$ be a response variable.
+Suppose $\{X_k\}$ and $Y$ have a linear relationship (DEF \ref{linear_relationship}) for some unkown parameters $\alpha$ and $\{\beta_k\}$.
+Say the model estimate is
+\begin{equation}
+\hat{y} = a + \sum_k b_k x_k
+\end{equation}
+\end{definition}
+
+\begin{example}
+Let $Y$ be the price of a house, $X_1$ be the number of bedrooms and $X_2$ be the number of bathrooms.
+Then $\hat{y} = 250000 + 300 x_1 + 230 x_2$ is a linear model.
+\end{example}
+
+\begin{definition}
+Given $(\{x_k\}, y)$ and linear model $\hat{y}=a+\sum_k b_k x_k$, say the residual is
+\begin{equation}
+y - \hat{y}
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Let $\{(x_1, x_2, ..., x_p, y)\}_i$ be a sequence of points.
+Say the least squares regression line (LSRL) is the linear model that minimizes the sum of the squared residuals
+\begin{equation}
+\sum_i (y_i - \hat{y}_i)^2
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Say simple regression is a model which has 1 explanatory variable.
+Say multiple regression is a model with multiple explanatory variables.
+\end{definition}
+
+\begin{theorem}
+Let $\{(x_k, y_k)\}_{k=1}^n$ be a sequence of points.
+The LSRL has slope and intercept
+\begin{align*}
+b &= \frac{rs_y}{s_x} \\
+a &= \bar{y} - b\bar{x}
+\end{align*}
+\end{theorem}
+\begin{proof}
+Let $\ell (a, b) = \sum_k (y_k - \hat{y}_k)^2$.
+Then
+\begin{equation*}
+\frac{\partial \ell}{\partial a} = -2 \sum_k y_k - a - bx_k
+\end{equation*}
+and
+\begin{equation*}
+\frac{\partial \ell}{\partial b} = -2 \sum_k x_k (y_k - a - b x_k)
+\end{equation*}
+So clearly, the optimal value of $a$ is
+\begin{equation*}
+\sum_k y_k - a - bx_k = 0
+\end{equation*}
+Thus,
+\begin{equation*}
+na = \sum_k y_k - b \sum_k x_k
+\end{equation*}
+Next, suppose $\bar{x}, \bar{y}=0$ and $s_x, s_y = 1$.
+Then it is clear $a=0$.
+So $\frac{\partial \ell}{\partial b} = -2 \sum_k x_k (y_k - bx_k)$.
+So the optimal value satisfies
+\begin{equation*}
+\sum_k x_k y_k - b \sum_k x_k^2 = 0
+\end{equation*}
+Also, $\sum_k x_k^2=n-1$ and $\sum_k x_k y_k = r(n-1)$.
+So $b=r$.
+In the general case, we can scale the variables to $\frac{x_k - \bar{x}}{s_x}$ and $\frac{y_k - \bar{y}}{s_y}$.
+So
+\begin{equation*}
+\frac{\hat{y} - \bar{y}}{s_y} = r \frac{x - \bar{x}}{s_x}
+\end{equation*}
+Thus,
+\begin{equation*}
+\hat{y} = \left( \bar{y} - \frac{rs_y}{s_x} \bar{x} \right) + \frac{rs_y}{s_x} x
+\end{equation*}
+Therefore, $b=\frac{rs_y}{s_x}$
+\end{proof}
 
 \end{document}
