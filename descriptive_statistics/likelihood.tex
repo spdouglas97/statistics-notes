@@ -265,11 +265,101 @@ Thus, the Hessian is
 \nabla^2 \ell =
 \begin{bmatrix}
 \frac{-1}{\sigma^2} & \frac{x-\mu}{\sigma^2} \\
-\frac{x-\mu}{\sigma^2} & \frac{(x-\mu)^2}{(\sigma^2)^3} +\frac{1}{2(\sigma^2)^2}
+\frac{x-\mu}{\sigma^2} & \frac{-(x-\mu)^2}{(\sigma^2)^3} +\frac{1}{2(\sigma^2)^2}
 \end{bmatrix}
 \end{equation*}
 Clearly, $\mathbb{E}\left[\frac{x-\mu}{\sigma^2}\right]=0$ and $\mathbb{E}\left[ -\left( \frac{-1}{\sigma^2}\right)\right]=\frac{1}{\sigma^2}$.
-
+Finally, consider
+\begin{align*}
+\mathbb{E}\left[ \frac{(X-\mu)^2}{(\sigma^2)^3} -\frac{1}{2(\sigma^2)^2} \right]
+&= \frac{1}{(\sigma^2)^2} \mathbb{E}\left[ \frac{(X-\mu)^2}{\sigma^2}\right] - \frac{1}{2(\sigma^2)^2} \\
+&= \frac{1}{(\sigma^2)^2} - \frac{1}{2(\sigma^2)^2} \\
+&= \frac{1}{2\sigma^4}
+\end{align*}
+Thus, the Fisher information is
+\begin{equation*}
+I_X(\mu, \sigma^2) =
+\begin{bmatrix}
+\frac{1}{\sigma^2} & 0 \\
+0 & \frac{1}{2\sigma^4}
+\end{bmatrix}
+\end{equation*}
+Suppose instead we view $\sigma$ as a parameter.
+Then $\frac{\partial^2 \ell}{\partial \sigma^2} = \frac{1}{\sigma^2} - \frac{3(x-\mu)^2}{\sigma^4}$.
+So the fisher information is $I_X(\sigma)=\frac{2}{\sigma^2}$.
 \end{example}
+
+\begin{theorem}
+Let $X$ be a random variable with parameter $\theta\in \Theta$ and let $\{x_k\}$ be an SRS.
+Let $\hat{\theta}$ be the unique MLE on the interior of $\Theta$ and let the log likelihood $\ell (\theta | x)$ be twice differentiable.
+Then $\hat{\theta}$ is asymptotically normal with asymptotic variance $I_X(\theta)^{-1}$.
+\end{theorem}
+\begin{proof}
+First, let $f(x|\theta)$ be the PDF.
+Because $\{x_k\}$ is an SRS, $X_k$ are iid random variables.
+Notice that $\frac{1}{n}\ell(\hat{\theta}|x_1, x_2, ..., x_n)=\frac{1}{n}\sum_k \ell(\hat{\theta}|x_k)$ is the maximum.
+Then, $\frac{1}{n} \nabla \ell (\hat{\theta} | x_1, x_2, ..., x_n) = 0$.
+Also, by the central limit theorem, $\frac{1}{n} \ell(\omega | x_1, x_2, ..., x_n) {P \atop \rightarrow} \mathbb{E}[f(x|\omega)]$.
+Let $\theta^*\in \Theta$ be the true value of $\theta$, that is the value of $\theta$ such that $X\sim F(\theta^*)$.
+Then
+\begin{align*}
+\frac{1}{n} \ell (\omega | x_1, x_2, ..., x_n) - \frac{1}{n} \ell (\theta^* | x_1, x_2, ..., x_n)
+&{P \atop \rightarrow} \mathbb{E}\left[ \ln f(x|\omega) - \ln f(x|\theta^*)\right] \\
+&= \mathbb{E}\left[ \ln \frac{f(x|\omega)}{f(x|\theta^*)}\right] \\
+&\leq \ln \mathbb{E} \left[ \frac{f(x|\omega)}{f(x|\theta^*)}\right] \\
+&= \ln \int_\mathbb{R} f(x|\omega) dx \\
+&= 0
+\end{align*}
+Thus, $\ell(\omega | x_1, x_2, ..., x_n) {P \atop \rightarrow} \ell (\theta^* | x_1, x_2, ..., x_n)$.
+Thus, for any $\omega \in \Theta$, $\frac{-1}{n} \nabla^2 \ell(\omega | x_1, x_2, ..., x_n) {P \atop \rightarrow} I_X(\theta)$. \\
+Next, notice $\mathbb{E}[\nabla \ell(\theta|x)]=0$ and $Var(\nabla\ell (\theta|x)) = I_X(\theta)$.
+Then, by the central limit theorem, $\frac{1}{n} \nabla \ell(\theta | x_1, x_2, ..., x_n) {D\atop \rightarrow} \mathcal{N}(0, I_X(\theta^*))$.
+Also, by Taylor's Theorem, 
+\begin{equation*}
+\nabla(\hat{\theta} | x_1, x_2, ..., x_n) = \nabla \ell(\theta^* | x_1, x_2, ..., x_n) + (\hat{\theta} - \theta^*)^T \nabla^2 \ell (\psi | x_1, x_2, ..., x_n)
+\end{equation*}
+for some $\psi \in \Theta$.
+Notice that $(- \nabla^2 \ell(\psi | x_1, x_2, ..., x_n))^{-1} {D\atop \rightarrow} nI_X(\theta^*)$
+Thus, by Slutsky's theorem, 
+\begin{align*}
+\sqrt{n} (\hat{\theta} - \theta^*) 
+&= \sqrt{n} (-\nabla^2 \ell(\psi | x_1, x_2, ..., x_n))^{-1} \nabla \ell (\theta^* | x_1, x_2, ..., x_n) \\
+&= (\frac{-1}{n} \nabla^2 \ell(\psi | x_1, x_2, ..., x_n))^{-1} (\frac{1}{\sqrt{n}} \nabla \ell (\theta^* | x_1, x_2, ..., x_n)) \\
+&{D \atop \rightarrow} \mathcal{N}(0, 1)
+\end{align*}
+\end{proof}
+
+\begin{definition}\label{mvue}
+Let $\theta$ be a parameter.
+Say the minimum variance unbiased estimator (MVUE) is the unbiased estimator $\omega$ that has least variance of any unbiased estimator for $\theta$.
+\end{definition}
+
+\begin{theorem}
+\textbf{Cramer-Rao Loewr Bound:}
+Let $X$ be a random variable with parameter $\theta$ and let $\omega$ be an unbiased estimator of $\theta$.
+Then
+\begin{equation}
+Var(\omega) \geq (nI_X(\theta))^{-1}
+\end{equation}
+\end{theorem}
+\begin{proof}
+First, let $z(\theta | x) = \frac{\partial \ell}{\\partial \theta}$.
+Then $z(\theta | x_1, x_2, ..., x_n)=\sum_k z(\theta|x_k)$.
+Notice that 
+\begin{equation*}
+Cov(\omega, z) \leq \sqrt{Var(\omega)Var(z)}
+\end{equation*}
+Next, because $\omega$ is unbiased,
+\begin{align*}
+\theta
+&= \mathbb{E}[\omega] \\
+&= \int_\mathbb{R} \omega dF
+\end{align*}
+Thus, taking the derivative gives
+\begin{align*}
+1 
+&= \int_\mathbb{R} \omega z dF
+\end{align*}
+\end{proof}
 
 \end{document}
