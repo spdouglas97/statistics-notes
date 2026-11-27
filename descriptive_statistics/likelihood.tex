@@ -399,4 +399,257 @@ As $n\rightarrow \infty$, the last term becomes negligible and $\nabla^2 \ell (\
 Thus, we have the approximation.
 \end{proof}
 
+\begin{definition}
+Let $X$ be a random variable with parameter $\theta$ and log likelihood $\ell$.
+Say the entropy of the distribution is
+\begin{equation}
+H(X) = \mathbb{E}[-\ell (\theta | X)]
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+If $X$ and $Y$ are independent, the joint entropy is
+\begin{equation}
+H(X,Y)=H(X)+H(Y)
+\end{equation}
+\end{lemma}
+\begin{proof}
+Because $X$ and $Y$ are independent, $\ell(\theta | x, y) = \ell(\theta|x) + \ell(\theta|y)$.
+Thus,
+\begin{align*}
+H(X,Y)
+&= \mathbb{E}[-\ell(\theta | x,y)] \\
+&= \mathbb{E}[-\ell(\theta | x)] + \mathbb{E}[-\ell(\theta|y)] \\
+&= H(X) + H(Y)
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+\textbf{Gibb's Inequality:}
+Let $X$ be a random variable with PDF $f$ and $g$ be some other PDF.
+Then
+\begin{equation}
+H(X) \leq \int_\mathbb{R} -\ln g(x) dF
+\end{equation}
+\end{theorem}
+\begin{proof}
+Notice that $-\ln$ us a convex function.
+Thus, by Jensen's Inequality:
+\begin{align*}
+\mathbb{E}[-\ln g(x|\theta)] - \mathbb{E}[-\ln f(x|\theta)]
+&= \mathbb{E}\left[ -\ln \frac{g(x|\theta)}{f(x|\theta)}\right] \\
+&\geq -\ln \mathbb{E}\left[ \frac{g(x|\theta)}{f(x|\theta)} \right] \\
+&= -\ln 1\\
+&= 0
+\end{align*}
+Thus, $\mathbb{E}[-\ln g(x|\theta)] \geq \mathbb{E}[-\ln f(x|\theta)]$.
+\end{proof}
+
+\begin{theorem}
+Let $S\subseteq \mathbb{R}$ be bounded.
+The maximum entropy distribution with support $S$ is uniform.
+\end{theorem}
+\begin{proof}
+First, let $X$ have a uniform distribution on $X$.
+Then the entropy of $X$ is
+\begin{align*}
+H(X)
+&= \mathbb{E}_X\left[ -\ln \frac{1}{|S|} \right] \\
+&= \ln |S|
+\end{align*}
+Next, let $Y$ be any other random variable with support $S$.
+Then
+\begin{align*}
+H(Y)
+&\leq \mathbb{E}_Y \left[ -\ln \frac{1}{|S|}\right] \\
+&= \ln |S| \\
+&= H(X)
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+The distribution with supposrt $\mathbb{R}$, mean $\mu$, and variance $\sigma^2$ that has maximum entropy is
+$\mathcal{N} (\mu, \sigma^2)$.
+\end{theorem}
+\begin{proof}
+Using the method of Lagrange multipliers, we have lagrangian
+\begin{equation*}
+\mathcal{L} = \int_\mathbb{R} -\ln f dF - \lambda_0 \left( \int_\mathbb{R} 1 dF - 1\right) - \lambda_1 \left( \int_\mathbb{R} x dF - \mu \right) - \lambda_2 \left( \int_\mathbb{R} (x-\mu)^2 dF - \sigma^2 \right)
+\end{equation*}
+So
+\begin{align*}
+\frac{\partial \mathcal{L}}{\partial F} 
+&= -\ln f + 1 - \lambda_0 -\lambda_1 x -\lambda_2 (x-\mu)^2 \\
+&= 0
+\end{align*}
+So
+\begin{equation*}
+f(x) = e^{\lambda_0 - 1 + \lambda_1 x + \lambda_2 (x-\mu)^2}
+\end{equation*}
+So we need to find the values of $\lambda_0$, $\lambda_1$, and $\lambda_2$ that satisfy the constraints.
+First, notice
+\begin{equation*}
+\int_\mathbb{R} e^{\lambda_0 - 1 + \lambda_1 x + \lambda_2 (x-\mu)^2} dx = 1
+\end{equation*}
+This integral is only finite when $\lambda_1 = 0$.
+So
+\begin{align*}
+\int_\mathbb{R} e^{\lambda_0 - 1 x + \lambda_2 (x-\mu)^2} dx 
+&= e^{\lambda_0 - 1} \int_\mathbb{R} e^{\lambda_2 (x-\mu)^2} dx \\
+&= 1
+\end{align*}
+Let $u=-\lambda_2 (x-\mu)^2$.
+\begin{equation*}
+ e^{\lambda_0 - 1} \int_\mathbb{R} \frac{1}{2\sqrt{-\lambda_2}} u^{-1/2} e^{-u} du = 1
+\end{equation*}
+Then this integral is $\Gamma\left( \frac{1}{2}\right)$.
+So
+\begin{equation*}
+\sqrt{\frac{\pi}{\lambda_2}} e^{\lambda_0 - 1} = 2
+\end{equation*}
+By looking at the constraint on $\sigma^2$, we have
+\begin{align*}
+\sigma^2
+&= e^{\lambda_0 - 1} \int_\mathbb{R} (x-\mu)^2 e^{\lambda_2 (x-\mu)^2} dx\\
+&= e^{\lambda_0 - 1} \int_\mathbb{R} \frac{u^{1/2}}{\sqrt{\lambda_2^3}} e^{-u} du \\
+&= e^{\lambda_0 - 1} \frac{\sqrt{\pi}}{2\sqrt{\lambda_2^3}}
+\end{align*}
+So $e^{1-\lambda_0}\sigma^2 = \frac{\sqrt{\pi}}{2\sqrt{\lambda_2^3}}$.
+So $\lambda_2 = \frac{-1}{2\sigma^2}$ and $\lambda_0 = \ln (2\pi \sigma^2)$.
+Thus, $f$ is the PDF of the normal distribution.
+\end{proof}
+
+\begin{definition}
+Let $X$ and $Y$ be random variables.
+Say the mutual information of $X$ and $Y$ is
+\begin{equation}
+I(X,Y) = \mathbb{E} \left[ \ln \frac{f(x,y)}{f_X(x)f_Y(y)}\right]
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+If $X$ and $Y$ are independent, $I(X,Y)=0$.
+\end{lemma}
+\begin{proof}
+Let $X$ and $Y$ be independent.
+Then $f(x,y) = f_X(x)f_Y(y)$.
+Thus,
+\begin{align*}
+I(X, Y)
+&= \mathbb{E} \left[ \ln \frac{f(x,y)}{f_X(x)f_Y(y)}\right] \\
+&= \mathbb{E} \left[ \ln \frac{f(x,y)}{f(x,y)} \right] \\
+&= \mathbb{E}\left[ 0 \right] \\
+&= 0
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+For any random variables $X$ and $Y$,
+\begin{equation}
+I(X,Y) = H(Y) - H(Y|X)
+\end{equation}
+\end{lemma}
+\begin{proof}
+Notice that $f(x,y) = f_{Y|X}(y|x) f_X(x)$.
+Thus,
+\begin{equation*}
+\ln \frac{f(x,y)}{f_X(x)f_Y(y)} = \ln \frac{f_{Y|X}(y|x)}{f_Y(y)}
+\end{equation*}
+Thus,
+\begin{align*}
+I(X,Y)
+&= \mathbb{E}\left[ \ln \frac{f_{Y|X}(y|x)}{f_Y(y)} \right] \\
+&= \mathbb{E}\left[-\ln f_Y(y)\right] - \mathbb{E}\left[ -\ln f_{Y|X} (y|x)\right] \\
+&= H(Y) - H(Y|X)
+\end{align*}
+\end{proof}
+
+\begin{definition}
+Given 2 PDFs $f$ and $g$, say the Kullbeck-Leibler (KL) divergence is
+\begin{equation}
+D_{KL} (f|g) = \mathbb{E}_f\left[ \ln \frac{f(x)}{g(x)}\right]
+\end{equation}
+\end{definition}
+
+\begin{example}
+Let $0<p, q< 1$ and let $X\sim Bernouli(p)$, $Y\sim Bernouli(q)$.
+Then the KL divergence is
+\begin{equation*}
+p\ln p + (1-p) \ln (1-p) - p \ln q -(1-p) \ln (1-q)
+\end{equation*}
+\end{example}
+
+\begin{theorem}
+$D_{KL}(f|g)\geq 0$ and $D_{KL}(f|g)=0$ if and only if $f(x)=g(x)$ a.s.
+\end{theorem}
+\begin{proof}
+Notice that $D_{KL}(f|g)=\mathbb{E}\left[ \ln g(x)\right] - H(X)$.
+By Gibb's inequality, this must be non-negative. \\
+Next, notice that $D_{KL}(f|g) = \int_\mathbb{R} \ln f(x) - \ln g(x) dF$.
+Byy the zero integral property, this is 0 if and only if $\ln f(x) - \ln g(x)=0$ a.s.
+Because the natural log is a one-to-one correspondence, this means $f(x)=g(x)$ a.s.
+\end{proof}
+
+The KL divergence is similar to a metric in several key ways.
+However, it is not a metric, as it is not symmetric.
+that said, it is used as a pseudo-metric in many situations.
+
+\begin{theorem}
+Let $f$ be a PDF for a distribution that depends on a parameter $\theta \in \Theta$.
+\begin{equation}
+\frac{\partial^2}{\partial \omega^2} D_{KL}(f(x|\theta)|f(x|\omega))\Big|_{\omega=\theta} = I_X(\theta)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Notice that $D_{KL}(f(x|\theta)|f(x|\omega))=\int_\mathbb{R} \ln f(x|\theta)dF_\theta - \int_\mathbb{R} \ln f(x|\omega)dF_\theta$.
+The first term does not depend on $\omega$, so we only need to consider the second term.
+So
+\begin{align*}
+\frac{\partial^2}{\partial \omega^2} \left[ D_{KL} (f(x|\theta)|f(x|\omega))\right]
+&= \frac{\partial^2}{\partial \omega^2} \left[ \int_\mathbb{R} -\ln f(x|\omega)dF_\theta \right] \\
+&= \int_\mathbb{R} -\nabla^2 \ell (\omega | x) dF_\theta
+\end{align*}
+By evaluating at $\omega = \theta$ this is the definition of the Fisher information matrix.
+\end{proof}
+
+In general, $\frac{\partial^2 H}{\partial \theta^2} \neq I(\theta)$.
+This is because when we differentiate entropy, we need to differentiate the measure $F_\theta$ in addition to hte integrand.
+Thus, we instead need to diffentiate the KL divergence and evaluate it in this specific way.
+
+\begin{definition}
+Say a statistical manifold is a Riemannian manifold defined over a space of probability distributions.
+\end{definition}
+
+\begin{definition}
+Information Geometry is the field of mathematics that studies statistical manifolds and uses techniques from differential geometry to better understand data.
+\end{definition}
+
+The Fisher information matrix is the natural choice for the metric tensor in a statistical manifold.
+This is because the KL divergence is a distance between two points in the manifold, and the second order Taylor approximation is $D_{KL}(f_\theta | f_\omega) \approx \theta^T I_X(\theta) \omega$.
+As such, this should be the inner product on the tensor space.
+It turns out that this is the only natrual choice for the metric tensor, but we first need a discussion of sufficient statistics (DEF \ref{suff_stats}) to understand why.
+
+\begin{example}
+Let $\mathcal{M}=\{\mathcal{N}(\mu, \sigma^2)|\mu, \sigma \in \mathbb{R}, \sigma > 0\}$.
+Note that here we are treating the standard deviation $\sigma$ as the parameter.
+We have already seen teh Fisher information matrix is
+\begin{equation*}
+I_X(\mu, \sigma) = 
+\begin{bmatrix}
+\frac{1}{\sigma^2} & 0 \\
+0 & \frac{1}{2\sigma^2}
+\end{bmatrix}
+\end{equation*}
+So the distance metric is
+\begin{equation*}
+ds^2 = \frac{2d\mu^2 + d\sigma^2}{2\sigma^2}
+\end{equation*}
+Let $x=\mu \sqrt{2}$, $y=\sigma$, and $\rho = s\sqrt{2}$.
+Then $\mathcal{M}=\{(x,y)\in \mathbb{R}^2 | y>0\}$ with metric tensor
+\begin{equation}
+d\rho^2 = \frac{dx^2 + dy^2}{y^2}
+\end{equation}
+Notice that this is the Poincar\'e half-plane model of hyperbolic geometry.
+\end{example}
+
 \end{document}
